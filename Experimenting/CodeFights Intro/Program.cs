@@ -17,7 +17,7 @@ namespace CodeFights_Intro
                 new[] {2,0,3,3}
             };
             //Console.WriteLine(matrixElementsSum(room));
-            Console.WriteLine(commonCharacterCount("aabcc", "adcaa"));
+            Console.WriteLine(isLucky(1230));
 
             Console.ReadKey();
         }
@@ -108,6 +108,27 @@ namespace CodeFights_Intro
             return inter.Sum(t => Math.Min(s2.Count(l => l == t), s1.Count(l => l == t)));
         }
         public static bool isLucky(int n)
+        {
+            var firstPart = 0;
+            var secondPart = 0;
+            var half = n.ToString().Length / 2;
+
+            while (half-- != 0)
+            {
+                secondPart += n % 10;
+                n /= 10;
+            }
+            while (n != 0)
+            {
+                firstPart += n % 10;
+                n /= 10;
+            }
+            return firstPart == secondPart;
+            //var N = n.ToString();
+            //n = N.Length / 2;
+            //return N.Substring(n).Sum(_ => _ - '0') == N.Remove(n).Sum(_ => _ - '0');
+        }
+        public static int[] sortByHeight(int[] a)
         {
 
         }
