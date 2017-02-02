@@ -8,7 +8,7 @@ namespace CodeFights_Intro
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(checkPalindrome("aabaa"));
+            Console.WriteLine(almostIncreasingSequence(new[] {1,3,2}));
 
             Console.ReadKey();
         }
@@ -45,6 +45,38 @@ namespace CodeFights_Intro
 
             //return (int)(Math.Pow(n, 2) + Math.Pow(n - 1, 2));
         }
+        public static int makeArrayConsecutive2(int[] statues)
+        {
+            var count = 0;
+            var number = statues.Min();
+            while (number != statues.Max())
+            {
+                number++;
+                if (!statues.Contains(number)) count++;
+            }
+            return count;
+        }
+        public static bool almostIncreasingSequence(int[] sequence)
+        {
+            var list = sequence.ToList();
+            var b = true;
+            for (int i = 0; i < sequence.Length; i++)
+            {
+                list.RemoveAt(i);
+                b = true;
+                for (int j = 0; j < list.Count-1; j++)
+                {
+                    if (list[j] >= list[j + 1])
+                    {
+                        b = false;
+                        break;
+                    }
+                }
+                if (b) return true;
+                list = sequence.ToList();
+            }
+            return false;
+        }  // doesn't pass the last hidden test
     }
 }
-}
+
