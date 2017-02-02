@@ -8,7 +8,14 @@ namespace CodeFights_Intro
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(almostIncreasingSequence(new[] {1,3,2}));
+            var room = new[]
+            {
+                new[] {0,1,1,2},
+                new[] {0,5,0,0},
+                new[] {2,0,3,3}
+            };
+            Console.WriteLine(matrixElementsSum(room));
+            //Console.WriteLine(almostIncreasingSequence(new[] { 1, 3, 2 }));
 
             Console.ReadKey();
         }
@@ -64,7 +71,7 @@ namespace CodeFights_Intro
             {
                 list.RemoveAt(i);
                 b = true;
-                for (int j = 0; j < list.Count-1; j++)
+                for (int j = 0; j < list.Count - 1; j++)
                 {
                     if (list[j] >= list[j + 1])
                     {
@@ -77,6 +84,15 @@ namespace CodeFights_Intro
             }
             return false;
         }  // doesn't pass the last hidden test
+        public static int matrixElementsSum(int[][] matrix)
+        {
+            var sum = 0;
+            for (var i = 0; i < matrix[0].Length; i++)
+            {
+                sum += matrix.Select(x => x[i]).TakeWhile(x => x != 0).Sum();
+            }
+            return sum;
+        }
     }
 }
 
