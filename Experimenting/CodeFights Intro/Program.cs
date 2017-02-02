@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace CodeFights_Intro
 {
@@ -14,8 +16,8 @@ namespace CodeFights_Intro
                 new[] {0,5,0,0},
                 new[] {2,0,3,3}
             };
-            Console.WriteLine(matrixElementsSum(room));
-            //Console.WriteLine(almostIncreasingSequence(new[] { 1, 3, 2 }));
+            //Console.WriteLine(matrixElementsSum(room));
+            Console.WriteLine(commonCharacterCount("aabcc", "adcaa"));
 
             Console.ReadKey();
         }
@@ -92,6 +94,22 @@ namespace CodeFights_Intro
                 sum += matrix.Select(x => x[i]).TakeWhile(x => x != 0).Sum();
             }
             return sum;
+        }
+        public static string[] allLongestStrings(string[] inputArray)
+        {
+            //int maxSize = inputArray.Max(a => a.Length);
+            var maxLength = inputArray.Select(s => s.Length).Max();
+            return inputArray.Where(x => x.Length == maxLength).ToArray();
+        }
+        public static int commonCharacterCount(string s1, string s2)
+        {
+            //return s1.Distinct().Sum(_ => Math.Min(s1.Count(l => l == _), s2.Count(l => l == _)));
+            var inter = s1.Intersect(s2).ToArray();
+            return inter.Sum(t => Math.Min(s2.Count(l => l == t), s1.Count(l => l == t)));
+        }
+        public static bool isLucky(int n)
+        {
+
         }
     }
 }
