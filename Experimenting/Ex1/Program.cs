@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,7 +18,6 @@ namespace Ex1
             var n = int.Parse(Console.ReadLine());
             var prob = TwoSameBirthDates(n);
             Console.WriteLine($"There is a {prob:0.00}% chance that 2 people will have same birth date");
-
             Console.ReadKey();
         }
 
