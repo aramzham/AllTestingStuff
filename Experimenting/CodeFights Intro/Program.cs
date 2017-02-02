@@ -17,7 +17,11 @@ namespace CodeFights_Intro
                 new[] {2,0,3,3}
             };
             //Console.WriteLine(matrixElementsSum(room));
-            Console.WriteLine(isLucky(1230));
+            //Console.WriteLine(isLucky(1230));
+            foreach (var i in sortByHeight(new[] { -1, 150, 190, 170, -1, -1, 160, 180 }))
+            {
+                Console.WriteLine(i);
+            }
 
             Console.ReadKey();
         }
@@ -130,7 +134,18 @@ namespace CodeFights_Intro
         }
         public static int[] sortByHeight(int[] a)
         {
-
+            var people = a.Where(x => x > 0).ToList();
+            people.Sort();
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] == -1) continue;
+                a[i] = people[0];
+                people.RemoveAt(0);
+            }
+            return a;
+            //var people = a.Where(p => p != -1).OrderBy(p => p).ToList();
+            //int idx = 0;
+            //return a.Select(x => x == -1 ? -1 : people[idx++]).ToArray();
         }
     }
 }
