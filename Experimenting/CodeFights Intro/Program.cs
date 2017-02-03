@@ -16,12 +16,11 @@ namespace CodeFights_Intro
                 new[] {0,5,0,0},
                 new[] {2,0,3,3}
             };
-            //Console.WriteLine(matrixElementsSum(room));
-            //Console.WriteLine(isLucky(1230));
-            foreach (var i in sortByHeight(new[] { -1, 150, 190, 170, -1, -1, 160, 180 }))
-            {
-                Console.WriteLine(i);
-            }
+            Console.WriteLine(obtainMaxNumber(new[] { 2, 4, 8, 1, 1, 15 }));
+            //foreach (var i in sortByHeight(new[] { -1, 150, 190, 170, -1, -1, 160, 180 }))
+            //{
+            //    Console.WriteLine(i);
+            //}
 
             Console.ReadKey();
         }
@@ -146,6 +145,26 @@ namespace CodeFights_Intro
             //var people = a.Where(p => p != -1).OrderBy(p => p).ToList();
             //int idx = 0;
             //return a.Select(x => x == -1 ? -1 : people[idx++]).ToArray();
+        }
+        public static int obtainMaxNumber(int[] inputArray)
+        {
+            //even - զույգ //odd - կենտ
+            var list = inputArray.ToList();
+            int toBeRemoved;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list.Count(x => x == list[i]) >= 2)
+                {
+                    list.Add(list[i] * 2);
+                    toBeRemoved = list[i];
+                    list.Remove(toBeRemoved);
+                    list.Remove(toBeRemoved);
+                    i = -1;
+                }
+                if (list.All(x => list.Count(a => a == x) == 1)) return list.Max();
+            }
+
+            return list.Max();
         }
     }
 }
