@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationErrorCode", "App
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineArguments", "CommandLineArguments\CommandLineArguments.csproj", "{1E71E39C-4F36-4B09-B206-4F2CE35E91D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattingNumericalData", "FormattingNumericalData\FormattingNumericalData.csproj", "{24D74AC4-2B20-420D-98F3-6861CFED857B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1E71E39C-4F36-4B09-B206-4F2CE35E91D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E71E39C-4F36-4B09-B206-4F2CE35E91D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E71E39C-4F36-4B09-B206-4F2CE35E91D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24D74AC4-2B20-420D-98F3-6861CFED857B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24D74AC4-2B20-420D-98F3-6861CFED857B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24D74AC4-2B20-420D-98F3-6861CFED857B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24D74AC4-2B20-420D-98F3-6861CFED857B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
