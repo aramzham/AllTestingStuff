@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ex1
+namespace SameBirthDayPossibility
 {
     class Program
     {
