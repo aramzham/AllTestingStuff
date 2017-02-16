@@ -31,10 +31,11 @@ namespace GetNumberWithoutConvertOrParse
             var bList = b.ToList();
             aList.Sort();
             bList.Sort();
-            var index = 0;
-            for (int i = 0; i < bList.Count; i++)
+            //return bList.Any(t => aList.BinarySearch(v - t) >= -1);
+            for (int i = 0; i < a.Length; i++)
             {
-                if (aList.BinarySearch(v - bList[i]) >= -1) return true;
+                if (v - a[i] > a.Max() || v - a[i] < a.Min()) return false;
+                if (bList.BinarySearch(v - aList[i]) >= -1) return true;
             }
             return false;
         }
