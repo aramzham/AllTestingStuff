@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattingNumericalData", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetNumberWithoutConvertOrParse", "GetNumberWithoutConvertOrParse\GetNumberWithoutConvertOrParse.csproj", "{396BB6E8-7DFD-4244-B95D-BC28D8BD99E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryFinally", "TryFinally\TryFinally.csproj", "{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{396BB6E8-7DFD-4244-B95D-BC28D8BD99E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{396BB6E8-7DFD-4244-B95D-BC28D8BD99E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{396BB6E8-7DFD-4244-B95D-BC28D8BD99E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
