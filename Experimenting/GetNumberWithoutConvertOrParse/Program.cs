@@ -18,11 +18,11 @@ namespace GetNumberWithoutConvertOrParse
             Console.ReadKey();
         }
 
-        public static int Convert(string number)
+        static int Convert(string number)
         {
             return number.Select(x => x - '0').Select((t, i) => t * (int)Math.Pow(10, number.Length - i - 1)).Sum();
         }
-        public static bool sumOfTwo(int[] a, int[] b, int v)
+        static bool sumOfTwo(int[] a, int[] b, int v)
         {
             //var line = a.Select(x => v - x);
             //return line.Any(b.Contains);
@@ -38,6 +38,11 @@ namespace GetNumberWithoutConvertOrParse
                 if (bList.BinarySearch(v - aList[i]) >= -1) return true;
             }
             return false;
+        }
+        static int strstr(string s, string x)
+        {
+            if (!s.Contains(x)) return -1;
+            return s.IndexOf(x, StringComparison.Ordinal);
         }
     }
 }
