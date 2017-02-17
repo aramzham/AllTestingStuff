@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericalDataTypes", "Numer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckedUnchecked", "CheckedUnchecked\CheckedUnchecked.csproj", "{4C445248-B807-481F-8C03-B05F878A05BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseOfVarKeyword", "UseOfVarKeyword\UseOfVarKeyword.csproj", "{1F5C3F7E-D465-4524-A8B7-17FB6C20EDD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4C445248-B807-481F-8C03-B05F878A05BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C445248-B807-481F-8C03-B05F878A05BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C445248-B807-481F-8C03-B05F878A05BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F5C3F7E-D465-4524-A8B7-17FB6C20EDD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F5C3F7E-D465-4524-A8B7-17FB6C20EDD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F5C3F7E-D465-4524-A8B7-17FB6C20EDD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F5C3F7E-D465-4524-A8B7-17FB6C20EDD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
