@@ -40,6 +40,14 @@ namespace CheckedUnchecked
                 Console.WriteLine(e.Message);
             }
 
+            //when you turn on the checked flag in Build->Advanced properties of the project, you would want some local variables to accept overflows/underflows. To do so, we will use the unchecked keyword
+
+            unchecked
+            {
+                var sum3 = (byte)Add(b1, b2);
+                Console.WriteLine($"unchecked sum = {sum3}");
+            }
+
             Console.ReadKey();
         }
 
