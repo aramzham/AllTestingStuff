@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
@@ -21,6 +22,10 @@ namespace GetNumberWithoutConvertOrParse
             var nums = new int[] { 37, 50, 50, 6, 8, 54, 7, 64, 2, 64, 67, 59, 22, 73, 33, 53, 43, 77, 56, 76, 59, 96, 64, 100, 89, 38, 64, 73, 85, 96, 65, 50, 62, 4, 82, 57, 98, 61, 92, 55, 80, 53, 80, 55, 94, 9, 73, 89, 83, 80 };
             var m = 67;
             Console.WriteLine(productExceptSelf(nums, m));
+
+            var arr = new int[] { 1, 2, 3, 4, 5, 0, 0, 0, 6, 7, 8, 9, 10 };
+            var s = 15;
+            Console.WriteLine(findLongestSubarrayBySum(15, arr));
 
             Console.ReadKey();
         }
@@ -51,17 +56,34 @@ namespace GetNumberWithoutConvertOrParse
             if (!s.Contains(x)) return -1;
             return s.IndexOf(x, StringComparison.Ordinal);
         }
+        #region Product except self
         static int productExceptSelf(int[] nums, int m)
         {
-            var arr = nums.Select(x => ProductWithout(nums)/x).Select(x => x%m).ToArray();
+            var arr = nums.Select(x => ProductWithout(nums) / x).Select(x => x % m).ToArray();
             var sum = arr.Aggregate<BigInteger, BigInteger>(0, (current, bigInteger) => current + bigInteger);
-            var modulus = sum%m;
-            return (int) modulus;
+            var modulus = sum % m;
+            return (int)modulus;
         }
 
         private static BigInteger ProductWithout(int[] array)
         {
-            return array.Aggregate<int, BigInteger>(1, (current, t) => current*t);
+            return array.Aggregate<int, BigInteger>(1, (current, t) => current * t);
+        }
+        #endregion
+        static int[] findLongestSubarrayBySum(int s, int[] arr)
+        {
+            var results = new List<List<int>>();
+            var sum = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                for (int j = i; j < arr.Length; j++)
+                {
+                    if (sum == s) results.Add(new List<int>() { i, j });
+                    sum += arr[j];
+                }
+                sum = 0;
+            }
+            return new int[]{};
         }
     }
 
