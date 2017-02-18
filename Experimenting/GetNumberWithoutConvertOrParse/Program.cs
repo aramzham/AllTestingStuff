@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Numerics;
 
 namespace GetNumberWithoutConvertOrParse
 {
@@ -14,6 +15,12 @@ namespace GetNumberWithoutConvertOrParse
             var b = new int[] { 21, 10, 6, 0, 29, 25, 1, 17, 19, 25 };
             var v = 37;
             Console.WriteLine(sumOfTwo(a, b, v));
+            var mc = new MyClass() { Count = 10 };
+            mc.Count = 35;
+
+            var nums = new int[] { 37, 50, 50, 6, 8, 54, 7, 64, 2, 64, 67, 59, 22, 73, 33, 53, 43, 77, 56, 76, 59, 96, 64, 100, 89, 38, 64, 73, 85, 96, 65, 50, 62, 4, 82, 57, 98, 61, 92, 55, 80, 53, 80, 55, 94, 9, 73, 89, 83, 80 };
+            var m = 67;
+            Console.WriteLine(productExceptSelf(nums, m));
 
             Console.ReadKey();
         }
@@ -43,6 +50,28 @@ namespace GetNumberWithoutConvertOrParse
         {
             if (!s.Contains(x)) return -1;
             return s.IndexOf(x, StringComparison.Ordinal);
+        }
+        static int productExceptSelf(int[] nums, int m)
+        {
+            var arr = nums.Select(x => ProductWithout(nums)/x).Select(x => x%m).ToArray();
+            var sum = arr.Aggregate<BigInteger, BigInteger>(0, (current, bigInteger) => current + bigInteger);
+            var modulus = sum%m;
+            return (int) modulus;
+        }
+
+        private static BigInteger ProductWithout(int[] array)
+        {
+            return array.Aggregate<int, BigInteger>(1, (current, t) => current*t);
+        }
+    }
+
+    public class MyClass
+    {
+        private int count;
+        public int Count
+        {
+            get { return count; }
+            set { if (value > 20) count = value; }
         }
     }
 }
