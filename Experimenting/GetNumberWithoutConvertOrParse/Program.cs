@@ -12,18 +12,18 @@ namespace GetNumberWithoutConvertOrParse
             Console.Title = "LINQ + StackOverFlow :-)";
             Console.WriteLine(Convert("123456"));
 
-            var a = new int[] { 6, 10, 25, 13, 20, 21, 11, 10, 18, 21 };
-            var b = new int[] { 21, 10, 6, 0, 29, 25, 1, 17, 19, 25 };
+            var a = new[] { 6, 10, 25, 13, 20, 21, 11, 10, 18, 21 };
+            var b = new[] { 21, 10, 6, 0, 29, 25, 1, 17, 19, 25 };
             var v = 37;
             Console.WriteLine(sumOfTwo(a, b, v));
-            var mc = new MyClass() { Count = 10 };
+            var mc = new MyClass { Count = 10 };
             mc.Count = 35;
 
-            var nums = new int[] { 37, 50, 50, 6, 8, 54, 7, 64, 2, 64, 67, 59, 22, 73, 33, 53, 43, 77, 56, 76, 59, 96, 64, 100, 89, 38, 64, 73, 85, 96, 65, 50, 62, 4, 82, 57, 98, 61, 92, 55, 80, 53, 80, 55, 94, 9, 73, 89, 83, 80 };
+            var nums = new[] { 37, 50, 50, 6, 8, 54, 7, 64, 2, 64, 67, 59, 22, 73, 33, 53, 43, 77, 56, 76, 59, 96, 64, 100, 89, 38, 64, 73, 85, 96, 65, 50, 62, 4, 82, 57, 98, 61, 92, 55, 80, 53, 80, 55, 94, 9, 73, 89, 83, 80 };
             var m = 67;
             Console.WriteLine(productExceptSelf(nums, m));
 
-            var arr = new int[] { 1, 2, 3, 4, 5, 0, 0, 0, 6, 7, 8, 9, 10 };
+            var arr = new[] { 1, 2, 3, 4, 5, 0, 0, 0, 6, 7, 8, 9, 10 };
             var s = 15;
             Console.WriteLine(findLongestSubarrayBySum(15, arr));
 
@@ -78,7 +78,7 @@ namespace GetNumberWithoutConvertOrParse
             {
                 for (int j = i; j < arr.Length; j++)
                 {
-                    if (sum == s) results.Add(new List<int>() { i, j });
+                    if (sum == s) results.Add(new List<int> { i, j });
                     sum += arr[j];
                 }
                 sum = 0;
