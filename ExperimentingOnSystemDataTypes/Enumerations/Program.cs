@@ -10,6 +10,9 @@ namespace Enumerations
             Console.WriteLine(Enum.GetUnderlyingType(task.GetType()));
             Console.WriteLine(Enum.GetUnderlyingType(typeof(TodoList))); //without using a variable of the type
 
+            //Type todoType = Enum.GetUnderlyingType(typeof (TodoList));
+            Console.WriteLine($"Value of {task.ToString()} is {(byte)task}");
+
             Console.ReadKey();
         }
         private enum TodoList : byte
