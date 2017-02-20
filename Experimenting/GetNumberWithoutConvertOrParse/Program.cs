@@ -30,6 +30,9 @@ namespace GetNumberWithoutConvertOrParse
             var str = "eIaOyU";
             Console.WriteLine(reverseVowelsOfString(str));
 
+            var x = 12345;
+            Console.WriteLine(reverseInteger(x));
+
             Console.ReadKey();
         }
 
@@ -145,6 +148,37 @@ namespace GetNumberWithoutConvertOrParse
 //                }
 //                return result;
 //            }
+        }
+        static int reverseInteger(int x)
+        {
+            var abs = Math.Abs(x);
+            var queue = new Queue<int>();
+            while (abs!=0)
+            {
+                queue.Enqueue(abs%10);
+                abs /= 10;
+            }
+            var degree = Math.Abs(x).ToString().Length -1;
+            var result = 0;
+            var count = queue.Count;
+            for (int i = 0; i < count; i++)
+            {
+                result += queue.Dequeue()*(int)Math.Pow(10, degree);
+                degree--;
+            }
+            return x < 0 ? result*-1 : result;
+            //int result = 0;   //this guy is genius!!!
+            //while (x != 0)
+            //{
+            //    result *= 10;
+            //    result += x % 10;
+            //    x /= 10;
+            //}
+            //return result;
+        }
+        static int kthLargestElement(int[] nums, int k)
+        {
+
         }
     }
 
