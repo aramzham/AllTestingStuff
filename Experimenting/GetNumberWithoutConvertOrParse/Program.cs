@@ -178,7 +178,11 @@ namespace GetNumberWithoutConvertOrParse
         }
         static int kthLargestElement(int[] nums, int k)
         {
-
+            var ordered = nums.OrderByDescending(x => x).ToArray();
+            return ordered[k - 1];
+            //Array.Sort(nums);
+            //Array.Reverse(nums);
+            //return nums[k - 1];
         }
     }
 
