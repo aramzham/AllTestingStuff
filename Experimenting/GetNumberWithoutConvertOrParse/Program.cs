@@ -89,7 +89,7 @@ namespace GetNumberWithoutConvertOrParse
                 }
                 sum = 0;
             }
-            return new int[]{};
+            return new int[] { };
         }  //not finished
         static string reverseVowelsOfString(string s)
         {
@@ -120,53 +120,53 @@ namespace GetNumberWithoutConvertOrParse
             //return r;
 
             //another solution with stack
-//            bool IsVovel(char c)
-//{
-//                if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
-//                  c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U')
-//                {
-//                    return true;
-//                }
-//                return false;
-//            }
+            //            bool IsVovel(char c)
+            //{
+            //                if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+            //                  c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U')
+            //                {
+            //                    return true;
+            //                }
+            //                return false;
+            //            }
 
-//            string reverseVowelsOfString(string s) 
-//{
-//                Stack<char> st = new Stack<char>();
-//                for (int i = 0; i < s.Length; i++)
-//                {
-//                    if (IsVovel(s[i]))
-//                        st.Push(s[i]);
-//                }
-//                string result = "";
-//                for (int i = 0; i < s.Length; i++)
-//                {
-//                    if (IsVovel(s[i]))
-//                        result += st.Pop();
-//                    else
-//                        result += s[i];
-//                }
-//                return result;
-//            }
+            //            string reverseVowelsOfString(string s) 
+            //{
+            //                Stack<char> st = new Stack<char>();
+            //                for (int i = 0; i < s.Length; i++)
+            //                {
+            //                    if (IsVovel(s[i]))
+            //                        st.Push(s[i]);
+            //                }
+            //                string result = "";
+            //                for (int i = 0; i < s.Length; i++)
+            //                {
+            //                    if (IsVovel(s[i]))
+            //                        result += st.Pop();
+            //                    else
+            //                        result += s[i];
+            //                }
+            //                return result;
+            //            }
         }
         static int reverseInteger(int x)
         {
             var abs = Math.Abs(x);
             var queue = new Queue<int>();
-            while (abs!=0)
+            while (abs != 0)
             {
-                queue.Enqueue(abs%10);
+                queue.Enqueue(abs % 10);
                 abs /= 10;
             }
-            var degree = Math.Abs(x).ToString().Length -1;
+            var degree = Math.Abs(x).ToString().Length - 1;
             var result = 0;
             var count = queue.Count;
             for (int i = 0; i < count; i++)
             {
-                result += queue.Dequeue()*(int)Math.Pow(10, degree);
+                result += queue.Dequeue() * (int)Math.Pow(10, degree);
                 degree--;
             }
-            return x < 0 ? result*-1 : result;
+            return x < 0 ? result * -1 : result;
             //int result = 0;   //this guy is genius!!!
             //while (x != 0)
             //{
@@ -183,6 +183,17 @@ namespace GetNumberWithoutConvertOrParse
             //Array.Sort(nums);
             //Array.Reverse(nums);
             //return nums[k - 1];
+        }
+        static int higherVersion2(string ver1, string ver2)
+        {
+            var firstVersion = ver1.Split('.').Select(int.Parse).ToArray();
+            var secondVersion = ver2.Split('.').Select(int.Parse).ToArray();
+            for (int i = 0; i < firstVersion.Length; i++)
+            {
+                if (secondVersion[i] > firstVersion[i]) return -1;
+                if (secondVersion[i] < firstVersion[i]) return 1;
+            }
+            return 0;
         }
     }
 
