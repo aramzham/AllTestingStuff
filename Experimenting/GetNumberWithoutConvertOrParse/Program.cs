@@ -27,6 +27,9 @@ namespace GetNumberWithoutConvertOrParse
             var s = 15;
             Console.WriteLine(findLongestSubarrayBySum(15, arr));
 
+            var str = "eIaOyU";
+            Console.WriteLine(reverseVowelsOfString(str));
+
             Console.ReadKey();
         }
 
@@ -84,6 +87,64 @@ namespace GetNumberWithoutConvertOrParse
                 sum = 0;
             }
             return new int[]{};
+        }  //not finished
+        static string reverseVowelsOfString(string s)
+        {
+            var indexes = new List<int>();
+            var vowels = new List<char>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u' || s[i] == 'A' || s[i] == 'E' || s[i] == 'I' || s[i] == 'O' || s[i] == 'U')
+                {
+                    indexes.Add(i);
+                    vowels.Add(s[i]);
+                }
+            }
+            indexes.Reverse();
+            var charray = s.ToCharArray();
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                charray[indexes[i]] = vowels[i];
+            }
+            return new string(charray);
+            //string vowel = "aeiouAEIOU";
+            //string r = "";
+            //var t = s.Where(x => vowel.Contains(x)).Reverse().ToList();
+            //for (int i = 0, j = 0; i < s.Length; i++)
+            //{
+            //    r += vowel.Contains(s[i]) ? t[j++] : s[i];
+            //}
+            //return r;
+
+            //another solution with stack
+//            bool IsVovel(char c)
+//{
+//                if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+//                  c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U')
+//                {
+//                    return true;
+//                }
+//                return false;
+//            }
+
+//            string reverseVowelsOfString(string s) 
+//{
+//                Stack<char> st = new Stack<char>();
+//                for (int i = 0; i < s.Length; i++)
+//                {
+//                    if (IsVovel(s[i]))
+//                        st.Push(s[i]);
+//                }
+//                string result = "";
+//                for (int i = 0; i < s.Length; i++)
+//                {
+//                    if (IsVovel(s[i]))
+//                        result += st.Pop();
+//                    else
+//                        result += s[i];
+//                }
+//                return result;
+//            }
         }
     }
 
