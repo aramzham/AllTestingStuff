@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParamsNamedParameters", "Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enumerations", "Enumerations\Enumerations.csproj", "{3C12DD30-2CFB-498B-9C67-4AFE1FB4C2B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueTypeVSReferenceType", "ValueTypeVSReferenceType\ValueTypeVSReferenceType.csproj", "{86E83109-E5BF-4B55-B9AF-5BC004CA3A26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3C12DD30-2CFB-498B-9C67-4AFE1FB4C2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C12DD30-2CFB-498B-9C67-4AFE1FB4C2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C12DD30-2CFB-498B-9C67-4AFE1FB4C2B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86E83109-E5BF-4B55-B9AF-5BC004CA3A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86E83109-E5BF-4B55-B9AF-5BC004CA3A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86E83109-E5BF-4B55-B9AF-5BC004CA3A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86E83109-E5BF-4B55-B9AF-5BC004CA3A26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
