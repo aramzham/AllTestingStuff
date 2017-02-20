@@ -33,6 +33,9 @@ namespace GetNumberWithoutConvertOrParse
             var x = 12345;
             Console.WriteLine(reverseInteger(x));
 
+            var sarr =new[] {"aabcc", "adcaa", "acdba"};
+            Console.WriteLine(commonCharacterCount2(sarr));
+
             Console.ReadKey();
         }
 
@@ -194,6 +197,14 @@ namespace GetNumberWithoutConvertOrParse
                 if (secondVersion[i] < firstVersion[i]) return 1;
             }
             return 0;
+        }
+        static int commonCharacterCount2(string[] s)
+        {
+            var left = "aabcc";
+            var right = "adcaa";
+            var s3 = "acdba";
+            //var n = left.GroupBy(c => c).Join(right.GroupBy(c => c), g => g.Key, g => g.Key, (lg, rg) => lg.Zip(rg, (l, r) => l).Count()).Sum();
+            //return n;
         }
     }
 
