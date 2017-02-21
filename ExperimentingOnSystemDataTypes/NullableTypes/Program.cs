@@ -16,6 +16,10 @@ namespace NullableTypes
             int[] z = new int[3];
             Console.WriteLine($"z = {z?.Length ?? 20}"); //here we check if z is not null we will print its length, if z is null then we will print 20 by default, so we can use these two (? and ??) operators and avoid if/else statements
 
+            int? a = 20;
+            Console.WriteLine($"Does a have value?: {a.HasValue}");
+            Console.WriteLine($"a's value = {a.Value}");
+
             Console.ReadKey();
         }
     }
