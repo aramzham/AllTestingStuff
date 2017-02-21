@@ -41,15 +41,16 @@ namespace GoBot
         static string[][] domainForwarding(string[][] redirects)
         {
             var groups = new List<List<string>>();
-            for (int i = 0; i < redirects.Length; i++)
+            var gr = redirects.Select(x => x[1]).Distinct().ToArray();
+            for (int i = 0; i < gr.Length; i++)
             {
-                groups.Add(new List<string>());
-                if(i!=0 && !redirects.Select(x=>x[0]).Contains(redirects[i][1])) groups[i].Add(redirects[i][1]);
+                groups.Add(new List<string>() { gr[i] });
                 for (int j = 0; j < redirects.Length; j++)
                 {
-                    if (redirects[j][1] == redirects[i][1]) groups[i].Add(redirects[j][0]);
+                    if (redirects[j][1] == gr[i]) groups[i].Add(redirects[j][0]);
                 }
             }
+
             return groups.Select(x => x.ToArray()).ToArray();
         }
     }
