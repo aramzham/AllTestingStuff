@@ -44,8 +44,7 @@ namespace GoBot
             for (int i = 0; i < redirects.Length; i++)
             {
                 groups.Add(new List<string>());
-                if (i != 0 && groups.Select(x => x[0]).Contains(redirects[i][1])) continue;
-                groups[i].Add(redirects[i][1]);
+                if(i!=0 && !redirects.Select(x=>x[0]).Contains(redirects[i][1])) groups[i].Add(redirects[i][1]);
                 for (int j = 0; j < redirects.Length; j++)
                 {
                     if (redirects[j][1] == redirects[i][1]) groups[i].Add(redirects[j][0]);
