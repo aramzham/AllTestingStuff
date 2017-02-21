@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enumerations", "Enumeration
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueTypeVSReferenceType", "ValueTypeVSReferenceType\ValueTypeVSReferenceType.csproj", "{86E83109-E5BF-4B55-B9AF-5BC004CA3A26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullableTypes", "NullableTypes\NullableTypes.csproj", "{256A05B8-6F8B-463B-A2C1-D72773598B9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{86E83109-E5BF-4B55-B9AF-5BC004CA3A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86E83109-E5BF-4B55-B9AF-5BC004CA3A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86E83109-E5BF-4B55-B9AF-5BC004CA3A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{256A05B8-6F8B-463B-A2C1-D72773598B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256A05B8-6F8B-463B-A2C1-D72773598B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256A05B8-6F8B-463B-A2C1-D72773598B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256A05B8-6F8B-463B-A2C1-D72773598B9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
