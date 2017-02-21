@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetNumberWithoutConvertOrPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryFinally", "TryFinally\TryFinally.csproj", "{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoBot", "GoBot\GoBot.csproj", "{6D2D133A-3E0B-4860-B269-F192DC142999}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D2D133A-3E0B-4860-B269-F192DC142999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D2D133A-3E0B-4860-B269-F192DC142999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D2D133A-3E0B-4860-B269-F192DC142999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D2D133A-3E0B-4860-B269-F192DC142999}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
