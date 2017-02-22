@@ -8,23 +8,9 @@ namespace GoBot
     {
         static void Main(string[] args)
         {
-            var sites = new string[][]
-            {
-                new string[] {"a-b.c",   "a.c"},
-                new string[] {"aa-b.c",  "a-b.c"},
-                new string[] {"bb-b.c",  "a-b.c"},
-                new string[] {"cc-b.c",  "a-b.c"},
-                new string[] {"d-cc-b.c","bb-b.c"},
-                new string[] {"e-cc-b.c","bb-b.c"}
-            };
-            foreach (var s in domainForwarding(sites))
-            {
-                foreach (var s1 in s)
-                {
-                    Console.Write($"{s1}\t");
-                }
-                Console.WriteLine();
-            }
+            var domain = "godaddy.com";
+            var n = 7;
+            Console.WriteLine(typosquatting(n, domain));
 
             Console.ReadKey();
         }
@@ -72,5 +58,25 @@ namespace GoBot
             //return groups.Select(x => x.ToArray()).ToArray();
             return sorted;
         } //lexicographical fuck
+        static int typosquatting(int n, string domain)
+        {
+            var count = 0;
+            var site = domain.Split('.')[0];
+            var siteCharArray = site.ToCharArray();
+            for (int i = 0; i < site.Length-1; i++)
+            {
+                Swap(ref siteCharArray[i],ref siteCharArray[i+1]);
+                if (new string(siteCharArray) != site) count++;
+                siteCharArray = site.ToCharArray();
+            }
+            return count;
+        }
+
+        private static void Swap(ref char a, ref char b)
+        {
+            var temp = a;
+            a = b;
+            b = temp;
+        }
     }
 }
