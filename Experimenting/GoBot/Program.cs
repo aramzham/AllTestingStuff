@@ -65,11 +65,12 @@ namespace GoBot
                     }
                 }
             }
-            var sorted1 = groups.Select(x => x.OrderBy(a => a).ThenBy(r => r.Length).ToArray()).ToArray();
+            var sorted = groups.Select(x => x.OrderBy(z => z).ThenBy(r => r.Length).ToArray()).ToArray();
+            sorted = sorted.OrderByDescending(inner => inner[1]).ToArray();
             //var sorted2 = sorted1.Select(x => x[0]).OrderBy(x => x).ThenBy(c => c.Length).ToArray();
 
             //return groups.Select(x => x.ToArray()).ToArray();
-            return sorted1;
-        }
+            return sorted;
+        } //lexicographical fuck
     }
 }
