@@ -10,10 +10,12 @@ namespace GoBot
         {
             var sites = new string[][]
             {
-                new string[] {"godaddy.net","godaddy.com"},
-                new string[] {"godaddy.org","godaddycares.com"},
-                new string[] {"godady.com","godaddy.com"},
-                new string[] { "godaddy.ne", "godaddy.net" }
+                new string[] {"a-b.c",   "a.c"},
+                new string[] {"aa-b.c",  "a-b.c"},
+                new string[] {"bb-b.c",  "a-b.c"},
+                new string[] {"cc-b.c",  "a-b.c"},
+                new string[] {"d-cc-b.c","bb-b.c"},
+                new string[] {"e-cc-b.c","bb-b.c"}
             };
             foreach (var s in domainForwarding(sites))
             {
@@ -50,8 +52,24 @@ namespace GoBot
                     if (redirects[j][1] == gr[i]) groups[i].Add(redirects[j][0]);
                 }
             }
+            var index = 0;
+            for (int i = 0; i < groups.Count; i++)
+            {
+                for (int j = 1; j < groups[i].Count; j++)
+                {
+                    if (groups.Select(x => x[0]).Contains(groups[i][j]))
+                    {
+                        index = Array.IndexOf(groups.Select(x => x[0]).ToArray(), groups[i][j]);
+                        groups[i].AddRange(groups[index].Skip(1));
+                        groups.RemoveAt(index);
+                    }
+                }
+            }
+            var sorted1 = groups.Select(x => x.OrderBy(a => a).ThenBy(r => r.Length).ToArray()).ToArray();
+            //var sorted2 = sorted1.Select(x => x[0]).OrderBy(x => x).ThenBy(c => c.Length).ToArray();
 
-            return groups.Select(x => x.ToArray()).ToArray();
+            //return groups.Select(x => x.ToArray()).ToArray();
+            return sorted1;
         }
     }
 }
