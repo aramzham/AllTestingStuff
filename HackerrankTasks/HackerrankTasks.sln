@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arrays Left Rotation", "Arr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strings Making Anagrams", "Strings Making Anagrams\Strings Making Anagrams.csproj", "{73BC1AA4-D029-486F-B424-3A193070FCE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stacks Balanced Brackets", "Stacks Balanced Brackets\Stacks Balanced Brackets.csproj", "{474DF233-743C-4505-B25A-C9F4A6B10B28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{73BC1AA4-D029-486F-B424-3A193070FCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73BC1AA4-D029-486F-B424-3A193070FCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73BC1AA4-D029-486F-B424-3A193070FCE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{474DF233-743C-4505-B25A-C9F4A6B10B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{474DF233-743C-4505-B25A-C9F4A6B10B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{474DF233-743C-4505-B25A-C9F4A6B10B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{474DF233-743C-4505-B25A-C9F4A6B10B28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
