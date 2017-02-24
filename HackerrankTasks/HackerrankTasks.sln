@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stacks Balanced Brackets", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hash Tables Ransom Note", "Hash Tables Ransom Note\Hash Tables Ransom Note.csproj", "{2CFFD1C7-39A6-45F1-8A8F-63300A4A3B3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Circular Array Rotation", "Circular Array Rotation\Circular Array Rotation.csproj", "{DA51AF22-E525-4A10-AEC7-24C7517ABD02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2CFFD1C7-39A6-45F1-8A8F-63300A4A3B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CFFD1C7-39A6-45F1-8A8F-63300A4A3B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CFFD1C7-39A6-45F1-8A8F-63300A4A3B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA51AF22-E525-4A10-AEC7-24C7517ABD02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA51AF22-E525-4A10-AEC7-24C7517ABD02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA51AF22-E525-4A10-AEC7-24C7517ABD02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA51AF22-E525-4A10-AEC7-24C7517ABD02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
