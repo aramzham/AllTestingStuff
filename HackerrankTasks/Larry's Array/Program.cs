@@ -10,21 +10,26 @@ namespace Larry_s_Array
         {
             var numberOfTestCases = int.Parse(Console.ReadLine());
             var lenghtOfArray = 0;
-            var array = new int[] {};
+            var array = new int[] { };
             for (int i = 0; i < numberOfTestCases; i++)
             {
                 lenghtOfArray = int.Parse(Console.ReadLine());
                 array = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+                Console.WriteLine(CanBeSorted(array) ? "Yes" : "No");
             }
         }
 
         private static bool CanBeSorted(int[] array)
         {
-            var list = new List<int>();
+            var rotated = new int[3];
             for (int i = 0; i < array.Length; i++)
             {
-                if (array.SequenceEqual(array.OrderBy(x => x))) return true;
-
+                for (int j = 0; j < 2; j++)
+                {
+                    if (array.SequenceEqual(array.OrderBy(x => x))) return true;
+                    rotated = RotateLeft(array.ToList().GetRange(i, 3)).ToArray();
+                    Array.Copy(array, i, rotated, 0, 3);
+                }
             }
             return new bool();
         }
