@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace Hash_Tables_Ransom_Note
 {
@@ -27,7 +24,21 @@ namespace Hash_Tables_Ransom_Note
             //    }
             //}
             //if(no == false) Console.WriteLine("Yes");
-
+            var hashTable = new Hashtable();
+            for (int i = 0; i < magazine.Length; i++)
+            {
+                hashTable.Add(i,magazine[i]);
+            }
+            foreach (var s in ransom)
+            {
+                if (!hashTable.ContainsValue(s))
+                {
+                    Console.WriteLine("No");
+                    no = true;
+                    break;
+                }
+            }
+            if (no == false) Console.WriteLine("Yes");
 
             Console.ReadKey();
         }
