@@ -12,7 +12,6 @@ namespace Sock_Merchant
             //int[] c = Array.ConvertAll(c_temp, int.Parse);
             var c = new[] { 10, 20, 20, 10, 10, 30, 50, 10, 20 };
 
-            var distinct = c.Distinct();
             var socks = c.Distinct().Select(x => c.Count(a => a == x)/2).Sum();
             Console.WriteLine(socks);
             Console.ReadKey();
