@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Larry_s_Array
+namespace Larry_Array
 {
     class Program
     {
@@ -23,8 +23,9 @@ namespace Larry_s_Array
         private static bool CanBeSorted(int[] array)
         {
             var rotated = new int[3];
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length - 1; i++)
             {
+                if (array[i] < array[i + 1]) continue;
                 for (int j = 0; j < 2; j++)
                 {
                     if (array.SequenceEqual(array.OrderBy(x => x))) return true;
