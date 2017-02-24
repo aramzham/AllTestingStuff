@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Stacks_Balanced_Brackets
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args) //not fully done!
         {
             int t = Convert.ToInt32(Console.ReadLine());
             var list = new List<string>();
