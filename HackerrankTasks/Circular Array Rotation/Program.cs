@@ -27,8 +27,8 @@ namespace Circular_Array_Rotation
             for (int i = 0; i < k; i++)
             {
                 last = list.Last();
-                list.RemoveAt(list.Count-1);
-                list.Insert(0,last);
+                list.RemoveAt(list.Count - 1);
+                list.Insert(0, last);
             }
             foreach (var i in indexes)
             {

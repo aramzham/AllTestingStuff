@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hash Tables Ransom Note", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Circular Array Rotation", "Circular Array Rotation\Circular Array Rotation.csproj", "{DA51AF22-E525-4A10-AEC7-24C7517ABD02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Designer PDF Viewer", "Designer PDF Viewer\Designer PDF Viewer.csproj", "{734DA94E-4D58-4069-925F-0B0C5D02339A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sock Merchant", "Sock Merchant\Sock Merchant.csproj", "{3B54A862-771C-470D-A35C-6F140A3FE653}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{DA51AF22-E525-4A10-AEC7-24C7517ABD02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA51AF22-E525-4A10-AEC7-24C7517ABD02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA51AF22-E525-4A10-AEC7-24C7517ABD02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{734DA94E-4D58-4069-925F-0B0C5D02339A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{734DA94E-4D58-4069-925F-0B0C5D02339A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{734DA94E-4D58-4069-925F-0B0C5D02339A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{734DA94E-4D58-4069-925F-0B0C5D02339A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B54A862-771C-470D-A35C-6F140A3FE653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B54A862-771C-470D-A35C-6F140A3FE653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B54A862-771C-470D-A35C-6F140A3FE653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B54A862-771C-470D-A35C-6F140A3FE653}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
