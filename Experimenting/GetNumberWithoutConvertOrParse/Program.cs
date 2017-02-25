@@ -29,12 +29,35 @@ namespace GetNumberWithoutConvertOrParse
 
             var str = "eIaOyU";
             Console.WriteLine(reverseVowelsOfString(str));
-
             var x = 12345;
             Console.WriteLine(reverseInteger(x));
 
-            var sarr =new[] {"aabcc", "adcaa", "acdba"};
-            Console.WriteLine(commonCharacterCount2(sarr));
+            //var sarr =new[] {"aabcc", "adcaa", "acdba"};
+            //Console.WriteLine(commonCharacterCount2(sarr));
+            var ar1 = new int[] {1,2,3,4,5};
+            var ar2 = new int[] { 1, 2, 3, 4, 5 };
+
+            //if (ar1.Length==ar2.Length)
+            //{
+            //    for (int i = 0; i <ar1.Length; i++)
+            //    {
+            //        if (ar1[i]!=ar2[i])
+            //        {
+            //            Console.WriteLine("havasar chen");
+            //            break;
+            //        }
+            //        if(i==ar1.Length-1) Console.WriteLine("havasar en");
+            //    }
+            //}
+            if(ar1.Any(z=>ar2.Any(y=>z!=y))) Console.WriteLine("not equal");
+
+            //12912314157
+            var set = new HashSet<int> {1, 2, 9, 1, 2, 3, 1, 4, 1, 5, 7};
+            var list = set.ToList();
+            foreach (var i in list)
+            {
+                Console.Write($"{i} ");
+            }
 
             Console.ReadKey();
         }
@@ -198,14 +221,14 @@ namespace GetNumberWithoutConvertOrParse
             }
             return 0;
         }
-        static int commonCharacterCount2(string[] s)
-        {
-            var left = "aabcc";
-            var right = "adcaa";
-            var s3 = "acdba";
-            //var n = left.GroupBy(c => c).Join(right.GroupBy(c => c), g => g.Key, g => g.Key, (lg, rg) => lg.Zip(rg, (l, r) => l).Count()).Sum();
-            //return n;
-        }
+        //static int commonCharacterCount2(string[] s)
+        //{
+        //    var left = "aabcc";
+        //    var right = "adcaa";
+        //    var s3 = "acdba";
+        //    //var n = left.GroupBy(c => c).Join(right.GroupBy(c => c), g => g.Key, g => g.Key, (lg, rg) => lg.Zip(rg, (l, r) => l).Count()).Sum();
+        //    //return n;
+        //}
     }
 
     public class MyClass
