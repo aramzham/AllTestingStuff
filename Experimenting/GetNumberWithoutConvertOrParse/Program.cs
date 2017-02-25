@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace GetNumberWithoutConvertOrParse
 {
@@ -37,19 +38,8 @@ namespace GetNumberWithoutConvertOrParse
             var ar1 = new int[] {1,2,3,4,5};
             var ar2 = new int[] { 1, 2, 3, 4, 5 };
 
-            //if (ar1.Length==ar2.Length)
-            //{
-            //    for (int i = 0; i <ar1.Length; i++)
-            //    {
-            //        if (ar1[i]!=ar2[i])
-            //        {
-            //            Console.WriteLine("havasar chen");
-            //            break;
-            //        }
-            //        if(i==ar1.Length-1) Console.WriteLine("havasar en");
-            //    }
-            //}
-            if(ar1.Any(z=>ar2.Any(y=>z!=y))) Console.WriteLine("not equal");
+            if (ar1.SequenceEqual(ar2)) Console.WriteLine("are equal");
+            if(ArraysEqual(ar1,ar2)) Console.WriteLine("are indeed equal");
 
             //12912314157
             var set = new HashSet<int> {1, 2, 9, 1, 2, 3, 1, 4, 1, 5, 7};
@@ -60,6 +50,20 @@ namespace GetNumberWithoutConvertOrParse
             }
 
             Console.ReadKey();
+        }
+
+        static bool ArraysEqual(int[] ar1, int[] ar2)
+        {
+            //return !ar1.Where((x, i) => x != ar2[i]).Any();
+            if (ar1.Length == ar2.Length)
+            {
+                for (int i = 0; i < ar1.Length; i++)
+                {
+                    if (ar1[i] != ar2[i]) return false;
+                    if (i == ar1.Length - 1) return true;
+                }
+            }
+            return false;
         }
 
         static int Convert(string number)
