@@ -13,41 +13,23 @@ namespace GetNumberWithoutConvertOrParse
             Console.Title = "LINQ + StackOverFlow :-)";
             Console.WriteLine(Convert("123456"));
 
-            var a = new[] { 6, 10, 25, 13, 20, 21, 11, 10, 18, 21 };
-            var b = new[] { 21, 10, 6, 0, 29, 25, 1, 17, 19, 25 };
-            var v = 37;
-            Console.WriteLine(sumOfTwo(a, b, v));
-            var mc = new MyClass { Count = 10 };
-            mc.Count = 35;
+            //var mc = new MyClass { Count = 10 };
+            //mc.Count = 35;
 
-            var nums = new[] { 37, 50, 50, 6, 8, 54, 7, 64, 2, 64, 67, 59, 22, 73, 33, 53, 43, 77, 56, 76, 59, 96, 64, 100, 89, 38, 64, 73, 85, 96, 65, 50, 62, 4, 82, 57, 98, 61, 92, 55, 80, 53, 80, 55, 94, 9, 73, 89, 83, 80 };
-            var m = 67;
-            Console.WriteLine(productExceptSelf(nums, m));
+            ////12912314157
+            //var set = new HashSet<int> { 1, 2, 9, 1, 2, 3, 1, 4, 1, 5, 7 };
+            //var list = set.ToList();
+            //foreach (var i in list)
+            //{
+            //    Console.Write($"{i} ");
+            //}
 
-            var arr = new[] { 1, 2, 3, 4, 5, 0, 0, 0, 6, 7, 8, 9, 10 };
-            var s = 15;
-            Console.WriteLine(findLongestSubarrayBySum(15, arr));
-
-            var str = "eIaOyU";
-            Console.WriteLine(reverseVowelsOfString(str));
-            var x = 12345;
-            Console.WriteLine(reverseInteger(x));
-
-            //var sarr =new[] {"aabcc", "adcaa", "acdba"};
-            //Console.WriteLine(commonCharacterCount2(sarr));
-            var ar1 = new int[] {1,2,3,4,5};
-            var ar2 = new int[] { 1, 2, 3, 4, 5 };
-
-            if (ar1.SequenceEqual(ar2)) Console.WriteLine("are equal");
-            if(ArraysEqual(ar1,ar2)) Console.WriteLine("are indeed equal");
-
-            //12912314157
-            var set = new HashSet<int> {1, 2, 9, 1, 2, 3, 1, 4, 1, 5, 7};
-            var list = set.ToList();
-            foreach (var i in list)
+            var queries = new int[][]
             {
-                Console.Write($"{i} ");
-            }
+                new []{0,0}
+            };
+            var nums = new int[] { -1000 };
+            Console.WriteLine(sumInRange(nums, queries));
 
             Console.ReadKey();
         }
@@ -65,7 +47,6 @@ namespace GetNumberWithoutConvertOrParse
             }
             return false;
         }
-
         static int Convert(string number)
         {
             return number.Select(x => x - '0').Select((t, i) => t * (int)Math.Pow(10, number.Length - i - 1)).Sum();
@@ -225,14 +206,27 @@ namespace GetNumberWithoutConvertOrParse
             }
             return 0;
         }
-        //static int commonCharacterCount2(string[] s)
+        #region Sum in range (:-(()
+        static int sumInRange(int[] nums, int[][] queries) //crashes on hidden tests
+        {
+            var sum = 0;
+            for (int i = 0; i < queries.Length; i++)
+            {
+                sum += nums.ToList().GetRange(queries[i][0], queries[i][1] - queries[i][0] + 1).Sum();
+            }
+            //var sum = queries.Sum(t => nums.ToList().GetRange(t[0], t[1] - t[0] + 1).Sum());
+            return mod(sum,(int)(Math.Pow(10,9)))+7;
+        }
+        static int mod(int x, int m)
+        {
+            return (x % m + m) % m;
+        }
+        //int mod(int x, int m)
         //{
-        //    var left = "aabcc";
-        //    var right = "adcaa";
-        //    var s3 = "acdba";
-        //    //var n = left.GroupBy(c => c).Join(right.GroupBy(c => c), g => g.Key, g => g.Key, (lg, rg) => lg.Zip(rg, (l, r) => l).Count()).Sum();
-        //    //return n;
+        //    int r = x % m;
+        //    return r < 0 ? r + m : r;
         //}
+#endregion
     }
 
     public class MyClass
