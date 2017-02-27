@@ -23,7 +23,7 @@ namespace GetNumberWithoutConvertOrParse
             //{
             //    Console.Write($"{i} ");
             //}
-
+            //to know the length of a number count log(number)+1
             var queries = new int[][]
             {
                 new []{ 0, 2 },
@@ -31,13 +31,7 @@ namespace GetNumberWithoutConvertOrParse
                 new []{ 0, 5 }
             };
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
-            //Console.WriteLine(sumInRange(nums, queries));
-
-            BubbleSort(ref nums);
-            foreach (var num in nums)
-            {
-                Console.Write($"{num} ");
-            }
+            Console.WriteLine(sumInRange(nums, queries));
 
 
             Console.ReadKey();
@@ -215,6 +209,7 @@ namespace GetNumberWithoutConvertOrParse
             }
             return 0;
         }
+        #region Bubble sort
         static void BubbleSort(ref int[] items)
         {
             for (int i = 0; i < items.Length - 1; i++)
@@ -238,9 +233,9 @@ namespace GetNumberWithoutConvertOrParse
                 b = temp;
             }
         }
-
+        #endregion
         #region Sum in range :-((
-        static int sumInRange(int[] nums, int[][] queries) //crashes on hidden tests
+        static int sumInRange(int[] nums, int[][] queries) //crashes on hidden tests, cannot really understand why
         {
             var sum = 0;
             var sums = new int[nums.Length];
@@ -254,14 +249,14 @@ namespace GetNumberWithoutConvertOrParse
             {
                 if (queries[i][0] == 0) total += sums[queries[i][1]];
                 else if (queries[i][1] == 0) total += sums[0];
-                else total += sums[queries[i][1]] - sums[queries[i][0]];
+                else total += sums[queries[i][1]] - sums[queries[i][0]-1];
             }
             //for (int i = 0; i < queries.Length; i++)
             //{
             //    sum += nums.ToList().GetRange(queries[i][0], queries[i][1] - queries[i][0] + 1).Sum();
             //}
             //var sum = queries.Sum(t => nums.ToList().GetRange(t[0], t[1] - t[0] + 1).Sum());
-            return mod(total, (int)(Math.Pow(10, 9))) + 7;
+            return mod(total, (int)(Math.Pow(10, 9)) + 7);
         }
         // static int sumRange(int i, int j)
         //{
