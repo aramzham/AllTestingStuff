@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace GetNumberWithoutConvertOrParse
 {
@@ -32,7 +33,7 @@ namespace GetNumberWithoutConvertOrParse
             };
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             Console.WriteLine(sumInRange(nums, queries));
-
+            Console.WriteLine(columnTitle(1636807827));
 
             Console.ReadKey();
         }
@@ -249,7 +250,7 @@ namespace GetNumberWithoutConvertOrParse
             {
                 if (queries[i][0] == 0) total += sums[queries[i][1]];
                 else if (queries[i][1] == 0) total += sums[0];
-                else total += sums[queries[i][1]] - sums[queries[i][0]-1];
+                else total += sums[queries[i][1]] - sums[queries[i][0] - 1];
             }
             //for (int i = 0; i < queries.Length; i++)
             //{
@@ -279,6 +280,21 @@ namespace GetNumberWithoutConvertOrParse
         //    return r < 0 ? r + m : r;
         //}
         #endregion
+        static string columnTitle(int number)
+        {
+            const string alphabet = "abcdefghijklmnopqrstuvwxyz";
+            var lengthOfLetters = (int)Math.Log(number, alphabet.Length) + 1;
+            var sb = new StringBuilder();
+            var index = 0;
+            for (int i = lengthOfLetters - 1; i >= 0; i--)
+            {
+                index = number / (int)Math.Pow(alphabet.Length, i);
+                sb.Append(index == 0 ? 'z' : alphabet[index - 1]);
+                number %= (int)Math.Pow(alphabet.Length, i);
+            }
+
+            return sb.ToString().ToUpper();
+        }
     }
 
     public class MyClass
