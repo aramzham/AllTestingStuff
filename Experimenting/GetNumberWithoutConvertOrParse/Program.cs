@@ -31,7 +31,14 @@ namespace GetNumberWithoutConvertOrParse
                 new []{ 0, 5 }
             };
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
-            Console.WriteLine(sumInRange(nums, queries));
+            //Console.WriteLine(sumInRange(nums, queries));
+
+            BubbleSort(ref nums);
+            foreach (var num in nums)
+            {
+                Console.Write($"{num} ");
+            }
+
 
             Console.ReadKey();
         }
@@ -208,7 +215,31 @@ namespace GetNumberWithoutConvertOrParse
             }
             return 0;
         }
-        #region Sum in range (:-(()
+        static void BubbleSort(ref int[] items)
+        {
+            for (int i = 0; i < items.Length - 1; i++)
+            {
+                for (int j = 0; j < items.Length - i - 1; j++)
+                {
+                    if (items[j] > items[j + 1])
+                    {
+                        Swap(ref items[j], ref items[j + 1]);
+                    }
+                }
+            }
+        }
+
+        static void Swap<T>(ref T a, ref T b)
+        {
+            if (!Equals(a, b))
+            {
+                T temp = a;
+                a = b;
+                b = temp;
+            }
+        }
+
+        #region Sum in range :-((
         static int sumInRange(int[] nums, int[][] queries) //crashes on hidden tests
         {
             var sum = 0;
