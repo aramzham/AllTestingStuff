@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 using System.Text;
+using static System.Math;
+using static System.DateTime;
 
 namespace GetNumberWithoutConvertOrParse
 {
@@ -34,6 +35,8 @@ namespace GetNumberWithoutConvertOrParse
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             Console.WriteLine(sumInRange(nums, queries));
             Console.WriteLine(columnTitle(1636807827));
+            Console.WriteLine(Sqrt(16)); //using static System.Math written above
+            Console.WriteLine(Today.ToShortDateString()); //using static System.DateTime
 
             Console.ReadKey();
         }
