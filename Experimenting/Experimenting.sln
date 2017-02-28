@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SameBirthDayPossibility", "Ex1\SameBirthDayPossibility.csproj", "{430CCB87-855A-47E1-8FBA-E75387171A5A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationErrorCode", "ApplicationErrorCode\ApplicationErrorCode.csproj", "{67A40462-906D-46CC-B602-89DA0AD25785}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineArguments", "CommandLineArguments\CommandLineArguments.csproj", "{1E71E39C-4F36-4B09-B206-4F2CE35E91D3}"
@@ -12,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattingNumericalData", "FormattingNumericalData\FormattingNumericalData.csproj", "{24D74AC4-2B20-420D-98F3-6861CFED857B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetNumberWithoutConvertOrParse", "GetNumberWithoutConvertOrParse\GetNumberWithoutConvertOrParse.csproj", "{396BB6E8-7DFD-4244-B95D-BC28D8BD99E4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryFinally", "TryFinally\TryFinally.csproj", "{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoBot", "GoBot\GoBot.csproj", "{6D2D133A-3E0B-4860-B269-F192DC142999}"
 EndProject
@@ -23,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{430CCB87-855A-47E1-8FBA-E75387171A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{430CCB87-855A-47E1-8FBA-E75387171A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{430CCB87-855A-47E1-8FBA-E75387171A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{430CCB87-855A-47E1-8FBA-E75387171A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67A40462-906D-46CC-B602-89DA0AD25785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67A40462-906D-46CC-B602-89DA0AD25785}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67A40462-906D-46CC-B602-89DA0AD25785}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -43,10 +35,6 @@ Global
 		{396BB6E8-7DFD-4244-B95D-BC28D8BD99E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{396BB6E8-7DFD-4244-B95D-BC28D8BD99E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{396BB6E8-7DFD-4244-B95D-BC28D8BD99E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94CF6F3A-BE78-40AC-A02C-D8D60F08C9B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D2D133A-3E0B-4860-B269-F192DC142999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D2D133A-3E0B-4860-B269-F192DC142999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D2D133A-3E0B-4860-B269-F192DC142999}.Release|Any CPU.ActiveCfg = Release|Any CPU
