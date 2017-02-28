@@ -37,7 +37,7 @@ namespace GetNumberWithoutConvertOrParse
             Console.WriteLine(columnTitle(1636807827));
             Console.WriteLine(Sqrt(16)); //using static System.Math written above
             Console.WriteLine(Today.ToShortDateString()); //using static System.DateTime
-            Console.WriteLine(countLuckyNumbers(2));
+            Console.WriteLine(countLuckyNumbers(4));
 
             Console.ReadKey();
         }
@@ -299,26 +299,37 @@ namespace GetNumberWithoutConvertOrParse
 
             return sb.ToString().ToUpper();
         }
-        static int countLuckyNumbers(int n)
+#region Count lucky numbers // doesn't work well
+        static int countLuckyNumbers(int n) // 4 - 670, 6 - 55252
         {
             var range = Enumerable.Range(0, (int)Math.Pow(10, n)).ToArray();
             var strNumber = string.Empty;
-            var firstPart = string.Empty;
-            var secondPart = string.Empty;
+            var list = new List<char>();
             var count = 0;
             for (int i = 0; i < range.Length; i++)
             {
-                strNumber = range[i].ToString().Length % 2 == 1 ? range[i].ToString().Insert(0,"0") : range[i].ToString();
-                firstPart = strNumber.Substring(0, strNumber.Length/2);
-                secondPart = strNumber.Substring(strNumber.Length/2, strNumber.Length/2);
-                if (firstPart.Sum(x => x - 48) == secondPart.Sum(x => x - 48)) count++;
+                strNumber = range[i].ToString().PadLeft(n, '0');
+                if (IsLucky(strNumber)) count++;
+                else
+                {
+                    list = strNumber.ToList();
+                    for (int j = 0; j < strNumber.Length - range[i].ToString().Length; j++)
+                    {
+                        list.RemoveAt(0);
+                        if (IsLucky(new string(list.ToArray()))) count++;
+                    }
+                }
             }
             return count;
-            //var N = n.ToString();
-            //n = N.Length / 2;
-            //return N.Substring(n).Sum(_ => _ - '0') == N.Remove(n).Sum(_ => _ - '0');
         }
 
+        private static bool IsLucky(string N)
+        {
+            //if (N.Length % 2 == 1) N = N.Insert(0, "0");
+            var n = N.Length / 2;
+            return N.Substring(n).Sum(x => x - '0') == N.Remove(n).Sum(x => x - '0');
+        }
+#endregion
     }
 
     public class MyClass
