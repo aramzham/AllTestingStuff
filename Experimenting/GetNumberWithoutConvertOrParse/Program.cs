@@ -37,6 +37,7 @@ namespace GetNumberWithoutConvertOrParse
             Console.WriteLine(columnTitle(1636807827));
             Console.WriteLine(Sqrt(16)); //using static System.Math written above
             Console.WriteLine(Today.ToShortDateString()); //using static System.DateTime
+            Console.WriteLine(countLuckyNumbers(2));
 
             Console.ReadKey();
         }
@@ -298,6 +299,26 @@ namespace GetNumberWithoutConvertOrParse
 
             return sb.ToString().ToUpper();
         }
+        static int countLuckyNumbers(int n)
+        {
+            var range = Enumerable.Range(0, (int)Math.Pow(10, n)).ToArray();
+            var strNumber = string.Empty;
+            var firstPart = string.Empty;
+            var secondPart = string.Empty;
+            var count = 0;
+            for (int i = 0; i < range.Length; i++)
+            {
+                strNumber = range[i].ToString().Length % 2 == 1 ? range[i].ToString().Insert(0,"0") : range[i].ToString();
+                firstPart = strNumber.Substring(0, strNumber.Length/2);
+                secondPart = strNumber.Substring(strNumber.Length/2, strNumber.Length/2);
+                if (firstPart.Sum(x => x - 48) == secondPart.Sum(x => x - 48)) count++;
+            }
+            return count;
+            //var N = n.ToString();
+            //n = N.Length / 2;
+            //return N.Substring(n).Sum(_ => _ - '0') == N.Remove(n).Sum(_ => _ - '0');
+        }
+
     }
 
     public class MyClass
