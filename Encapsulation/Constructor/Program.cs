@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Policy;
 
 namespace Constructor
 {
@@ -23,7 +24,8 @@ namespace Constructor
         private string name;
         private int age;
         private bool anotherField;
-
+        private static string yardName;
+        #region Constructors
         public Person(string name, int age) //master contstructor
         {
             Console.WriteLine("Master Ctor");
@@ -51,7 +53,12 @@ namespace Constructor
         {
             Console.WriteLine("Ctor with optional parameters");
         }
-
+#endregion
+        static Person() // static ctor doesn't have an access modifier, doesn't have parameters (can't be overloaded), is called one time (whenever a call to the class is executed), is called before all the other constructors
+        {
+            Console.WriteLine("Static ctor is the first!");
+            yardName = "Masiv";
+        }
         public void SetPersonName(string value)
         {
             name = value;
