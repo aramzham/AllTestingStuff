@@ -362,7 +362,7 @@ namespace GetNumberWithoutConvertOrParse
             }
             return true;
         }
-#region Happy number
+        #region Happy number
         static bool happyNumber(int n)
         {
             //while (true)
@@ -394,6 +394,41 @@ namespace GetNumberWithoutConvertOrParse
             }
             return sum;
         }
-#endregion
+        #endregion
+        static int[] nearestGreater(int[] a)
+        {
+            var leftSteps = 0;
+            var rightSteps = 0;
+            var leftMax = 0;
+            var rightMax = 0;
+            var b = new int[a.Length];
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] == a.Max()) b[i] = -1;
+                if (i!=0)
+                {
+                    for (int j = i; j >= 0; j--) //left
+                    {
+                        if (a[j] > a[i]) //1 ≤ a[i] ≤ 109
+                        {
+                            leftMax = a[j];
+                            leftSteps = i - j;
+                        }
+                    } 
+                }
+                if (i!=a.Length-1)
+                {
+                    for (int k = i; k < a.Length; k++) //right
+                    {
+                        if (a[k] > a[i])
+                        {
+                            rightMax = a[k];
+                            rightSteps = k - i;
+                        }
+                    } 
+                }
+                if()
+            }
+        }
     }
 }
