@@ -24,7 +24,7 @@ namespace GetNumberWithoutConvertOrParse
                 new[] {'.', '.', '.', '.', '.', '7', '.', '.', '.'},
                 new[] {'.', '.', '.', '5', '.', '.', '.', '7', '.'}
             };
-            var nums = new int[] {3, 0, -2, 6, -3, 2};
+            var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             //Console.WriteLine(sumInRange(nums, queries));
             Console.WriteLine(columnTitle(1636807827));
             Console.WriteLine(sudoku2(queries));
@@ -47,7 +47,7 @@ namespace GetNumberWithoutConvertOrParse
         }
         static int Convert(string number)
         {
-            return number.Select(x => x - '0').Select((t, i) => t*(int) Math.Pow(10, number.Length - i - 1)).Sum();
+            return number.Select(x => x - '0').Select((t, i) => t * (int)Math.Pow(10, number.Length - i - 1)).Sum();
         }
         static bool sumOfTwo(int[] a, int[] b, int v)
         {
@@ -75,15 +75,15 @@ namespace GetNumberWithoutConvertOrParse
 
         static int productExceptSelf(int[] nums, int m)
         {
-            var arr = nums.Select(x => ProductWithout(nums)/x).Select(x => x%m).ToArray();
+            var arr = nums.Select(x => ProductWithout(nums) / x).Select(x => x % m).ToArray();
             var sum = arr.Aggregate<BigInteger, BigInteger>(0, (current, bigInteger) => current + bigInteger);
-            var modulus = sum%m;
-            return (int) modulus;
+            var modulus = sum % m;
+            return (int)modulus;
         }
 
         private static BigInteger ProductWithout(int[] array)
         {
-            return array.Aggregate<int, BigInteger>(1, (current, t) => current*t);
+            return array.Aggregate<int, BigInteger>(1, (current, t) => current * t);
         }
 
         #endregion
@@ -95,12 +95,12 @@ namespace GetNumberWithoutConvertOrParse
             {
                 for (int j = i; j < arr.Length; j++)
                 {
-                    if (sum == s) results.Add(new List<int> {i, j});
+                    if (sum == s) results.Add(new List<int> { i, j });
                     sum += arr[j];
                 }
                 sum = 0;
             }
-            return new int[] {};
+            return new int[] { };
         } //not finished
         static string reverseVowelsOfString(string s)
         {
@@ -167,7 +167,7 @@ namespace GetNumberWithoutConvertOrParse
             var queue = new Queue<int>();
             while (abs != 0)
             {
-                queue.Enqueue(abs%10);
+                queue.Enqueue(abs % 10);
                 abs /= 10;
             }
             var degree = Math.Abs(x).ToString().Length - 1;
@@ -175,10 +175,10 @@ namespace GetNumberWithoutConvertOrParse
             var count = queue.Count;
             for (int i = 0; i < count; i++)
             {
-                result += queue.Dequeue()*(int) Math.Pow(10, degree);
+                result += queue.Dequeue() * (int)Math.Pow(10, degree);
                 degree--;
             }
-            return x < 0 ? result*-1 : result;
+            return x < 0 ? result * -1 : result;
             //int result = 0;   //this guy is genius!!!
             //while (x != 0)
             //{
@@ -257,7 +257,7 @@ namespace GetNumberWithoutConvertOrParse
             //    sum += nums.ToList().GetRange(queries[i][0], queries[i][1] - queries[i][0] + 1).Sum();
             //}
             //var sum = queries.Sum(t => nums.ToList().GetRange(t[0], t[1] - t[0] + 1).Sum());
-            return mod(total, (int) (Math.Pow(10, 9)) + 7);
+            return mod(total, (int)(Math.Pow(10, 9)) + 7);
         }
 
         // static int sumRange(int i, int j)
@@ -273,7 +273,7 @@ namespace GetNumberWithoutConvertOrParse
         //    return sum[j] - sum[i - 1];
         static int mod(int x, int m)
         {
-            return (x%m + m)%m;
+            return (x % m + m) % m;
         }
 
         //int mod(int x, int m)
@@ -286,14 +286,14 @@ namespace GetNumberWithoutConvertOrParse
         static string columnTitle(int number)
         {
             const string alphabet = "abcdefghijklmnopqrstuvwxyz";
-            var lengthOfLetters = (int) Math.Log(number, alphabet.Length) + 1;
+            var lengthOfLetters = (int)Math.Log(number, alphabet.Length) + 1;
             var sb = new StringBuilder();
             var index = 0;
             for (int i = lengthOfLetters - 1; i >= 0; i--)
             {
-                index = number/(int) Math.Pow(alphabet.Length, i);
+                index = number / (int)Math.Pow(alphabet.Length, i);
                 sb.Append(index == 0 ? 'z' : alphabet[index - 1]);
-                number %= (int) Math.Pow(alphabet.Length, i);
+                number %= (int)Math.Pow(alphabet.Length, i);
             }
 
             return sb.ToString().ToUpper();
@@ -302,7 +302,7 @@ namespace GetNumberWithoutConvertOrParse
 
         static int countLuckyNumbers(int n) // 4 - 670, 6 - 55252
         {
-            var range = Enumerable.Range(0, (int) Math.Pow(10, n)).ToArray();
+            var range = Enumerable.Range(0, (int)Math.Pow(10, n)).ToArray();
             var strNumber = string.Empty;
             var list = new List<char>();
             var count = 0;
@@ -326,7 +326,7 @@ namespace GetNumberWithoutConvertOrParse
         private static bool IsLucky(string N)
         {
             //if (N.Length % 2 == 1) N = N.Insert(0, "0");
-            var n = N.Length/2;
+            var n = N.Length / 2;
             return N.Substring(n).Sum(x => x - '0') == N.Remove(n).Sum(x => x - '0');
         }
 
@@ -339,7 +339,7 @@ namespace GetNumberWithoutConvertOrParse
             for (int i = 0; i < 9; i++)
             {
                 line = grid.Select(l => l[i]).Where(char.IsDigit);
-                if (line.Any(x=>line.Count(y=>y==x)>1))   //this checks columns
+                if (line.Any(x => line.Count(y => y == x) > 1))   //this checks columns
                     return false;
 
                 column = grid[i].Where(char.IsDigit);
@@ -356,11 +356,34 @@ namespace GetNumberWithoutConvertOrParse
                         rect.Add(grid[y * 3 + i / 3][x * 3 + i % 3]);
                     }
                     rect = rect.Where(char.IsDigit).ToList();
-                    if (rect.Any(a=>rect.Count(b=>b==a)>1))
+                    if (rect.Any(a => rect.Count(b => b == a) > 1))
                         return false;
                 }
             }
             return true;
+        }
+        static bool happyNumber(int n)
+        {
+            while (true)
+            {
+                if (CountDigitSquares(n)==1) return true;
+                n = CountDigitSquares(n);
+            }
+
+            return false;
+        }
+
+        private static int CountDigitSquares(int number)
+        {
+            int sum = 0;
+            int digit;
+            while (number != 0)
+            {
+                digit = number % 10;
+                number /= 10;
+                sum += digit * digit;
+            }
+            return sum;
         }
     }
 }
