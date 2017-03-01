@@ -27,7 +27,7 @@ namespace GetNumberWithoutConvertOrParse
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             //Console.WriteLine(sumInRange(nums, queries));
             Console.WriteLine(columnTitle(1636807827));
-            Console.WriteLine(sudoku2(queries));
+            Console.WriteLine(happyNumber(1111111));
 
             Console.ReadKey();
         }
@@ -362,18 +362,27 @@ namespace GetNumberWithoutConvertOrParse
             }
             return true;
         }
+#region Happy number
         static bool happyNumber(int n)
         {
-            while (true)
+            //while (true)
+            //{
+            //    if (SumDigitSquares(n) == 1) return true;
+            //    if (SumDigitSquares(n) < 10 && SumDigitSquares(n) != 7) return false;
+            //    n = SumDigitSquares(n);
+            //}
+            List<int> done = new List<int>();
+            while (n != 1)
             {
-                if (CountDigitSquares(n)==1) return true;
-                n = CountDigitSquares(n);
+                n = (n + "").Sum(x => (x - '0') * (x - '0'));
+                if (done.Contains(n)) // if you encounter a number that you'd already obtained then return false! MAGIC!
+                    return false;
+                done.Add(n);
             }
-
-            return false;
+            return true;
         }
 
-        private static int CountDigitSquares(int number)
+        private static int SumDigitSquares(int number)
         {
             int sum = 0;
             int digit;
@@ -385,5 +394,6 @@ namespace GetNumberWithoutConvertOrParse
             }
             return sum;
         }
+#endregion
     }
 }
