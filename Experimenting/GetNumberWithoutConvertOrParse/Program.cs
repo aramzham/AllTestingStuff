@@ -12,32 +12,22 @@ namespace GetNumberWithoutConvertOrParse
     {
         static void Main(string[] args)
         {
-            Console.Title = "LINQ + StackOverFlow :-)";
-            Console.WriteLine(Convert("123456"));
-
-            //var mc = new MyClass { Count = 10 };
-            //mc.Count = 35;
-
-            ////12912314157
-            //var set = new HashSet<int> { 1, 2, 9, 1, 2, 3, 1, 4, 1, 5, 7 };
-            //var list = set.ToList();
-            //foreach (var i in list)
-            //{
-            //    Console.Write($"{i} ");
-            //}
-            //to know the length of a number count log(number)+1
-            var queries = new int[][]
+            var queries = new char[][]
             {
-                new[] {0, 2},
-                new[] {2, 5},
-                new[] {0, 5}
+                new[] {'.', '.', '.', '1', '4', '.', '.', '2', '.'},
+                new[] {'.', '.', '6', '.', '.', '.', '.', '.', '.'},
+                new[] {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+                new[] {'.', '.', '1', '.', '.', '.', '.', '.', '.'},
+                new[] {'.', '6', '7', '.', '.', '.', '.', '.', '9'},
+                new[] {'.', '.', '.', '.', '.', '.', '8', '1', '.'},
+                new[] {'.', '3', '.', '.', '.', '.', '.', '.', '6'},
+                new[] {'.', '.', '.', '.', '.', '7', '.', '.', '.'},
+                new[] {'.', '.', '.', '5', '.', '.', '.', '7', '.'}
             };
             var nums = new int[] {3, 0, -2, 6, -3, 2};
-            Console.WriteLine(sumInRange(nums, queries));
+            //Console.WriteLine(sumInRange(nums, queries));
             Console.WriteLine(columnTitle(1636807827));
-            Console.WriteLine(Sqrt(16)); //using static System.Math written above
-            Console.WriteLine(Today.ToShortDateString()); //using static System.DateTime
-            Console.WriteLine(countLuckyNumbers(4));
+            Console.WriteLine(sudoku2(queries));
 
             Console.ReadKey();
         }
@@ -55,12 +45,10 @@ namespace GetNumberWithoutConvertOrParse
             }
             return false;
         }
-
         static int Convert(string number)
         {
             return number.Select(x => x - '0').Select((t, i) => t*(int) Math.Pow(10, number.Length - i - 1)).Sum();
         }
-
         static bool sumOfTwo(int[] a, int[] b, int v)
         {
             //var line = a.Select(x => v - x);
@@ -78,13 +66,11 @@ namespace GetNumberWithoutConvertOrParse
             }
             return false;
         }
-
         static int strstr(string s, string x)
         {
             if (!s.Contains(x)) return -1;
             return s.IndexOf(x, StringComparison.Ordinal);
         }
-
         #region Product except self
 
         static int productExceptSelf(int[] nums, int m)
@@ -101,7 +87,6 @@ namespace GetNumberWithoutConvertOrParse
         }
 
         #endregion
-
         static int[] findLongestSubarrayBySum(int s, int[] arr)
         {
             var results = new List<List<int>>();
@@ -117,7 +102,6 @@ namespace GetNumberWithoutConvertOrParse
             }
             return new int[] {};
         } //not finished
-
         static string reverseVowelsOfString(string s)
         {
             var indexes = new List<int>();
@@ -177,7 +161,6 @@ namespace GetNumberWithoutConvertOrParse
             //                return result;
             //            }
         }
-
         static int reverseInteger(int x)
         {
             var abs = Math.Abs(x);
@@ -205,7 +188,6 @@ namespace GetNumberWithoutConvertOrParse
             //}
             //return result;
         }
-
         static int kthLargestElement(int[] nums, int k)
         {
             var ordered = nums.OrderByDescending(x => x).ToArray();
@@ -214,7 +196,6 @@ namespace GetNumberWithoutConvertOrParse
             //Array.Reverse(nums);
             //return nums[k - 1];
         }
-
         static int higherVersion2(string ver1, string ver2)
         {
             var firstVersion = ver1.Split('.').Select(int.Parse).ToArray();
@@ -226,7 +207,6 @@ namespace GetNumberWithoutConvertOrParse
             }
             return 0;
         }
-
         #region Bubble sort
 
         static void BubbleSort(ref int[] items)
@@ -254,7 +234,6 @@ namespace GetNumberWithoutConvertOrParse
         }
 
         #endregion
-
         #region Sum in range :-((
 
         static int sumInRange(int[] nums, int[][] queries) //crashes on hidden tests, cannot really understand why
@@ -304,7 +283,6 @@ namespace GetNumberWithoutConvertOrParse
         //}
 
         #endregion
-
         static string columnTitle(int number)
         {
             const string alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -320,7 +298,6 @@ namespace GetNumberWithoutConvertOrParse
 
             return sb.ToString().ToUpper();
         }
-
         #region Count lucky numbers // doesn't work well
 
         static int countLuckyNumbers(int n) // 4 - 670, 6 - 55252
@@ -354,86 +331,36 @@ namespace GetNumberWithoutConvertOrParse
         }
 
         #endregion
-
         static bool sudoku2(char[][] grid)
         {
-            //var from1To10 = Enumerable.Range(1, 9).ToList();
-            //var line = new List<int>();
-            //var column = new List<int>();
-            //var square = new List<int>();
-            //var b = true;
-            //var n = 3;
-            //var m = 3;
-            //var startN = 0;
-            //var startM = 0;
-            ////checking all lines & columns
-            //for (int i = 0; i < grid.Length; i++)
-            //{
-            //    column = grid.Select(x => x[i]).ToList();
-            //    line = grid[i].ToList();
-            //    line.Sort();
-            //    column.Sort();
-            //    if (!from1To10.SequenceEqual(line) || !from1To10.SequenceEqual(column)) return false;
-            //}
-            ////checking little squares
-            //do
-            //{
-            //    square.Clear();
-            //    for (int i = startN; i < n; i++)
-            //    {
-            //        for (int j = startM; j < m; j++)
-            //        {
-            //            square.Add(grid[i][j]);
-            //        }
-            //    }
-            //    square.Sort();
-            //    if (!from1To10.SequenceEqual(square)) return false;
-            //    m += 3;
-            //    startM += 3;
-            //    if (m == 12)
-            //    {
-            //        m = 3;
-            //        startM = 0;
-            //        n += 3;
-            //        startN += 3;
-            //    }
-            //} while (n != 12);
-
-            //return b;
             IEnumerable<char> line;
+            IEnumerable<char> column;
+            List<char> rect;
             for (int i = 0; i < 9; i++)
             {
-                line = grid.Select(l => l[i]).OrderBy(x => x).TakeWhile(char.IsDigit);
+                line = grid.Select(l => l[i]).Where(char.IsDigit);
                 if (line.Any(x=>line.Count(y=>y==x)>1))   //this checks columns
                     return false;
 
-                if (grid[i].Distinct().Count() < 9)  //this one - lines
+                column = grid[i].Where(char.IsDigit);
+                if (column.Any(x => column.Count(y => y == x) > 1))  //this one - lines
                     return false;
             }
             for (int x = 0; x < 3; x++)      // this is for squares
             {
                 for (int y = 0; y < 3; y++)
                 {
-                    List<int> rect = new List<int>();
+                    rect = new List<char>();
                     for (int i = 0; i < 9; i++)
                     {
                         rect.Add(grid[y * 3 + i / 3][x * 3 + i % 3]);
                     }
-
-                    if (rect.Distinct().Count() < 9)
+                    rect = rect.Where(char.IsDigit).ToList();
+                    if (rect.Any(a=>rect.Count(b=>b==a)>1))
                         return false;
                 }
             }
-        }
-    }
-
-    public class MyClass
-    {
-        private int count;
-        public int Count
-        {
-            get { return count; }
-            set { if (value > 20) count = value; }
+            return true;
         }
     }
 }
