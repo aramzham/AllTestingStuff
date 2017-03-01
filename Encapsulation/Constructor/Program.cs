@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Console;
 
 namespace Constructor
 {
@@ -10,6 +11,7 @@ namespace Constructor
             Person p2 = new Person("Aram");
             Person p3 = new Person(27);
             p3.SetPersonName("Gvidon");
+            WriteLine(p3);
             Person p4 = new Person("Narek", 26);
             Person p5 = new Person(); //default ctor is called, not the one with optional parameters
             Person p6 = new Person(anotherField: true, age: 55);
