@@ -633,10 +633,38 @@ namespace GetNumberWithoutConvertOrParse
 
             var result = new int[a.Length];
             var rightSide = new Stack<int>();
-            for (int i = a.Length - 1; i >= 0; i--)
+            var remainder = new Stack<int>();
+            for (int i = a.Length - 1; i >= 1; i--)
             {
                 rightSide.Push(a[i]);
             }
+            for (int i = 0; i < a.Length - 1; i++)
+            {
+                if (a[i] < rightSide.Peek()) result[i] = rightSide.Pop();
+                else
+                {
+                    while (rightSide.Count != 0 && rightSide.Peek() <= a[i])
+                    {
+                        remainder.Push(rightSide.Pop());
+                    }
+                    if (rightSide.Count == 0) result[i] = -1;
+                    else result[i] = rightSide.Peek();
+                    while (remainder.Count != 0)
+                    {
+                        rightSide.Push(remainder.Pop());
+                    }
+                    rightSide.Pop();
+                }
+            }
+            result[a.Length - 1] = -1;
+            return result;
+
+            //for (int i = 0, j; i < a.Length; i++)  // who is this guy?
+            //{
+            //    for (j = i + 1; j < a.Length && a[i] > a[j]; j++) ;
+            //    a[i] = j < a.Length ? a[j] : -1;
+            //}
+            //return a;
         }
     }
 }
