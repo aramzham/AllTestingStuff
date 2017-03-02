@@ -12,22 +12,18 @@ namespace GetNumberWithoutConvertOrParse
     {
         static void Main(string[] args)
         {
-            var queries = new char[][]
+            var queries = new int[][]
             {
-                new[] {'.', '.', '.', '1', '4', '.', '.', '2', '.'},
-                new[] {'.', '.', '6', '.', '.', '.', '.', '.', '.'},
-                new[] {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-                new[] {'.', '.', '1', '.', '.', '.', '.', '.', '.'},
-                new[] {'.', '6', '7', '.', '.', '.', '.', '.', '9'},
-                new[] {'.', '.', '.', '.', '.', '.', '8', '1', '.'},
-                new[] {'.', '3', '.', '.', '.', '.', '.', '.', '6'},
-                new[] {'.', '.', '.', '.', '.', '7', '.', '.', '.'},
-                new[] {'.', '.', '.', '5', '.', '.', '.', '7', '.'}
+                new[] { 33, 29,-15,-20,-41, -1, 34, 20,-41,44},
+                new[] { 14,-11,-27,-35, 29,-14, 34,-41, 49,19},
+                new[] {-12,-44, 44,-43,-13, -6, 40,-24, -6, 8},
+                new[] {-40,  4, 27,  2,  2, 15, 38,  4,-13,15},
+                new[] {-42,  3,  5, 10, 15, 34,-18,-22,  9,38}
             };
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             //Console.WriteLine(sumInRange(nums, queries));
             Console.WriteLine(columnTitle(1636807827));
-            foreach (var item in nearestGreater(new[] { 1, 4, 2, 1, 7, 6 }))
+            foreach (var item in matrixElementsInSpiralOrder(queries))
             {
                 Console.Write($"{item} ");
             }
@@ -448,47 +444,137 @@ namespace GetNumberWithoutConvertOrParse
         }
         static int[] matrixElementsInSpiralOrder(int[][] matrix)
         {
+            if (matrix.Length == 0) return new int[] { };
+
             var result = new int[matrix.Length * matrix[0].Length];
-            var k = 0;
+            var k = -1;
             var i = 0;
             var j = 0;
 
             while (true)
             {
-                while (j < matrix[i].Length && matrix[i][j] == default(int)) //right
+                while (j < matrix[i].Length && k < result.Length - 1 && matrix[i][j]!=-1001) //right
                 {
-                    result[k++] = matrix[i][j];
+                    result[++k] = matrix[i][j];
+                    matrix[i][j] = -1001; //-1000 ≤ matrix[i][j] ≤ 1000
                     j++;
                 }
-                if (matrix.All(x => x.All(a => a != default(int)))) break;
+                if (matrix.All(x => x.All(a => a == -1001))) break;
                 j--;
                 i++;
-                while (i != matrix.Length && matrix[i][j] == default(int)) //down
+                while (i != matrix.Length && k < result.Length - 1 && matrix[i][j] != -1001) //down
                 {
-                    result[k++] = matrix[i][j];
+                    result[++k] = matrix[i][j];
+                    matrix[i][j] = -1001; //-1000 ≤ matrix[i][j] ≤ 1000
                     i++;
                 }
-                if (matrix.All(x => x.All(a => a != default(int)))) break;
+                if (matrix.All(x => x.All(a => a == -1001))) break;
                 j--;
                 i--;
-                while (j >= 0 && matrix[i][j] == default(int)) //left
+                while (j >= 0 && k < result.Length - 1 && matrix[i][j] != -1001) //left
                 {
-                    result[k++] = matrix[i][j];
+                    result[++k] = matrix[i][j];
+                    matrix[i][j] = -1001; //-1000 ≤ matrix[i][j] ≤ 1000
                     j--;
                 }
-                if (matrix.All(x => x.All(a => a != default(int)))) break;
+                if (matrix.All(x => x.All(a => a == -1001))) break;
                 j++;
                 i--;
-                while (i > 0 && matrix[i][j] == default(int)) //up
+                while (i > 0 && k < result.Length - 1 && matrix[i][j] != -1001) //up
                 {
-                    result[k++] = matrix[i][j];
+                    result[++k] = matrix[i][j];
+                    matrix[i][j] = -1001; //-1000 ≤ matrix[i][j] ≤ 1000
                     i--;
                 }
                 i++;
                 j++;
-                if (matrix.All(x => x.All(a => a != default(int)))) break;
+                if (matrix.All(x => x.All(a => a == -1001))) break;
             }
             return result;
+            //if (matrix.Length == 0) //amazing solution!!!
+            //    return new int[0];
+
+            //string currentDirection = "Right";
+            //int xIndex = 0;
+            //int yIndex = 0;
+            //int leftLimit = 0;
+            //int rightLimit = matrix[0].Length - 1;
+            //int upLimit = 0;
+            //int downLimit = matrix.Length - 1;
+            //int counter = 0;
+            //int totalElements = matrix.Length * matrix[0].Length;
+            //int[] spiralArray = new int[totalElements];
+
+            //while (counter < totalElements)
+            //{
+            //    spiralArray[counter] = matrix[yIndex][xIndex];
+
+            //    switch (currentDirection)
+            //    {
+            //        case "Right":
+            //            if (xIndex < rightLimit)
+            //                xIndex++;
+            //            else
+            //            {
+            //                currentDirection = "Down";
+            //                yIndex++;
+            //                upLimit++;
+            //            }
+            //            break;
+            //        case "Left":
+            //            if (xIndex > leftLimit)
+            //                xIndex--;
+            //            else
+            //            {
+            //                currentDirection = "Up";
+            //                yIndex--;
+            //                downLimit--;
+            //            }
+            //            break;
+            //        case "Up":
+            //            if (yIndex > upLimit)
+            //                yIndex--;
+            //            else
+            //            {
+            //                currentDirection = "Right";
+            //                xIndex++;
+            //                leftLimit++;
+            //            }
+            //            break;
+            //        case "Down":
+            //            if (yIndex < downLimit)
+            //                yIndex++;
+            //            else
+            //            {
+            //                currentDirection = "Left";
+            //                xIndex--;
+            //                rightLimit--;
+            //            }
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //    counter++;
+            //}
+
+            //return spiralArray;
+
+            //int rows = matrix.Length, cols = matrix.Length > 0 ? matrix[0].Length : 0; //shortest one i've ever seen
+            //var elements = new int[rows * cols];
+            //for (int level = 0, i = 0; rows > 0 && cols > 0; cols -= 2)
+            //{
+            //    var ring = matrix[level].Skip(level++).Take(cols)
+            //        .Concat(matrix.Skip(level).Take(rows -= 2).Select(_ => _[level + cols - 2]));
+            //    if (rows >= 0)
+            //        ring = ring.Concat(matrix[level + rows].Skip(level - 1).Take(cols).Reverse());
+            //    if (cols > 1)
+            //        ring = ring.Concat(matrix.Skip(level).Take(rows).Select(_ => _[level - 1]).Reverse());
+            //    foreach (var e in ring)
+            //    {
+            //        elements[i++] = e;
+            //    }
+            //}
+            //return elements;
         }
     }
 }
