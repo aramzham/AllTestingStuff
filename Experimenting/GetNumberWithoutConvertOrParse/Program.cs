@@ -22,10 +22,11 @@ namespace GetNumberWithoutConvertOrParse
             };
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             //Console.WriteLine(sumInRange(nums, queries));
-            foreach (var VARIABLE in nextLarger(new int[] { 10, 3, 12, 4, 2, 9, 13, 0, 8, 11, 1, 7, 5, 6 }))
-            {
-                Console.Write($"{VARIABLE} ");
-            }
+            //foreach (var VARIABLE in nextLarger(new int[] { 10, 3, 12, 4, 2, 9, 13, 0, 8, 11, 1, 7, 5, 6 }))
+            //{
+            //    Console.Write($"{VARIABLE} ");
+            //}
+            Console.WriteLine(removeDuplicateAdjacent("cooodefightssforrrcodee"));
 
             Console.ReadKey();
         }
@@ -665,6 +666,24 @@ namespace GetNumberWithoutConvertOrParse
             //    a[i] = j < a.Length ? a[j] : -1;
             //}
             //return a;
+        }
+        static string removeDuplicateAdjacent(string s)
+        {
+            //char current; //all this is shit  try - "mississipie"
+            //var charray = s.ToCharArray();
+            //for (int i = 0; i < s.Length-1; i++)
+            //{
+            //    if (s[i] == s[i + 1])
+            //    {
+            //        current = s[i];
+            //        for (int j = i; j < s.Length; j++)
+            //        {
+            //            if(s[j]==current) charray[j]=default(char);
+            //            else break;
+            //        }
+            //    }
+            //}
+            //return new string(charray.Where(x=>x!=default(char)).ToArray());
         }
     }
 }
