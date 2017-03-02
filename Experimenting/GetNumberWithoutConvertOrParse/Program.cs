@@ -27,8 +27,10 @@ namespace GetNumberWithoutConvertOrParse
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             //Console.WriteLine(sumInRange(nums, queries));
             Console.WriteLine(columnTitle(1636807827));
-            Console.WriteLine(happyNumber(1111111));
-
+            foreach (var item in nearestGreater(new []{ 1, 4, 2, 1, 7, 6 }))
+            {
+                Console.Write($"{item} ");
+            }
             Console.ReadKey();
         }
 
@@ -416,18 +418,20 @@ namespace GetNumberWithoutConvertOrParse
                             indexOfLeftMax = j;
                             leftMax = a[j];
                             leftSteps = i - j;
+                            break;
                         }
                     } 
                 }
                 if (i!=a.Length-1)
                 {
-                    for (int k = i; k < a.Length; k++) //right
+                    for (int k = i+1; k < a.Length; k++) //right
                     {
                         if (a[k] > a[i])
                         {
                             indexOfRightMax = k;
                             rightMax = a[k];
                             rightSteps = k - i;
+                            break;
                         }
                     } 
                 }
