@@ -453,7 +453,7 @@ namespace GetNumberWithoutConvertOrParse
 
             while (true)
             {
-                while (j < matrix[i].Length && k < result.Length - 1 && matrix[i][j]!=-1001) //right
+                while (j < matrix[i].Length && k < result.Length - 1 && matrix[i][j] != -1001) //right
                 {
                     result[++k] = matrix[i][j];
                     matrix[i][j] = -1001; //-1000 ≤ matrix[i][j] ≤ 1000
@@ -575,6 +575,20 @@ namespace GetNumberWithoutConvertOrParse
             //    }
             //}
             //return elements;
+        }
+        static int excelSheetColumnNumber(string s)
+        {
+            return s.Select((c, i) => (c - 'A' + 1) * (int)Math.Pow(26, s.Length - i - 1)).Sum();
+
+            //int sum = 0;
+            //for (int i = 0; i < s.Length; i++)
+            //{
+            //    sum *= 26;
+            //    sum += (s[i] - 'A' + 1);
+            //}
+            //return sum;
+
+            //return s.ToCharArray().Select(c => c - 'A' + 1).Reverse().Select((v, i) => v * (int)Math.Pow(26, i)).Sum();
         }
     }
 }
