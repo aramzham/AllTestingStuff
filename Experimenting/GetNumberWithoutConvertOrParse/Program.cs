@@ -27,7 +27,7 @@ namespace GetNumberWithoutConvertOrParse
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             //Console.WriteLine(sumInRange(nums, queries));
             Console.WriteLine(columnTitle(1636807827));
-            foreach (var item in nearestGreater(new []{ 1, 4, 2, 1, 7, 6 }))
+            foreach (var item in nearestGreater(new[] { 1, 4, 2, 1, 7, 6 }))
             {
                 Console.Write($"{item} ");
             }
@@ -409,7 +409,7 @@ namespace GetNumberWithoutConvertOrParse
             for (int i = 0; i < a.Length; i++)
             {
                 if (a[i] == a.Max()) b[i] = -1;
-                if (i!=0)
+                if (i != 0)
                 {
                     for (int j = i; j >= 0; j--) //left
                     {
@@ -420,11 +420,11 @@ namespace GetNumberWithoutConvertOrParse
                             leftSteps = i - j;
                             break;
                         }
-                    } 
+                    }
                 }
-                if (i!=a.Length-1)
+                if (i != a.Length - 1)
                 {
-                    for (int k = i+1; k < a.Length; k++) //right
+                    for (int k = i + 1; k < a.Length; k++) //right
                     {
                         if (a[k] > a[i])
                         {
@@ -433,7 +433,7 @@ namespace GetNumberWithoutConvertOrParse
                             rightSteps = k - i;
                             break;
                         }
-                    } 
+                    }
                 }
                 if (leftMax != 0 && rightMax != 0)
                 {
@@ -445,6 +445,50 @@ namespace GetNumberWithoutConvertOrParse
                 leftMax = rightMax = 0;
             }
             return b;
+        }
+        static int[] matrixElementsInSpiralOrder(int[][] matrix)
+        {
+            var result = new int[matrix.Length * matrix[0].Length];
+            var k = 0;
+            var i = 0;
+            var j = 0;
+
+            while (true)
+            {
+                while (j < matrix[i].Length && matrix[i][j] == default(int)) //right
+                {
+                    result[k++] = matrix[i][j];
+                    j++;
+                }
+                if (matrix.All(x => x.All(a => a != default(int)))) break;
+                j--;
+                i++;
+                while (i != matrix.Length && matrix[i][j] == default(int)) //down
+                {
+                    result[k++] = matrix[i][j];
+                    i++;
+                }
+                if (matrix.All(x => x.All(a => a != default(int)))) break;
+                j--;
+                i--;
+                while (j >= 0 && matrix[i][j] == default(int)) //left
+                {
+                    result[k++] = matrix[i][j];
+                    j--;
+                }
+                if (matrix.All(x => x.All(a => a != default(int)))) break;
+                j++;
+                i--;
+                while (i > 0 && matrix[i][j] == default(int)) //up
+                {
+                    result[k++] = matrix[i][j];
+                    i--;
+                }
+                i++;
+                j++;
+                if (matrix.All(x => x.All(a => a != default(int)))) break;
+            }
+            return result;
         }
     }
 }
