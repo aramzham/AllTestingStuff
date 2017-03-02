@@ -400,7 +400,9 @@ namespace GetNumberWithoutConvertOrParse
             var leftSteps = 0;
             var rightSteps = 0;
             var leftMax = 0;
+            var indexOfLeftMax = 0;
             var rightMax = 0;
+            var indexOfRightMax = 0;
             var b = new int[a.Length];
             for (int i = 0; i < a.Length; i++)
             {
@@ -411,6 +413,7 @@ namespace GetNumberWithoutConvertOrParse
                     {
                         if (a[j] > a[i]) //1 ≤ a[i] ≤ 109
                         {
+                            indexOfLeftMax = j;
                             leftMax = a[j];
                             leftSteps = i - j;
                         }
@@ -422,13 +425,22 @@ namespace GetNumberWithoutConvertOrParse
                     {
                         if (a[k] > a[i])
                         {
+                            indexOfRightMax = k;
                             rightMax = a[k];
                             rightSteps = k - i;
                         }
                     } 
                 }
-                if()
+                if (leftMax != 0 && rightMax != 0)
+                {
+                    if (leftSteps > rightSteps) b[i] = indexOfRightMax;
+                    else b[i] = indexOfLeftMax;
+                }
+                if (leftMax == 0 && rightMax != 0) b[i] = indexOfRightMax;
+                if (leftMax != 0 && rightMax == 0) b[i] = indexOfLeftMax;
+                leftMax = rightMax = 0;
             }
+            return b;
         }
     }
 }
