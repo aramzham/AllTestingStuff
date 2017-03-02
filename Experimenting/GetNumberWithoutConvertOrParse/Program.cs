@@ -22,11 +22,11 @@ namespace GetNumberWithoutConvertOrParse
             };
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             //Console.WriteLine(sumInRange(nums, queries));
-            Console.WriteLine(columnTitle(1636807827));
-            foreach (var item in matrixElementsInSpiralOrder(queries))
+            foreach (var VARIABLE in nextLarger(new int[] { 10, 3, 12, 4, 2, 9, 13, 0, 8, 11, 1, 7, 5, 6 }))
             {
-                Console.Write($"{item} ");
+                Console.Write($"{VARIABLE} ");
             }
+
             Console.ReadKey();
         }
 
@@ -619,6 +619,24 @@ namespace GetNumberWithoutConvertOrParse
             //return sum;
 
             //return s.ToCharArray().Select(c => c - 'A' + 1).Reverse().Select((v, i) => v * (int)Math.Pow(26, i)).Sum();
+        }
+        static int[] nextLarger(int[] a)
+        {
+            //var result = new int[a.Length];
+            //for (int i = 0; i < a.Length; i++)
+            //{
+            //    if (i == a.Length -1) result[i] = -1;
+            //    if (a.ToList().GetRange(i, a.Length - i).All(x => x <= a[i])) result[i] = -1;
+            //    else result[i] = a.ToList().GetRange(i, a.Length - i).First(x => x > a[i]);
+            //}
+            //return result;
+
+            var result = new int[a.Length];
+            var rightSide = new Stack<int>();
+            for (int i = a.Length - 1; i >= 0; i--)
+            {
+                rightSide.Push(a[i]);
+            }
         }
     }
 }
