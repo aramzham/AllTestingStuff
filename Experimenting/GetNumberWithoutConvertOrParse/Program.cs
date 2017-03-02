@@ -283,18 +283,48 @@ namespace GetNumberWithoutConvertOrParse
         #endregion
         static string columnTitle(int number)
         {
-            const string alphabet = "abcdefghijklmnopqrstuvwxyz";
-            var lengthOfLetters = (int)Math.Log(number, alphabet.Length) + 1;
-            var sb = new StringBuilder();
-            var index = 0;
-            for (int i = lengthOfLetters - 1; i >= 0; i--)
-            {
-                index = number / (int)Math.Pow(alphabet.Length, i);
-                sb.Append(index == 0 ? 'z' : alphabet[index - 1]);
-                number %= (int)Math.Pow(alphabet.Length, i);
-            }
+            //const string alphabet = "abcdefghijklmnopqrstuvwxyz";
+            //var lengthOfLetters = (int)Math.Log(number, alphabet.Length) + 1;
+            //var sb = new StringBuilder();
+            //var index = 0;
+            //for (int i = lengthOfLetters - 1; i >= 0; i--)
+            //{
+            //    index = number / (int)Math.Pow(alphabet.Length, i);
+            //    sb.Append(index == 0 ? 'z' : alphabet[index - 1]);
+            //    number %= (int)Math.Pow(alphabet.Length, i);
+            //}
 
-            return sb.ToString().ToUpper();
+            //return sb.ToString().ToUpper();
+
+            string columnString = "";
+            decimal columnNumber = number;
+            while (columnNumber > 0)
+            {
+                decimal currentLetterNumber = (columnNumber - 1) % 26;
+                char currentLetter = (char)(currentLetterNumber + 65);
+                columnString = currentLetter + columnString;
+                columnNumber = (columnNumber - (currentLetterNumber + 1)) / 26;
+            }
+            return columnString;
+
+            //string r = "";
+            //while (n > 0)
+            //{
+            //    int m = (n - 1) % 26;
+            //    r = (char)(65 + m) + r;
+            //    n = (n - m) / 26;
+            //}
+            //return r;
+
+            //n--;
+            //var s = "";
+            //while (n > -1)
+            //{
+            //    s = Convert.ToChar(n % 26 + 'A') + s;
+            //    n /= 26;
+            //    n--;
+            //}
+            //return s;
         }
         #region Count lucky numbers // doesn't work well
 
