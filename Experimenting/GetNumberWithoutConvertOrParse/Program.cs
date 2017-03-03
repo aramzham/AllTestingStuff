@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using static System.Math;
 using static System.DateTime;
@@ -27,6 +28,7 @@ namespace GetNumberWithoutConvertOrParse
             //    Console.Write($"{VARIABLE} ");
             //}
             Console.WriteLine(removeDuplicateAdjacent("cooodefightssforrrcodee"));
+            Console.WriteLine(sortByString("wcptedsgaisegdxpestczpxat", "svldchawotingexpufzrk"));  //"sssddccaawtttiggeeexxpppz"
 
             Console.ReadKey();
         }
@@ -684,6 +686,28 @@ namespace GetNumberWithoutConvertOrParse
             //    }
             //}
             //return new string(charray.Where(x=>x!=default(char)).ToArray());
+            return null;
+        }
+
+        static string sortByString(string s, string t)
+        {
+            var intersect = t.Intersect(s).ToArray();
+            var resultString =new string(intersect);
+            var length = 0;
+            var substring = string.Empty;
+            var indexOfChar = 0;
+            var sDistinct = s.Distinct().ToArray();
+            //var result = new List<>();
+            for (int i = 0; i < sDistinct.Length; i++)
+            {
+                //if(s.Count(c=>c==s[i])==1) continue;
+                indexOfChar = Array.IndexOf(intersect, s[i]);
+                length = s.Count(c => c == sDistinct[i]);
+                substring = new string(Enumerable.Repeat(s[i], length - 1).ToArray());
+                resultString = resultString.Insert(indexOfChar, substring);
+            }
+
+            return resultString;
         }
     }
 }
