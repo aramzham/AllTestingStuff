@@ -13,14 +13,16 @@ namespace GetNumberWithoutConvertOrParse
     {
         static void Main(string[] args)
         {
-            var queries = new int[][]
+            var queries = new char[][]
             {
-                new[] { 33, 29,-15,-20,-41, -1, 34, 20,-41,44},
-                new[] { 14,-11,-27,-35, 29,-14, 34,-41, 49,19},
-                new[] {-12,-44, 44,-43,-13, -6, 40,-24, -6, 8},
-                new[] {-40,  4, 27,  2,  2, 15, 38,  4,-13,15},
-                new[] {-42,  3,  5, 10, 15, 34,-18,-22,  9,38}
+                new[] {'O','2'},
+                new[] {'T','4'},
+                new[] {'W','6'},
+                new[] {'E','1'},
+                new[] {'N','3'}
             };
+            var crypt = new string[] { "ONE", "ONE", "TWO" };
+            Console.WriteLine(isCryptSolution(crypt, queries));
             var nums = new int[] { 3, 0, -2, 6, -3, 2 };
             //Console.WriteLine(sumInRange(nums, queries));
             //foreach (var VARIABLE in nextLarger(new int[] { 10, 3, 12, 4, 2, 9, 13, 0, 8, 11, 1, 7, 5, 6 }))
@@ -28,7 +30,6 @@ namespace GetNumberWithoutConvertOrParse
             //    Console.Write($"{VARIABLE} ");
             //}
             Console.WriteLine(removeDuplicateAdjacent("cooodefightssforrrcodee"));
-            Console.WriteLine(sortByString("wcptedsgaisegdxpestczpxat", "svldchawotingexpufzrk"));  //"sssddccaawtttiggeeexxpppz"
 
             Console.ReadKey();
         }
@@ -691,23 +692,62 @@ namespace GetNumberWithoutConvertOrParse
 
         static string sortByString(string s, string t)
         {
-            var intersect = t.Intersect(s).ToArray();
-            var resultString =new string(intersect);
-            var length = 0;
-            var substring = string.Empty;
-            var indexOfChar = 0;
-            var sDistinct = s.Distinct().ToArray();
-            //var result = new List<>();
-            for (int i = 0; i < sDistinct.Length; i++)
-            {
-                //if(s.Count(c=>c==s[i])==1) continue;
-                indexOfChar = Array.IndexOf(intersect, s[i]);
-                length = s.Count(c => c == sDistinct[i]);
-                substring = new string(Enumerable.Repeat(s[i], length - 1).ToArray());
-                resultString = resultString.Insert(indexOfChar, substring);
-            }
+            //string p = "";
+            //foreach (char c in t)
+            //{
+            //    for (int a = 0; a < s.Split(c).Length - 1; a++)
+            //        p += c;
+            //}
+            //return p;
 
-            return resultString;
+            //return t.Aggregate("", (current, c) => current + new string(s.Where(x => x == c).ToArray()));  //what about this one-liner?! :D
+
+            //return new string(s.OrderBy(t.IndexOf).ToArray()); // another one?
+
+            var intersect = t.Intersect(s).ToArray();
+            var counts = new int[intersect.Length];
+            var listOfChars = new List<char>();
+            for (int i = 0; i < counts.Length; i++)
+            {
+                counts[i] = s.Count(c => c == intersect[i]);
+            }
+            for (int i = 0; i < counts.Length; i++)
+            {
+                listOfChars.AddRange(Enumerable.Repeat(intersect[i], counts[i]));
+            }
+            return new string(listOfChars.ToArray());
+
+            //var g = s.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
+            //string res = "";
+            //foreach (var c in t)
+            //{
+            //    if (g.ContainsKey(c))
+            //    {
+            //        res += new string(c, g[c]);
+            //    }
+            //}
+            //return res;
+        }
+        static bool isCryptSolution(string[] crypt, char[][] solution)
+        {
+            var digits = new[] { new char[crypt[0].Length], new char[crypt[1].Length], new char[crypt[2].Length] };
+            var lettersInMap = solution.Select(x => x[0]).ToArray();
+            var indexOfLetter = 0;
+            for (int i = 0; i < crypt.Length; i++)
+            {
+                for (int j = 0; j < crypt[i].Length; j++)
+                {
+                    indexOfLetter = Array.IndexOf(lettersInMap, crypt[i][j]);
+                    digits[i][j] = solution[indexOfLetter][1];
+                }
+            }
+            foreach (var digit in digits)
+            {
+                if (digit.Length == 1) continue;
+                if (digit[0] == '0') return false;
+            }
+            var numbers = digits.Select(x => int.Parse(new string(x))).ToArray();
+            return numbers[0] + numbers[1] == numbers[2];
         }
     }
 }
