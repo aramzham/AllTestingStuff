@@ -29,7 +29,7 @@ namespace GetNumberWithoutConvertOrParse
             //{
             //    Console.Write($"{VARIABLE} ");
             //}
-            Console.WriteLine(removeDuplicateAdjacent("cooodefightssforrrcodee"));
+            Console.WriteLine(removeDuplicateAdjacent("acaaabbbacdddd")); //mississipie
 
             Console.ReadKey();
         }
@@ -672,22 +672,25 @@ namespace GetNumberWithoutConvertOrParse
         }
         static string removeDuplicateAdjacent(string s)
         {
-            //char current; //all this is shit  try - "mississipie"
-            //var charray = s.ToCharArray();
-            //for (int i = 0; i < s.Length-1; i++)
-            //{
-            //    if (s[i] == s[i + 1])
-            //    {
-            //        current = s[i];
-            //        for (int j = i; j < s.Length; j++)
-            //        {
-            //            if(s[j]==current) charray[j]=default(char);
-            //            else break;
-            //        }
-            //    }
-            //}
-            //return new string(charray.Where(x=>x!=default(char)).ToArray());
-            return null;
+            char current;
+            for (int i = 0; i < s.Length - 1; i++)
+            {
+                if (s[i] == s[i + 1])
+                {
+                    current = s[i];
+                    for (int j = i; j < s.Length; j++)
+                    {
+                        if (s[j] == current)
+                        {
+                            s = s.Remove(j, 1);
+                            j--;
+                        }
+                        else break;
+                    }
+                    removeDuplicateAdjacent(s);
+                }
+            }
+            return s;
         }
 
         static string sortByString(string s, string t)
@@ -748,6 +751,6 @@ namespace GetNumberWithoutConvertOrParse
             }
             var numbers = digits.Select(x => int.Parse(new string(x))).ToArray();
             return numbers[0] + numbers[1] == numbers[2];
-        }
+        } // doesn't pass hidden tests 
     }
 }
