@@ -30,6 +30,7 @@ namespace GetNumberWithoutConvertOrParse
             //    Console.Write($"{VARIABLE} ");
             //}
             Console.WriteLine(stringReformatting("2-4a0r7-4k", 3));
+            Console.WriteLine(strstr("CodefightsIsAwesome", "IA"));
 
             Console.ReadKey();
         }
@@ -70,8 +71,23 @@ namespace GetNumberWithoutConvertOrParse
         }
         static int strstr(string s, string x)
         {
-            if (!s.Contains(x)) return -1;
-            return s.IndexOf(x, StringComparison.Ordinal);
+            var found = true;
+            for (int i = 0; i <= s.Length - x.Length; i++)
+            {
+                if (s[i] == x[0])
+                {
+                    for (int j = i + 1; j < x.Length; j++)
+                    {
+                        if (s[j] != x[j - i])
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+                    if (found) return i;
+                }
+            }
+            return -1;
         }
         #region Product except self
 
