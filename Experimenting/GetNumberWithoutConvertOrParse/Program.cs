@@ -29,7 +29,7 @@ namespace GetNumberWithoutConvertOrParse
             //{
             //    Console.Write($"{VARIABLE} ");
             //}
-            Console.WriteLine(removeDuplicateAdjacent("acaaabbbacdddd")); //mississipie
+            Console.WriteLine(removeDuplicateAdjacent("z")); //mississipie
 
             Console.ReadKey();
         }
@@ -670,14 +670,15 @@ namespace GetNumberWithoutConvertOrParse
             //}
             //return a;
         }
+#region Remove Duplicate Adjacent
         static string removeDuplicateAdjacent(string s)
         {
-            var current = s[0];
+            var current = default(char);
             var word = string.Empty;
-            for (int i = 0; i < s.Length - 1; i++)
+            for (int i = 0; i < s.Length; i++)
             {
                 if (s[i] == current) continue;
-                if (s[i] != s[i + 1]) word += s[i];
+                if (i == s.Length - 1 || s[i] != s[i + 1]) word += s[i];
                 else
                 {
                     current = s[i];
@@ -729,7 +730,7 @@ namespace GetNumberWithoutConvertOrParse
         //    }
         //    return s;
         //}
-
+#endregion // only Van's solution works properly
         static string sortByString(string s, string t)
         {
             //string p = "";
@@ -789,5 +790,9 @@ namespace GetNumberWithoutConvertOrParse
             var numbers = digits.Select(x => int.Parse(new string(x))).ToArray();
             return numbers[0] + numbers[1] == numbers[2];
         } // doesn't pass hidden tests 
+        static string reverseSentence(string sentence)
+        {
+            return string.Join("", sentence.Split(' ').Reverse().ToArray());
+        }
     }
 }
