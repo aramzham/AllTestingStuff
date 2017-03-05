@@ -29,7 +29,7 @@ namespace GetNumberWithoutConvertOrParse
             //{
             //    Console.Write($"{VARIABLE} ");
             //}
-            Console.WriteLine(removeDuplicateAdjacent("acaaabbbacdddd")); //mississipie
+            Console.WriteLine(removeDuplicateAdjacent("z")); //mississipie
 
             Console.ReadKey();
         }
@@ -670,23 +670,40 @@ namespace GetNumberWithoutConvertOrParse
             //}
             //return a;
         }
+        //static string removeDuplicateAdjacent(string s)
+        //{
+        //    char current;
+        //    var list = new List<string>();
+        //    for (int i = 0; i < s.Length - 1; i++)
+        //    {
+        //        if (s[i] == s[i + 1])
+        //        {
+        //            current = s[i];
+        //            while (i!=s.Length && s[i]==current)
+        //            {
+        //                s = s.Remove(i, 1);
+        //            }
+        //            list.Add(s);
+        //            removeDuplicateAdjacent(s);
+        //        }
+        //    }
+        //    return list.Last();
+        //}
         static string removeDuplicateAdjacent(string s)
         {
-            char current;
-            for (int i = 0; i < s.Length - 1; i++)
+            string word = string.Empty;
+            for (int i = 0; i < s.Length-1; i++)
             {
-                if (s[i] == s[i + 1])
+                if (s[i] == s[i + 1]) i++;
+                else if (i != 0 && s[i - 1] == s[i]) continue;
+                else word += s[i];
+            }
+            s = word;
+            for (int i = 0; i < word.Length - 1; i++)
+            {
+                if (word[i] == word[i + 1])
                 {
-                    current = s[i];
-                    for (int j = i; j < s.Length; j++)
-                    {
-                        if (s[j] == current)
-                        {
-                            s = s.Remove(j, 1);
-                            j--;
-                        }
-                        else break;
-                    }
+                    word = "";
                     removeDuplicateAdjacent(s);
                 }
             }
