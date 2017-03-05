@@ -53,20 +53,20 @@ namespace GetNumberWithoutConvertOrParse
         }
         static bool sumOfTwo(int[] a, int[] b, int v)
         {
-            //var line = a.Select(x => v - x);
-            //return line.Any(b.Contains);
-            if (a.Length < 1 || b.Length < 1) return false;
-            var aList = a.ToList();
-            var bList = b.ToList();
-            aList.Sort();
-            bList.Sort();
-            //return bList.Any(t => aList.BinarySearch(v - t) >= -1);
             for (int i = 0; i < a.Length; i++)
             {
-                if (v - a[i] > a.Max() || v - a[i] < a.Min()) return false;
-                if (bList.BinarySearch(v - aList[i]) >= -1) return true;
+                a[i] = v - a[i];
             }
-            return false;
+            var listA = a.OrderBy(x => x).ToList();
+            return b.Any(t => listA.BinarySearch(t) >= 0);
+
+            //var set = new HashSet<int>(b);
+            //return a.Select(x => v - x).Any(diff => set.Contains(diff));
+
+            //return a.Select(_ => v - _).Intersect(b).Any(); // a one-liner
+
+            //Array.Sort(b);
+            //return a.Select(t => Array.BinarySearch(b, v - t)).Any(indice => indice > -1);
         }
         static int strstr(string s, string x)
         {
@@ -673,6 +673,15 @@ namespace GetNumberWithoutConvertOrParse
         #region Remove Duplicate Adjacent // only Van's solution works properly
         static string removeDuplicateAdjacent(string s)
         {
+            //string r = "", s = " " + str + " ";
+            //for (int i = 1; i < s.Length - 1; i++)
+            //{
+            //    if (s[i - 1] != s[i] && s[i] != s[i + 1])
+            //        r += s[i];
+            //}
+            //if (str != r)
+            //    r = removeDuplicateAdjacent(r);
+            //return r;
             var current = default(char);
             var word = string.Empty;
             for (int i = 0; i < s.Length; i++)
@@ -693,44 +702,24 @@ namespace GetNumberWithoutConvertOrParse
                 }
             }
             return s;
-            //char current;
-            //var list = new List<string>() {s};
-            //for (int i = 0; i < s.Length - 1; i++)
+
+            //string r = "";
+            //char p = '$';
+            //foreach (var e in s)
             //{
-            //    if (s[i] == s[i + 1])
+            //    if (p != e)
             //    {
-            //        current = s[i];
-            //        while (i != s.Length && s[i] == current)
-            //        {
-            //            s = s.Remove(i, 1);
-            //        }
-            //        list.Add(s);
-            //        removeDuplicateAdjacent(s);
+            //        r += e;
+            //        p = e;
             //    }
+            //    else if (r.EndsWith(e + ""))
+            //        r = r.Substring(0, r.LastIndexOf(e + ""));
             //}
-            //return list.Last();
+            //if (r != s) r = removeDuplicateAdjacent(r);
+
+            //return r;
         }
-        //static string removeDuplicateAdjacent(string s)
-        //{
-        //    string word = string.Empty;
-        //    for (int i = 0; i < s.Length-1; i++)
-        //    {
-        //        if (s[i] == s[i + 1]) i++;
-        //        else if (i != 0 && s[i - 1] == s[i]) continue;
-        //        else word += s[i];
-        //    }
-        //    s = word;
-        //    for (int i = 0; i < word.Length - 1; i++)
-        //    {
-        //        if (word[i] == word[i + 1])
-        //        {
-        //            word = "";
-        //            removeDuplicateAdjacent(s);
-        //        }
-        //    }
-        //    return s;
-        //}
-        #endregion  // only Van's solution works properly
+        #endregion
         static string sortByString(string s, string t)
         {
             //string p = "";
