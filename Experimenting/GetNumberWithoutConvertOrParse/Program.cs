@@ -29,7 +29,7 @@ namespace GetNumberWithoutConvertOrParse
             //{
             //    Console.Write($"{VARIABLE} ");
             //}
-            Console.WriteLine(removeDuplicateAdjacent("z")); //mississipie
+            Console.WriteLine(stringReformatting("2-4a0r7-4k", 3));
 
             Console.ReadKey();
         }
@@ -670,7 +670,7 @@ namespace GetNumberWithoutConvertOrParse
             //}
             //return a;
         }
-#region Remove Duplicate Adjacent
+        #region Remove Duplicate Adjacent // only Van's solution works properly
         static string removeDuplicateAdjacent(string s)
         {
             var current = default(char);
@@ -685,7 +685,7 @@ namespace GetNumberWithoutConvertOrParse
                 }
             }
             s = word;
-            for (int i = 0; i < s.Length-1; i++)
+            for (int i = 0; i < s.Length - 1; i++)
             {
                 if (s[i] == s[i + 1])
                 {
@@ -730,7 +730,7 @@ namespace GetNumberWithoutConvertOrParse
         //    }
         //    return s;
         //}
-#endregion // only Van's solution works properly
+        #endregion  // only Van's solution works properly
         static string sortByString(string s, string t)
         {
             //string p = "";
@@ -793,6 +793,21 @@ namespace GetNumberWithoutConvertOrParse
         static string reverseSentence(string sentence)
         {
             return string.Join("", sentence.Split(' ').Reverse().ToArray());
+        }
+        static string stringReformatting(string s, int k)
+        {
+            const char dash = '-';
+            var joint = string.Join("", s.Split('-').ToArray());
+            var firstLength = joint.Length % k;
+            var firstPart = joint.Substring(0, firstLength) + dash;
+            var secondPart = joint.Substring(firstLength).ToList();
+            for (int i = 0; i < secondPart.Count; i++)
+            {
+                if (i != 0 && i % k == 0) secondPart.Insert(i, dash);
+            }
+            return firstPart.Length == 1
+                ? new string(secondPart.ToArray())
+                : firstPart + new string(secondPart.ToArray());
         }
     }
 }
