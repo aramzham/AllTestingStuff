@@ -911,5 +911,39 @@ namespace GetNumberWithoutConvertOrParse
             //    }
             //return res.ToArray();
         }
+        static int[][] rotateImage(int[][] a)
+        {
+            //int row = a.Length;
+            //int col = a[0].Length;
+            //int[][] res = new int[col][];
+            //for (int i = 0; i < col; i++)
+            //    res[i] = new int[row];
+            //for (int i = 0; i < row; i++)
+            //{
+            //    for (int j = 0; j < col; j++)
+            //    {
+            //        res[j][row - 1 - i] = a[i][j];
+            //    }
+            //}
+            //return res;
+
+            var result = new int[a.Length][];
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = a.Select(x => x[i]).Reverse().ToArray();
+            }
+            return result;
+
+            //int[][] res = new int[a.Length][];
+            //for (int i = 0; i < a.Length; i++)
+            //{
+            //    res[i] = new int[a.Length];
+            //    for (int j = 0; j < a.Length; j++)
+            //    {
+            //        res[i][a.Length - j - 1] = a[j][i];
+            //    }
+            //}
+            //return res;
+        }
     }
 }
