@@ -78,7 +78,7 @@ namespace GetNumberWithoutConvertOrParse
                 for (int i = 0; i <= s.Length - x.Length; i++)
                 {
                     if (s.Substring(i, x.Length) == x) return i;
-                } 
+                }
             }
             return -1;
         }
@@ -796,14 +796,33 @@ namespace GetNumberWithoutConvertOrParse
         {
             const char dash = '-';
             var joint = string.Join("", s.Split('-').ToArray());
+            var count = 0;
             var firstLength = joint.Length % k;
-            var firstPart = joint.Substring(0, firstLength) + dash;
-            var secondPart = joint.Substring(firstLength).ToList();
-            for (int i = 0; i < secondPart.Count; i++)
+            var list = new List<char>();
+            for (int i = 0; i < firstLength; i++)
             {
-                if (i != 0 && i % k == 0) secondPart.Insert(i, dash);
+                list.Add(joint[i]);
             }
-            return firstPart.Length == 1 ? new string(secondPart.ToArray()) : firstPart + new string(secondPart.ToArray());
+            if (firstLength != 0) list.Add(dash);
+            for (int i = firstLength; i < joint.Length; i++)
+            {
+                list.Add(joint[i]);
+                if((i-firstLength+1)%k==0) list.Add(dash);
+            }
+            return new string(list.ToArray()).TrimEnd(dash);
+
+            //s = s.Replace("-", "");
+            //var r = "";
+            //for (int i = 0; ++i <= s.Length;)
+            //{
+            //    r = (i % k == 0 && s.Length != i ? "-" : "") + s[s.Length - i] + r;
+            //}
+            //return r;
+
+            //string a = s.Replace("-", ""); !!!!!!!!!!!!!!!!!!!!!!!<----------------------------------
+            //for (int i = a.Length - k; i > 0; i -= k)
+            //    a = a.Insert(i, "-");
+            //return a;
         }
     }
 }
