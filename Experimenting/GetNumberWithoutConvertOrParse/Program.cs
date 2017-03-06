@@ -71,21 +71,14 @@ namespace GetNumberWithoutConvertOrParse
         }
         static int strstr(string s, string x)
         {
-            var found = true;
-            for (int i = 0; i <= s.Length - x.Length; i++)
+            var hash = new HashSet<char>(s.ToCharArray());
+            if (x.Any(ch => !hash.Contains(ch))) return -1;
+            else
             {
-                if (s[i] == x[0])
+                for (int i = 0; i <= s.Length - x.Length; i++)
                 {
-                    for (int j = i + 1; j < x.Length; j++)
-                    {
-                        if (s[j] != x[j - i])
-                        {
-                            found = false;
-                            break;
-                        }
-                    }
-                    if (found) return i;
-                }
+                    if (s.Substring(i, x.Length) == x) return i;
+                } 
             }
             return -1;
         }
@@ -810,9 +803,7 @@ namespace GetNumberWithoutConvertOrParse
             {
                 if (i != 0 && i % k == 0) secondPart.Insert(i, dash);
             }
-            return firstPart.Length == 1
-                ? new string(secondPart.ToArray())
-                : firstPart + new string(secondPart.ToArray());
+            return firstPart.Length == 1 ? new string(secondPart.ToArray()) : firstPart + new string(secondPart.ToArray());
         }
     }
 }
