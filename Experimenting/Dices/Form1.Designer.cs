@@ -85,7 +85,7 @@
             this.Roll.Name = "Roll";
             this.Roll.Size = new System.Drawing.Size(243, 55);
             this.Roll.TabIndex = 5;
-            this.Roll.Text = "Roll";
+            this.Roll.Text = "You roll";
             this.Roll.UseVisualStyleBackColor = true;
             this.Roll.Click += new System.EventHandler(this.Roll_Click);
             // 
