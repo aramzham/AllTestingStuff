@@ -827,17 +827,17 @@ namespace GetNumberWithoutConvertOrParse
         }
         static string[] chessQueen(string q)
         {
-            var board = new string[][]
-                        {
-                                new string[] { "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8"},
-                                new string[] { "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8"},
-                                new string[] { "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"},
-                                new string[] { "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8"},
-                                new string[] { "e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8"},
-                                new string[] { "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"},
-                                new string[] { "g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8"},
-                                new string[] { "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"}
-                        };
+            var board = new[]
+            {
+                new[] { "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8"},
+                new[] { "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8"},
+                new[] { "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"},
+                new[] { "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8"},
+                new[] { "e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8"},
+                new[] { "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"},
+                new[] { "g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8"},
+                new[] { "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"}
+            };
             var hit = new List<string>();
             var indexI = 0;
             var indexJ = 0;
@@ -852,8 +852,6 @@ namespace GetNumberWithoutConvertOrParse
                     }
                 }
             }
-            hit.AddRange(board[indexI - 1]);
-            hit.AddRange(board.Select(x => x[indexJ - 1]).ToArray());
             var reserveI = indexI;
             var reserveJ = indexJ;
             while (reserveI >= 0 && reserveJ >= 0) // diagonally left and up
@@ -886,7 +884,32 @@ namespace GetNumberWithoutConvertOrParse
                 reserveI++;
                 reserveJ--;
             }
-            return board.SelectMany(inner => inner).Except(hit).OrderBy(x => x).ToArray();
+            return board.SelectMany(inner => inner).Except(hit).Except(board[indexI]).Except(board.Select(x => x[indexJ])).OrderBy(x => x).ToArray();
+
+            //int i, j;
+            //string t;
+            //List<string> L = new List<string>(), res = new List<string>();
+
+            //for (i = 1; i < 9; i++)
+            //{
+            //    // Vertical Line
+            //    L.Add(q[0] + "" + i);
+            //    // Horizontal Line
+            //    L.Add((char)('a' + i - 1) + "" + q[1]);
+
+            //    L.Add((char)(q[0] - i) + "" + (char)(q[1] - i));
+            //    L.Add((char)(q[0] - i) + "" + (char)(q[1] + i));
+            //    L.Add((char)(q[0] + i) + "" + (char)(q[1] - i));
+            //    L.Add((char)(q[0] + i) + "" + (char)(q[1] + i));
+            //}
+            //for (i = 1; i < 9; i++)
+            //    for (j = 1; j < 9; j++)
+            //    {
+            //        t = (char)('a' + i - 1) + "" + (char)('1' + j - 1);
+            //        if (!L.Contains(t))
+            //            res.Add(t);
+            //    }
+            //return res.ToArray();
         }
     }
 }
