@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Runtime.InteropServices;
-using System.Text;
 using static System.Math;
-using static System.DateTime;
 
 namespace GetNumberWithoutConvertOrParse
 {
@@ -13,7 +10,7 @@ namespace GetNumberWithoutConvertOrParse
     {
         static void Main(string[] args)
         {
-            var queries = new char[][]
+            var queries = new[]
             {
                 new[] {'O','2'},
                 new[] {'T','4'},
@@ -21,16 +18,23 @@ namespace GetNumberWithoutConvertOrParse
                 new[] {'E','1'},
                 new[] {'N','3'}
             };
-            var crypt = new string[] { "ONE", "ONE", "TWO" };
+            var board = new[] {"a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8",
+                               "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8",
+                               "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8",
+                               "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8",
+                               "e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8",
+                               "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8",
+                               "g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8",
+                               "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"};
+            var crypt = new[] { "ONE", "ONE", "TWO" };
             Console.WriteLine(isCryptSolution(crypt, queries));
-            var nums = new int[] { 3, 0, -2, 6, -3, 2 };
+            var nums = new[] { 3, 0, -2, 6, -3, 2 };
             //Console.WriteLine(sumInRange(nums, queries));
-            //foreach (var VARIABLE in nextLarger(new int[] { 10, 3, 12, 4, 2, 9, 13, 0, 8, 11, 1, 7, 5, 6 }))
-            //{
-            //    Console.Write($"{VARIABLE} ");
-            //}
-            Console.WriteLine(stringReformatting("2-4a0r7-4k", 3));
-            Console.WriteLine(strstr("CodefightsIsAwesome", "IA"));
+
+            foreach (var VARIABLE in chessQueen("d4"))
+            {
+                Console.Write($"{VARIABLE} ");
+            }
 
             Console.ReadKey();
         }
@@ -50,7 +54,7 @@ namespace GetNumberWithoutConvertOrParse
         }
         static int Convert(string number)
         {
-            return number.Select(x => x - '0').Select((t, i) => t * (int)Math.Pow(10, number.Length - i - 1)).Sum();
+            return number.Select(x => x - '0').Select((t, i) => t * (int)Pow(10, number.Length - i - 1)).Sum();
         }
         static bool sumOfTwo(int[] a, int[] b, int v)
         {
@@ -73,15 +77,12 @@ namespace GetNumberWithoutConvertOrParse
         {
             var hash = new HashSet<char>(s.ToCharArray());
             if (x.Any(ch => !hash.Contains(ch))) return -1;
-            else
+            for (int i = 0; i <= s.Length - x.Length; i++)
             {
-                for (int i = 0; i <= s.Length - x.Length; i++)
-                {
-                    if (s.Substring(i, x.Length) == x) return i;
-                }
+                if (s.Substring(i, x.Length) == x) return i;
             }
             return -1;
-        }
+        } // doesn't pass hiddens
         #region Product except self
 
         static int productExceptSelf(int[] nums, int m)
@@ -174,19 +175,19 @@ namespace GetNumberWithoutConvertOrParse
         }
         static int reverseInteger(int x)
         {
-            var abs = Math.Abs(x);
+            var abs = Abs(x);
             var queue = new Queue<int>();
             while (abs != 0)
             {
                 queue.Enqueue(abs % 10);
                 abs /= 10;
             }
-            var degree = Math.Abs(x).ToString().Length - 1;
+            var degree = Abs(x).ToString().Length - 1;
             var result = 0;
             var count = queue.Count;
             for (int i = 0; i < count; i++)
             {
-                result += queue.Dequeue() * (int)Math.Pow(10, degree);
+                result += queue.Dequeue() * (int)Pow(10, degree);
                 degree--;
             }
             return x < 0 ? result * -1 : result;
@@ -268,7 +269,7 @@ namespace GetNumberWithoutConvertOrParse
             //    sum += nums.ToList().GetRange(queries[i][0], queries[i][1] - queries[i][0] + 1).Sum();
             //}
             //var sum = queries.Sum(t => nums.ToList().GetRange(t[0], t[1] - t[0] + 1).Sum());
-            return mod(total, (int)(Math.Pow(10, 9)) + 7);
+            return mod(total, (int)(Pow(10, 9)) + 7);
         }
 
         // static int sumRange(int i, int j)
@@ -343,7 +344,7 @@ namespace GetNumberWithoutConvertOrParse
 
         static int countLuckyNumbers(int n) // 4 - 670, 6 - 55252
         {
-            var range = Enumerable.Range(0, (int)Math.Pow(10, n)).ToArray();
+            var range = Enumerable.Range(0, (int)Pow(10, n)).ToArray();
             var strNumber = string.Empty;
             var list = new List<char>();
             var count = 0;
@@ -621,7 +622,7 @@ namespace GetNumberWithoutConvertOrParse
         }
         static int excelSheetColumnNumber(string s)
         {
-            return s.Select((c, i) => (c - 'A' + 1) * (int)Math.Pow(26, s.Length - i - 1)).Sum();
+            return s.Select((c, i) => (c - 'A' + 1) * (int)Pow(26, s.Length - i - 1)).Sum();
 
             //int sum = 0;
             //for (int i = 0; i < s.Length; i++)
@@ -807,7 +808,7 @@ namespace GetNumberWithoutConvertOrParse
             for (int i = firstLength; i < joint.Length; i++)
             {
                 list.Add(joint[i]);
-                if((i-firstLength+1)%k==0) list.Add(dash);
+                if ((i - firstLength + 1) % k == 0) list.Add(dash);
             }
             return new string(list.ToArray()).TrimEnd(dash);
 
@@ -823,6 +824,69 @@ namespace GetNumberWithoutConvertOrParse
             //for (int i = a.Length - k; i > 0; i -= k)
             //    a = a.Insert(i, "-");
             //return a;
+        }
+        static string[] chessQueen(string q)
+        {
+            var board = new string[][]
+                        {
+                                new string[] { "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8"},
+                                new string[] { "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8"},
+                                new string[] { "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"},
+                                new string[] { "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8"},
+                                new string[] { "e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8"},
+                                new string[] { "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"},
+                                new string[] { "g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8"},
+                                new string[] { "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"}
+                        };
+            var hit = new List<string>();
+            var indexI = 0;
+            var indexJ = 0;
+            for (int i = 0; i < board.Length; i++) // find the index of q
+            {
+                for (int j = 0; j < board[i].Length; j++)
+                {
+                    if (q == board[i][j])
+                    {
+                        indexI = i;
+                        indexJ = j;
+                    }
+                }
+            }
+            hit.AddRange(board[indexI - 1]);
+            hit.AddRange(board.Select(x => x[indexJ - 1]).ToArray());
+            var reserveI = indexI;
+            var reserveJ = indexJ;
+            while (reserveI >= 0 && reserveJ >= 0) // diagonally left and up
+            {
+                hit.Add(board[reserveI][reserveJ]);
+                reserveI--;
+                reserveJ--;
+            }
+            reserveI = indexI;
+            reserveJ = indexJ;
+            while (reserveI >= 0 && reserveJ < board[0].Length) // diagonally right and up
+            {
+                hit.Add(board[reserveI][reserveJ]);
+                reserveI--;
+                reserveJ++;
+            }
+            reserveI = indexI;
+            reserveJ = indexJ;
+            while (reserveI < board.Length && reserveJ < board[0].Length) // diagonally right and down
+            {
+                hit.Add(board[reserveI][reserveJ]);
+                reserveI++;
+                reserveJ++;
+            }
+            reserveI = indexI;
+            reserveJ = indexJ;
+            while (reserveI < board.Length && reserveJ >= 0) // diagonally left and down
+            {
+                hit.Add(board[reserveI][reserveJ]);
+                reserveI++;
+                reserveJ--;
+            }
+            return board.SelectMany(inner => inner).Except(hit).OrderBy(x => x).ToArray();
         }
     }
 }
