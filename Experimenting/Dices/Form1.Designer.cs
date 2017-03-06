@@ -36,6 +36,8 @@
             this.Roll = new System.Windows.Forms.Button();
             this.yourTotal = new System.Windows.Forms.Label();
             this.opponentTotal = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,7 +94,7 @@
             // yourTotal
             // 
             this.yourTotal.AutoSize = true;
-            this.yourTotal.Location = new System.Drawing.Point(54, 143);
+            this.yourTotal.Location = new System.Drawing.Point(57, 188);
             this.yourTotal.Name = "yourTotal";
             this.yourTotal.Size = new System.Drawing.Size(51, 20);
             this.yourTotal.TabIndex = 6;
@@ -101,17 +103,37 @@
             // opponentTotal
             // 
             this.opponentTotal.AutoSize = true;
-            this.opponentTotal.Location = new System.Drawing.Point(393, 143);
+            this.opponentTotal.Location = new System.Drawing.Point(393, 188);
             this.opponentTotal.Name = "opponentTotal";
             this.opponentTotal.Size = new System.Drawing.Size(51, 20);
             this.opponentTotal.TabIndex = 7;
             this.opponentTotal.Text = "label4";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(57, 139);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(106, 20);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "MyTotalScore";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(393, 139);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(157, 20);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "OpponentTotalScore";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 410);
+            this.ClientSize = new System.Drawing.Size(565, 410);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.opponentTotal);
             this.Controls.Add(this.yourTotal);
             this.Controls.Add(this.Roll);
@@ -138,6 +160,8 @@
         private System.Windows.Forms.Button Roll;
         private System.Windows.Forms.Label yourTotal;
         private System.Windows.Forms.Label opponentTotal;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 
