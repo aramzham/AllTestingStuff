@@ -16,5 +16,12 @@ namespace Dices
         {
             InitializeComponent();
         }
+
+        private void Roll_Click(object sender, EventArgs e)
+        {
+            var rnd = new Random();
+            var number = rnd.Next(1, 7);
+
+        }
     }
 }
