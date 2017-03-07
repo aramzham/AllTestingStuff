@@ -28,13 +28,12 @@ namespace GetNumberWithoutConvertOrParse
                                "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"};
             var crypt = new[] { "ONE", "ONE", "TWO" };
             Console.WriteLine(isCryptSolution(crypt, queries));
-            var nums = new[] { 3, 0, -2, 6, -3, 2 };
-            //Console.WriteLine(sumInRange(nums, queries));
+            Console.WriteLine(missingNumber(new []{ 0, 3, 5, 8, 4, 6, 1, 9, 7 }));
 
-            foreach (var VARIABLE in chessQueen("d4"))
-            {
-                Console.Write($"{VARIABLE} ");
-            }
+            //foreach (var VARIABLE in chessQueen("d4"))
+            //{
+            //    Console.Write($"{VARIABLE} ");
+            //}
 
             Console.ReadKey();
         }
@@ -944,6 +943,29 @@ namespace GetNumberWithoutConvertOrParse
             //    }
             //}
             //return res;
+        }
+        static int missingNumber(int[] arr)
+        {
+            //Array.Sort(arr); //fucking frenchy!
+            //int i = 0;
+            //while (arr.Contains(i)) i++;
+            //return i;
+
+            //return arr.Length * (arr.Length + 1) / 2 - arr.Sum();
+
+            //return Enumerable.Range(0, arr.Length + 1).Except(arr).ToArray()[0];
+
+            var sorted = arr.OrderBy(x => x).ToArray();
+            var missing = -1;
+            for (int i = 0; i < sorted.Length-1; i++)
+            {
+                if (sorted[i + 1] == sorted[i] + 1) continue;
+                missing = sorted[i] + 1;
+                break;
+            }
+            if (missing == -1 && sorted[0] != 0) return sorted[0] - 1;
+            if (missing == -1 && sorted[0] == 0) return sorted[sorted.Length - 1] + 1;
+            return missing;
         }
     }
 }
