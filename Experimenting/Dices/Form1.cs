@@ -58,12 +58,12 @@ namespace Dices
             if (count % 2 == 0)
             {
                 your_score.Text = opponent_score.Text = string.Empty;
-                Roll.Text = "Your turn.\nRoll";
+                Roll.Text = "Opponent rolls";
                 your_score.Text = number.ToString();
             }
             else
             {
-                Roll.Text = "Opponent rolls";
+                Roll.Text = "Your turn.\nRoll";
                 opponent_score.Text = number.ToString();
             }
             count++;
