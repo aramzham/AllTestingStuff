@@ -55,6 +55,7 @@ namespace Dices
                     break;
             }
             #endregion
+            #region button roll
             if (count % 2 == 0)
             {
                 your_score.Text = opponent_score.Text = string.Empty;
@@ -67,6 +68,7 @@ namespace Dices
                 opponent_score.Text = number.ToString();
             }
             count++;
+            #endregion
             #region score
             if (your_score.Text != string.Empty && opponent_score.Text != string.Empty &&
                 int.Parse(your_score.Text) > int.Parse(opponent_score.Text))
