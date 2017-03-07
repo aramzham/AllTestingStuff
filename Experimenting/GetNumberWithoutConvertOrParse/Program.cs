@@ -30,7 +30,7 @@ namespace GetNumberWithoutConvertOrParse
             Console.WriteLine(isCryptSolution(crypt, queries));
             //Console.WriteLine(missingNumber(new[] { 0, 3, 5, 8, 4, 6, 1, 9, 7 }));
 
-            foreach (var VARIABLE in innerRanges(new []{ 0, 1, 3, 50, 75 },0,99))
+            foreach (var VARIABLE in innerRanges(new []{ -1 },-2,-1))
             {
                 Console.Write($"{VARIABLE} ");
             }
@@ -970,18 +970,19 @@ namespace GetNumberWithoutConvertOrParse
         static string[] innerRanges(int[] nums, int l, int r)
         {
             var list = new List<string>();
+            if (nums.Length == 0) return new string[] {l.ToString()};
             //for l
             if (nums[0] > l && nums[0] - l > 2) list.Add(string.Format("{0}->{1}", l, nums[0]-1));
-            if (nums[0] - l == 2) list.Add((nums[0] - l).ToString());
+            else if (nums[0] - l == 2) list.Add((nums[0] - l).ToString());
             //for inner part
             for (int i = 1; i < nums.Length; i++)
             {
-                if (nums[i] - nums[i - 1] == 2) list.Add((nums[i] - nums[i - 1]).ToString());
-                else list.Add(string.Format("{0}->{1}", nums[i - 1]+1, nums[i]-1));
+                if (nums[i] - nums[i - 1] == 2) list.Add((nums[i] - 1).ToString());
+                else if(nums[i] - nums[i - 1]>2) list.Add(string.Format("{0}->{1}", nums[i - 1]+1, nums[i]-1));
             }
             //for r
             if (nums[nums.Length - 1] < r && r - nums[nums.Length - 1] > 2) list.Add(string.Format("{0}->{1}", nums[nums.Length - 1]+1, r));
-            if (r - nums[nums.Length - 1] == 2) list.Add((r - nums[nums.Length - 1]).ToString());
+            else if (r - nums[nums.Length - 1] == 2) list.Add((r - nums[nums.Length - 1]).ToString());
             return list.ToArray();
         }
     }
