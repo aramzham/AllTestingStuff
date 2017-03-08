@@ -30,7 +30,7 @@ namespace GetNumberWithoutConvertOrParse
             Console.WriteLine(isCryptSolution(crypt, queries));
             //Console.WriteLine(missingNumber(new[] { 0, 3, 5, 8, 4, 6, 1, 9, 7 }));
 
-            foreach (var VARIABLE in innerRanges(new[] { -1 }, -2, -1))
+            foreach (var VARIABLE in innerRanges(new[] { 2147483647 }, -2147483648, 2147483647))
             {
                 Console.Write($"{VARIABLE} ");
             }
@@ -967,13 +967,19 @@ namespace GetNumberWithoutConvertOrParse
             if (missing == -1 && sorted[0] == 0) return sorted[sorted.Length - 1] + 1;
             return missing;
         }
-        static string[] innerRanges(int[] nums, int l, int r)
+        static string[] innerRanges(int[] nums1, int l1, int r1)
         {
             var list = new List<string>();
-            if (nums.Length == 0) return new string[] { l.ToString() };
+            long l = l1, r = r1;
+            long[] nums = nums1.Select(x=>(long)x).ToArray();
+            if (nums.Length == 0)
+            {
+                if (l == r || r - l == 1) return new string[] { l.ToString() };
+                if (r - l > 2) return new string[] { string.Format("{0}->{1}", l, r) };
+            }
             //for l
             if (nums[0] > l && nums[0] - l > 2) list.Add(string.Format("{0}->{1}", l, nums[0] - 1));
-            else if (nums[0] - l == 2) list.Add((nums[0] - l).ToString());
+            else if (nums[0] - l == 2) list.Add(string.Format("{0}->{1}", l, nums[0] - 1));
             else if (l == nums[0] - 1) list.Add(l.ToString());
             //for inner part
             for (int i = 1; i < nums.Length; i++)
@@ -983,8 +989,8 @@ namespace GetNumberWithoutConvertOrParse
             }
             //for r
             if (nums[nums.Length - 1] < r && r - nums[nums.Length - 1] > 2) list.Add(string.Format("{0}->{1}", nums[nums.Length - 1] + 1, r));
-            else if (r - nums[nums.Length - 1] == 2) list.Add((r - nums[nums.Length - 1]).ToString());
-            else if (r-nums[nums.Length-1]==1) list.Add(r.ToString());
+            else if (r - nums[nums.Length - 1] == 2) list.Add(string.Format("{0}->{1}", nums[0]+1, r));
+            else if (r - nums[nums.Length - 1] == 1) list.Add(r.ToString());
             return list.ToArray();
         }
     }
