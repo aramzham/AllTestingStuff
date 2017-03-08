@@ -1060,5 +1060,14 @@ namespace GetNumberWithoutConvertOrParse
 
             //return a.Length - a.Distinct().Count() > 0;
         }
+        static string[] composeRanges(int[] nums)
+        {
+            int start, end;
+            var result = new List<int>();
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (nums[i] - nums[i - 1] == 1) 
+            }
+        }
     }
 }
