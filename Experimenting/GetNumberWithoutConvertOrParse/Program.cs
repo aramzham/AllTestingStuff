@@ -28,12 +28,12 @@ namespace GetNumberWithoutConvertOrParse
                                "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"};
             var crypt = new[] { "ONE", "ONE", "TWO" };
             Console.WriteLine(isCryptSolution(crypt, queries));
-            //Console.WriteLine(missingNumber(new[] { 0, 3, 5, 8, 4, 6, 1, 9, 7 }));
+            Console.WriteLine(equilibriumPoint(new[] { 10, 5, 3, 5, 2, 2, 6, 8 }));
 
-            foreach (var VARIABLE in innerRanges(new[] { 2147483647 }, -2147483648, 2147483647))
-            {
-                Console.Write($"{VARIABLE} ");
-            }
+            //foreach (var VARIABLE in innerRanges(new[] { 2147483647 }, -2147483648, 2147483647))
+            //{
+            //    Console.Write($"{VARIABLE} ");
+            //}
 
             Console.ReadKey();
         }
@@ -971,7 +971,7 @@ namespace GetNumberWithoutConvertOrParse
         {
             var list = new List<string>();
             long l = l1, r = r1;
-            long[] nums = nums1.Select(x=>(long)x).ToArray();
+            long[] nums = nums1.Select(x => (long)x).ToArray();
             if (nums.Length == 0)
             {
                 if (l == r || r - l == 1) return new string[] { l.ToString() };
@@ -989,9 +989,23 @@ namespace GetNumberWithoutConvertOrParse
             }
             //for r
             if (nums[nums.Length - 1] < r && r - nums[nums.Length - 1] > 2) list.Add(string.Format("{0}->{1}", nums[nums.Length - 1] + 1, r));
-            else if (r - nums[nums.Length - 1] == 2) list.Add(string.Format("{0}->{1}", nums[0]+1, r));
+            else if (r - nums[nums.Length - 1] == 2) list.Add(string.Format("{0}->{1}", nums[0] + 1, r));
             else if (r - nums[nums.Length - 1] == 1) list.Add(r.ToString());
             return list.ToArray();
+        } // hiddens don't go
+        static int equilibriumPoint(int[] arr)
+        {
+            if (arr.Length == 1) return 1;
+            if (arr.Sum() - arr[0] == 0) return 1;
+            var sums = new int[arr.Length+1];
+            var tempSum = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                sums[i] = tempSum;
+                tempSum += arr[i];
+            }
+
+            return -1;
         }
     }
 }
