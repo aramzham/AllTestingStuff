@@ -1034,5 +1034,17 @@ namespace GetNumberWithoutConvertOrParse
             }
             return -1;
         }
+        static int countVowelConsonant(string s)
+        {
+            var sum = 0;
+            foreach (var letter in s)
+            {
+                if (letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u') sum += 1;
+                else sum += 2;
+            }
+            return sum;
+
+            //return s.Sum(x => "aeiou".Contains(x) ? 1 : 2);
+        }
     }
 }
