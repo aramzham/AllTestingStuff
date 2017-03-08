@@ -30,7 +30,7 @@ namespace GetNumberWithoutConvertOrParse
             Console.WriteLine(isCryptSolution(crypt, queries));
             //Console.WriteLine(equilibriumPoint(new[] { 10, 5, 3, 5, 2, 2, 6, 8 }));
 
-            foreach (var VARIABLE in composeRanges(new[] { -1, 0, 1, 2, 6, 7, 9 }))
+            foreach (var VARIABLE in composeRanges(new[] { 0, 1, 2 }))
             {
                 Console.Write($"{VARIABLE} ");
             }
@@ -1084,7 +1084,7 @@ namespace GetNumberWithoutConvertOrParse
             //    else if (i!=nums.Length-1) result.Add(nums[i-1].ToString());
             //    else if (i==nums.Length-1 || nums[i]+1!=nums[i+1]) result.Add(nums[i].ToString());
             //}
-            for (int i = 0; i < nums.Length-1; i++)
+            for (int i = 0; i < nums.Length - 1; i++)
             {
                 if (nums[i] + 1 == nums[i + 1])
                 {
@@ -1092,18 +1092,23 @@ namespace GetNumberWithoutConvertOrParse
                     end = nums[i + 1];
                     for (int j = 1; j < nums.Length - i; j++)//how much are there consecutives
                     {
-                        if (!nums.ToList().GetRange(i, j).SequenceEqual(Enumerable.Range(nums[i], j)))
+                        if (!nums.ToList().GetRange(i, j).SequenceEqual(Enumerable.Range(nums[i], j)) && j != nums.Length - i - 1)
                         {
-                            end = nums[i+j-2];
+                            end = nums[i + j - 2];
                             i += j - 2;
                             break;
+                        }
+                        else if (j == nums.Length - i - 1)
+                        {
+
                         }
                     }
                     result.Add(string.Format("{0}->{1}", start, end));
                 }
-                else if(i==0) result.Add(nums[i].ToString());
-                else if(i==nums.Length-1 && nums[i]!=nums[i-1]+1) result.Add(nums[nums.Length-1].ToString());
+                else if (i == 0) result.Add(nums[i].ToString());
+                else if (i != nums.Length - 1 && nums[i] != nums[i - 1] + 1) result.Add(nums[i].ToString());
             }
+            if (nums[nums.Length - 1] != nums[nums.Length - 2] + 1) result.Add(nums[nums.Length - 1].ToString());
             return result.ToArray();
         }
     }
