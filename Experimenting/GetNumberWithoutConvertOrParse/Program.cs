@@ -1046,5 +1046,19 @@ namespace GetNumberWithoutConvertOrParse
 
             //return s.Sum(x => "aeiou".Contains(x) ? 1 : 2);
         }
+        static bool containsDuplicates(int[] a)
+        {
+            var set = new HashSet<int>(a);
+            return set.Count != a.Length;
+
+            //Array.Sort(a);
+            //for (int i = 0; i < a.Length - 1; i++)
+            //{
+            //    if (a[i] == a[i + 1]) return true;
+            //}
+            //return false;
+
+            //return a.Length - a.Distinct().Count() > 0;
+        }
     }
 }
