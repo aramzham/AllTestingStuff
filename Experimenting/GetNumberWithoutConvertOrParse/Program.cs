@@ -30,7 +30,7 @@ namespace GetNumberWithoutConvertOrParse
             Console.WriteLine(isCryptSolution(crypt, queries));
             //Console.WriteLine(equilibriumPoint(new[] { 10, 5, 3, 5, 2, 2, 6, 8 }));
 
-            foreach (var VARIABLE in composeRanges(new[] { 1,3 }))
+            foreach (var VARIABLE in composeRanges(new[] { -1, 0, 1, 2, 6, 7, 9 }))
             {
                 Console.Write($"{VARIABLE} ");
             }
@@ -57,10 +57,7 @@ namespace GetNumberWithoutConvertOrParse
         }
         static bool sumOfTwo(int[] a, int[] b, int v)
         {
-            for (int i = 0; i < a.Length; i++)
-            {
-                a[i] = v - a[i];
-            }
+            a = a.Select(x => v - x).ToArray();
             var listA = a.OrderBy(x => x).ToList();
             return b.Any(t => listA.BinarySearch(t) >= 0);
 
@@ -1062,30 +1059,50 @@ namespace GetNumberWithoutConvertOrParse
         }
         static string[] composeRanges(int[] nums)
         {
-            if (nums.Length == 0) return new string[] {};
-            if(nums.Length==1) return new string[] {nums[0].ToString()};
+            if (nums.Length == 0) return new string[] { };
+            if (nums.Length == 1) return new string[] { nums[0].ToString() };
 
             int start, end = 0;
             var result = new List<string>();
-            for (int i = 1; i < nums.Length; i++)
+            //for (int i = 1; i < nums.Length; i++)
+            //{
+            //    if (nums[i] - nums[i - 1] == 1)
+            //    {
+            //        start = nums[i - 1];
+            //        if (i == nums.Length - 1) end = nums[i];
+            //        for (int j = i + 1; j < nums.Length; j++)
+            //        {
+            //            if (nums[j] - nums[j - 1] != 1)
+            //            {
+            //                end = nums[j];
+            //                i = j - 1;
+            //                break;
+            //            }
+            //        }
+            //        result.Add(string.Format("{0}->{1}", start, end));
+            //    }
+            //    else if (i!=nums.Length-1) result.Add(nums[i-1].ToString());
+            //    else if (i==nums.Length-1 || nums[i]+1!=nums[i+1]) result.Add(nums[i].ToString());
+            //}
+            for (int i = 0; i < nums.Length-1; i++)
             {
-                if (nums[i] - nums[i - 1] == 1)
+                if (nums[i] + 1 == nums[i + 1])
                 {
-                    start = nums[i - 1];
-                    if (i == nums.Length - 1) end = nums[i];
-                    for (int j = i + 1; j < nums.Length; j++)
+                    start = nums[i];
+                    end = nums[i + 1];
+                    for (int j = 1; j < nums.Length - i; j++)//how much are there consecutives
                     {
-                        if (nums[j] - nums[j - 1] != 1)
+                        if (!nums.ToList().GetRange(i, j).SequenceEqual(Enumerable.Range(nums[i], j)))
                         {
-                            end = nums[j];
-                            i = j - 1;
+                            end = nums[i+j-2];
+                            i += j - 2;
                             break;
                         }
                     }
                     result.Add(string.Format("{0}->{1}", start, end));
                 }
-                else if (i!=nums.Length-1) result.Add(nums[i-1].ToString());
-                else if (i==nums.Length-1 || nums[i]+1!=nums[i+1]) result.Add(nums[i].ToString());
+                else if(i==0) result.Add(nums[i].ToString());
+                else if(i==nums.Length-1 && nums[i]!=nums[i-1]+1) result.Add(nums[nums.Length-1].ToString());
             }
             return result.ToArray();
         }
