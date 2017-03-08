@@ -995,16 +995,43 @@ namespace GetNumberWithoutConvertOrParse
         } // hiddens don't go
         static int equilibriumPoint(int[] arr)
         {
+            //int s = arr.Sum(), calc = 0, i = 0;
+            //for (; i < arr.Length; i++)
+            //{
+            //    if (calc * 2 + arr[i] == s) return i + 1;
+            //    calc += arr[i];
+            //}
+            //return -1;
+
+            //int i = 0;
+            //int firstSum = 0;
+            //int secondSum = arr.Sum();
+            //for (; i < arr.Length; i++)
+            //{
+            //    secondSum -= arr[i];
+            //    if (firstSum == secondSum) return i + 1;
+            //    firstSum += arr[i];
+            //}
+            //return -1;
+
             if (arr.Length == 1) return 1;
             if (arr.Sum() - arr[0] == 0) return 1;
-            var sums = new int[arr.Length+1];
+
+            var sums = new int[arr.Length];
             var tempSum = 0;
+            var firstPart = 0;
+            var secondPart = 0;
             for (int i = 0; i < arr.Length; i++)
             {
-                sums[i] = tempSum;
                 tempSum += arr[i];
+                sums[i] = tempSum;
             }
-
+            for (int i = 0; i < sums.Length; i++)
+            {
+                firstPart = sums[i] - arr[i];
+                secondPart = sums[sums.Length - 1] - sums[i];
+                if (firstPart == secondPart) return i+1;
+            }
             return -1;
         }
     }
