@@ -28,12 +28,12 @@ namespace GetNumberWithoutConvertOrParse
                                "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"};
             var crypt = new[] { "ONE", "ONE", "TWO" };
             Console.WriteLine(isCryptSolution(crypt, queries));
-            Console.WriteLine(equilibriumPoint(new[] { 10, 5, 3, 5, 2, 2, 6, 8 }));
+            //Console.WriteLine(equilibriumPoint(new[] { 10, 5, 3, 5, 2, 2, 6, 8 }));
 
-            //foreach (var VARIABLE in innerRanges(new[] { 2147483647 }, -2147483648, 2147483647))
-            //{
-            //    Console.Write($"{VARIABLE} ");
-            //}
+            foreach (var VARIABLE in composeRanges(new[] { 1,3 }))
+            {
+                Console.Write($"{VARIABLE} ");
+            }
 
             Console.ReadKey();
         }
@@ -1030,7 +1030,7 @@ namespace GetNumberWithoutConvertOrParse
             {
                 firstPart = sums[i] - arr[i];
                 secondPart = sums[sums.Length - 1] - sums[i];
-                if (firstPart == secondPart) return i+1;
+                if (firstPart == secondPart) return i + 1;
             }
             return -1;
         }
@@ -1062,12 +1062,32 @@ namespace GetNumberWithoutConvertOrParse
         }
         static string[] composeRanges(int[] nums)
         {
-            int start, end;
-            var result = new List<int>();
+            if (nums.Length == 0) return new string[] {};
+            if(nums.Length==1) return new string[] {nums[0].ToString()};
+
+            int start, end = 0;
+            var result = new List<string>();
             for (int i = 1; i < nums.Length; i++)
             {
-                if (nums[i] - nums[i - 1] == 1) 
+                if (nums[i] - nums[i - 1] == 1)
+                {
+                    start = nums[i - 1];
+                    if (i == nums.Length - 1) end = nums[i];
+                    for (int j = i + 1; j < nums.Length; j++)
+                    {
+                        if (nums[j] - nums[j - 1] != 1)
+                        {
+                            end = nums[j];
+                            i = j - 1;
+                            break;
+                        }
+                    }
+                    result.Add(string.Format("{0}->{1}", start, end));
+                }
+                else if (i!=nums.Length-1) result.Add(nums[i-1].ToString());
+                else if (i==nums.Length-1 || nums[i]+1!=nums[i+1]) result.Add(nums[i].ToString());
             }
+            return result.ToArray();
         }
     }
 }
