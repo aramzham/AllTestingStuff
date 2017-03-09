@@ -29,6 +29,8 @@ namespace GetNumberWithoutConvertOrParse
             var crypt = new[] { "ONE", "ONE", "TWO" };
             Console.WriteLine(isCryptSolution(crypt, queries));
             //Console.WriteLine(equilibriumPoint(new[] { 10, 5, 3, 5, 2, 2, 6, 8 }));
+            var str = "1*2+3";
+            Console.WriteLine(int.Parse(str));
 
             foreach (var VARIABLE in composeRanges(new[] { 0, 1 }))
             {
@@ -1091,6 +1093,10 @@ namespace GetNumberWithoutConvertOrParse
             //    else
             //        yield return c + "";
             //}
+        }
+        static string classifyStrings(string s)
+        {
+            const string vowels = "aeiou";
         }
     }
 }
