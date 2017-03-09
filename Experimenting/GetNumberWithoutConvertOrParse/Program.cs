@@ -30,7 +30,7 @@ namespace GetNumberWithoutConvertOrParse
             Console.WriteLine(isCryptSolution(crypt, queries));
             //Console.WriteLine(equilibriumPoint(new[] { 10, 5, 3, 5, 2, 2, 6, 8 }));
 
-            foreach (var VARIABLE in composeRanges(new[] { 0, 1, 2 }))
+            foreach (var VARIABLE in composeRanges(new[] { -1, 0, 1, 2, 6, 7, 9 }))
             {
                 Console.Write($"{VARIABLE} ");
             }
@@ -1064,26 +1064,6 @@ namespace GetNumberWithoutConvertOrParse
 
             int start, end = 0;
             var result = new List<string>();
-            //for (int i = 1; i < nums.Length; i++)
-            //{
-            //    if (nums[i] - nums[i - 1] == 1)
-            //    {
-            //        start = nums[i - 1];
-            //        if (i == nums.Length - 1) end = nums[i];
-            //        for (int j = i + 1; j < nums.Length; j++)
-            //        {
-            //            if (nums[j] - nums[j - 1] != 1)
-            //            {
-            //                end = nums[j];
-            //                i = j - 1;
-            //                break;
-            //            }
-            //        }
-            //        result.Add(string.Format("{0}->{1}", start, end));
-            //    }
-            //    else if (i!=nums.Length-1) result.Add(nums[i-1].ToString());
-            //    else if (i==nums.Length-1 || nums[i]+1!=nums[i+1]) result.Add(nums[i].ToString());
-            //}
             for (int i = 0; i < nums.Length - 1; i++)
             {
                 if (nums[i] + 1 == nums[i + 1])
@@ -1100,7 +1080,8 @@ namespace GetNumberWithoutConvertOrParse
                         }
                         else if (j == nums.Length - i - 1)
                         {
-
+                            result.Add(string.Format("{0}->{1}", start, nums[j]));
+                            return result.ToArray();
                         }
                     }
                     result.Add(string.Format("{0}->{1}", start, end));
