@@ -8,30 +8,26 @@ namespace Larry_Array
     {
         static void Main(string[] args) //couldn't really understand the purpose of the task
         {
-            var numberOfTestCases = int.Parse(Console.ReadLine());
-            var lenghtOfArray = 0;
-            var array = new int[] { };
-            for (int i = 0; i < numberOfTestCases; i++)
+            int t = Convert.ToInt32(Console.ReadLine());
+            for (int a0 = 0; a0 < t; a0++)
             {
-                //lenghtOfArray = int.Parse(Console.ReadLine());
-                //array = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-                //array = new int[] { 9, 6, 8, 12, 3, 7, 1, 11, 10, 2, 5, 4 };//no
-                array = new int[] { 17, 21, 2, 1, 16, 9, 12, 11, 6, 18, 20, 7, 14, 8, 19, 10, 3, 4, 13, 5, 15 };
-                Console.WriteLine(CanBeSorted(array) ? "YES" : "NO");
+                int n = Convert.ToInt32(Console.ReadLine());
+                if(n<3) Console.WriteLine(-1);
+                else
+                {
+                    
+                }
             }
+
+            Console.ReadKey();
         }
-        //5
-        //12
-        //9 6 8 12 3 7 1 11 10 2 5 4//NO
-        //21
-        //17 21 2 1 16 9 12 11 6 18 20 7 14 8 19 10 3 4 13 5 15//YES
-        //15
-        //5 8 13 3 10 4 12 1 2 7 14 6 15 11 9//NO
-        //13
-        //8 10 6 11 7 1 9 12 3 5 13 4 2//YES
-        //18
-        //7 9 15 8 10 16 6 14 5 13 17 12 3 11 4 1 18 2//NO
-        private static bool CanBeSorted(int[] array)
+        //4  
+        //1  -1
+        //3  555
+        //5  33333
+        //11 55555533333
+        //https://www.hackerrank.com/challenges/sherlock-and-the-beast
+        static bool CanBeSorted(int[] array)
         {
             var rotated = new int[3];
             for (int i = 0; i < array.Length - 1; i++)
@@ -54,8 +50,7 @@ namespace Larry_Array
             }
             return false;
         }
-
-        private static IEnumerable<T> RotateLeft<T>(IEnumerable<T> container)
+        static IEnumerable<T> RotateLeft<T>(IEnumerable<T> container)
         {
             return container.Skip(1).Concat(container.Take(1));
         }
