@@ -13,7 +13,7 @@ namespace Larry_Array
             {
                 int n = Convert.ToInt32(Console.ReadLine());
                 if(n<3) Console.WriteLine(-1);
-                else
+                else if()
                 {
                     
                 }
