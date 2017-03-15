@@ -80,14 +80,14 @@ namespace GetNumberWithoutConvertOrParse
             var strNumber = string.Empty;
             var list = new List<char>();
             var count = 0;
-            for (int i = 0; i < range.Length; i++)
+            foreach (int item in range)
             {
-                strNumber = range[i].ToString().PadLeft(n, '0');
+                strNumber = item.ToString().PadLeft(n, '0');
                 if (IsLucky(strNumber)) count++;
                 else
                 {
                     list = strNumber.ToList();
-                    for (int j = 0; j < strNumber.Length - range[i].ToString().Length; j++)
+                    for (int j = 0; j < strNumber.Length - item.ToString().Length; j++)
                     {
                         list.RemoveAt(0);
                         if (IsLucky(new string(list.ToArray()))) count++;
