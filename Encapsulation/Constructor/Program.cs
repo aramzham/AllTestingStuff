@@ -25,7 +25,8 @@ namespace Constructor
         private string name;
         private int age;
         private bool anotherField;
-        private static string yardName;
+        public string YardName { get; /*set;*/ } //in order to make a property readonly you must remove set modifier, comment get => write-only
+        //in a constructor when you want to set a value to a readonly property, the only way is to set that value to the private field it encapsulates
         #region Constructors
         public Person(string name, int age) //master contstructor
         {
@@ -55,10 +56,10 @@ namespace Constructor
             Console.WriteLine("Ctor with optional parameters");
         }
 #endregion
-        static Person() // static ctor doesn't have an access modifier, doesn't have parameters (can't be overloaded), is called one time (whenever a call to the class is executed), is called before all the other constructors
+        static Person() // static ctor doesn't have an access modifier, doesn't have parameters (can't be overloaded), is called one time (whenever a call to the class is executed), is called before all other constructors
         {
             Console.WriteLine("Static ctor is the first!");
-            yardName = "Masiv";
+            //YardName = "Masiv"; //uncomment set mutator
         }
         public void SetPersonName(string value)
         {
