@@ -32,10 +32,24 @@ namespace ObjectInitialization
             };
             rectangle.DisplayStats();
 
+            Console.WriteLine($"g = {MyMathClass.FreeFallAcceleration}");
+            Console.WriteLine($"e = {MyMathClass.Exponent}");
+
             Console.ReadKey();
         }
     }
 
+    class MyMathClass
+    {
+        static MyMathClass()
+        {
+            Exponent = 2.71828; //this can be easily be replaced by a const
+        }
+        public const double FreeFallAcceleration = 9.8;
+        
+        //for demostration
+        public static readonly double Exponent;
+    }
     class Point
     {
         public Point(int x, int y)
