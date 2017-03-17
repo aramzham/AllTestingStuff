@@ -27,6 +27,8 @@ namespace Constructor
         private bool anotherField;
         public string YardName { get; /*set;*/ } //in order to make a property readonly you must remove set modifier, comment get => write-only
         //in a constructor when you want to set a value to a readonly property, the only way is to set that value to the private field it encapsulates
+        //public string YardName { /*get;*/ set; } //in C# autoproperties must have getters
+
         #region Constructors
         public Person(string name, int age) //master contstructor
         {
