@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using static System.Math;
 
 namespace GetNumberWithoutConvertOrParse
@@ -29,7 +28,22 @@ namespace GetNumberWithoutConvertOrParse
             var turn = b << 3; //сдвиг в лево
             Console.WriteLine($"{Convert.ToString(turn, 2).PadLeft(8, '0')} = {turn}");
             var back = turn >> 1; //сдвиг в право
-            Console.WriteLine($"{Convert.ToString(back, 2).PadLeft(8, '0')} = {back}"); 
+            Console.WriteLine($"{Convert.ToString(back, 2).PadLeft(8, '0')} = {back}");
+            #region SizeOf
+            Console.WriteLine($"size of sbyte is {sizeof(sbyte)}");
+            Console.WriteLine($"size of byte is {sizeof(byte)}");
+            Console.WriteLine($"size of short is {sizeof(short)}");
+            Console.WriteLine($"size of ushort is {sizeof(ushort)}");
+            Console.WriteLine($"size of int is {sizeof(int)}");
+            Console.WriteLine($"size of uint is {sizeof(uint)}");
+            Console.WriteLine($"size of long is {sizeof(long)}");
+            Console.WriteLine($"size of ulong is {sizeof(ulong)}");
+            Console.WriteLine($"size of char is {sizeof(char)}");
+            Console.WriteLine($"size of float is {sizeof(float)}");
+            Console.WriteLine($"size of double is {sizeof(double)}");
+            Console.WriteLine($"size of decimal is {sizeof(decimal)}");
+            Console.WriteLine($"size of bool is {sizeof(bool)}");
+            #endregion
 
             Console.ReadKey();
         }
