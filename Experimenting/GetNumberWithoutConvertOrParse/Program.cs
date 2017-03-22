@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using static System.Math;
 
 namespace GetNumberWithoutConvertOrParse
@@ -43,6 +44,14 @@ namespace GetNumberWithoutConvertOrParse
             Console.WriteLine($"size of double is {sizeof(double)}");
             Console.WriteLine($"size of decimal is {sizeof(decimal)}");
             Console.WriteLine($"size of bool is {sizeof(bool)}");
+            #endregion
+            #region goto
+            //Label:
+            //    Console.WriteLine("Infinite loop with goto");
+            //    goto Label;
+            //anotherLabel:
+            //    Console.WriteLine("Unreachable code");
+            //    goto anotherLabel;
             #endregion
 
             Console.ReadKey();
