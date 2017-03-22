@@ -24,6 +24,12 @@ namespace GetNumberWithoutConvertOrParse
             //{
             //    Console.Write($"{VARIABLE} ");
             //}
+            byte b = 9;
+            Console.WriteLine($"{Convert.ToString(b, 2).PadLeft(8, '0')} = {b}");
+            var turn = b << 3; //сдвиг в лево
+            Console.WriteLine($"{Convert.ToString(turn, 2).PadLeft(8, '0')} = {turn}");
+            var back = turn >> 1; //сдвиг в право
+            Console.WriteLine($"{Convert.ToString(back, 2).PadLeft(8, '0')} = {back}"); 
 
             Console.ReadKey();
         }
@@ -41,7 +47,7 @@ namespace GetNumberWithoutConvertOrParse
             }
             return false;
         }
-        static int Convert(string number)
+        static int ConvertStringToInt32(string number)
         {
             return number.Select(x => x - '0').Select((t, i) => t * (int)Pow(10, number.Length - i - 1)).Sum();
         }
