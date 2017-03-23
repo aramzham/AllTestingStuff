@@ -53,7 +53,14 @@ namespace GetNumberWithoutConvertOrParse
             //    Console.WriteLine("Unreachable code");
             //    goto anotherLabel;
             #endregion
-
+            #region Boolean assingning
+            bool b1 = 1 > 2;
+            Console.WriteLine(b1);
+            var a1 = 3;
+            var a2 = 1;
+            bool b2 = a1 > a2;
+            Console.WriteLine(b2);
+            #endregion
             Console.ReadKey();
         }
 
