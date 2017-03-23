@@ -61,6 +61,13 @@ namespace GetNumberWithoutConvertOrParse
             bool b2 = a1 > a2;
             Console.WriteLine(b2);
             #endregion
+            //ctrl + h = replace, ctrl + g = go to line #
+
+            foreach (var randoms in Generator(100).Take(15))
+            {
+                Console.Write($"{randoms} ");
+            }
+
             Console.ReadKey();
         }
 
@@ -141,5 +148,13 @@ namespace GetNumberWithoutConvertOrParse
         }
 
         #endregion
+        static IEnumerable<int> Generator(int max)
+        {
+            var r = new Random();
+            while (true)
+            {
+                yield return r.Next(max);
+            }
+        }
     }
 }
