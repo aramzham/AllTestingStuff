@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoBot", "GoBot\GoBot.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dices", "Dices\Dices.csproj", "{6EC4911D-DF67-4E36-BD60-B271BE4D198A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplyBigIntegers", "MultiplyBigIntegers\MultiplyBigIntegers.csproj", "{2A781C37-6EB2-4DFF-BB69-912492093343}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A781C37-6EB2-4DFF-BB69-912492093343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A781C37-6EB2-4DFF-BB69-912492093343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A781C37-6EB2-4DFF-BB69-912492093343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A781C37-6EB2-4DFF-BB69-912492093343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
