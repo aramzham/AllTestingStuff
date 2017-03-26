@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dices", "Dices\Dices.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplyBigIntegers", "MultiplyBigIntegers\MultiplyBigIntegers.csproj", "{2A781C37-6EB2-4DFF-BB69-912492093343}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsOfAllKinds", "TestsOfAllKinds\TestsOfAllKinds.csproj", "{2327BE12-F0EC-4FB8-B410-B5020F11B351}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{2A781C37-6EB2-4DFF-BB69-912492093343}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A781C37-6EB2-4DFF-BB69-912492093343}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A781C37-6EB2-4DFF-BB69-912492093343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2327BE12-F0EC-4FB8-B410-B5020F11B351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2327BE12-F0EC-4FB8-B410-B5020F11B351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2327BE12-F0EC-4FB8-B410-B5020F11B351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2327BE12-F0EC-4FB8-B410-B5020F11B351}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
