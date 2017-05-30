@@ -8,6 +8,10 @@ namespace HanoiTower
 {
     class Program
     {
+        //TODO: recursion-ov gtnel 2 tvi amenamec @ndhanur bajanarar@
+        //TODO: aranc bajanman gorcoxutyunneri veradardznel tveri qanordi amboxj mas@
+        //TODO: recursiayov aranc bazmapatkman gorcoxutyan veradardznum e 2 inegerneri artadryal@
+        //TODO: unenq integer array, karucel rekursiv funkcia, vor@ veradardznum e zangvaci k-rd minimun@ (sortavorel chka)
         static void Main(string[] args)
         {
             while (true)
