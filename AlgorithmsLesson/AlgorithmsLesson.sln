@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrnapetCity", "BrnapetCity\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HanoiTower", "HanoiTower\HanoiTower.csproj", "{AC0435D3-26BB-4450-8AC5-72D7625FEB8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectionSort", "SelectionSort\SelectionSort.csproj", "{20E05961-FDF6-4E72-92B1-998BC5EF3BD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{AC0435D3-26BB-4450-8AC5-72D7625FEB8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC0435D3-26BB-4450-8AC5-72D7625FEB8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC0435D3-26BB-4450-8AC5-72D7625FEB8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20E05961-FDF6-4E72-92B1-998BC5EF3BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20E05961-FDF6-4E72-92B1-998BC5EF3BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20E05961-FDF6-4E72-92B1-998BC5EF3BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20E05961-FDF6-4E72-92B1-998BC5EF3BD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
