@@ -16,23 +16,31 @@ namespace TestsOfAllKinds
     {
         static void Main(string[] args)
         {
-            var list = new List<string> { "Aram", "Hovo" };
-            AppDomain ad = AppDomain.CurrentDomain;
-            AssemblyName am = new AssemblyName();
-            am.Name = "TestAsm";
-            AssemblyBuilder ab = ad.DefineDynamicAssembly(am, AssemblyBuilderAccess.Save);
-            ModuleBuilder mb = ab.DefineDynamicModule("testmod", "TestAsm.exe");
-            TypeBuilder tb = mb.DefineType("mytype", TypeAttributes.Public);
-            MethodBuilder metb = tb.DefineMethod("hi", MethodAttributes.Public |
-            MethodAttributes.Static, null, null);
-            ab.SetEntryPoint(metb);
-            ILGenerator il = metb.GetILGenerator();
-            il.EmitWriteLine(list[0]);
-            il.Emit(OpCodes.Ret);
-            tb.CreateType();
-            ab.Save("TestAsm.exe");
+            //var list = new List<string> { "Aram", "Hovo" };
+            //AppDomain ad = AppDomain.CurrentDomain;
+            //AssemblyName am = new AssemblyName();
+            //am.Name = "TestAsm";
+            //AssemblyBuilder ab = ad.DefineDynamicAssembly(am, AssemblyBuilderAccess.Save);
+            //ModuleBuilder mb = ab.DefineDynamicModule("testmod", "TestAsm.exe");
+            //TypeBuilder tb = mb.DefineType("mytype", TypeAttributes.Public);
+            //MethodBuilder metb = tb.DefineMethod("hi", MethodAttributes.Public |
+            //MethodAttributes.Static, null, null);
+            //ab.SetEntryPoint(metb);
+            //ILGenerator il = metb.GetILGenerator();
+            //il.EmitWriteLine(list[0]);
+            //il.Emit(OpCodes.Ret);
+            //tb.CreateType();
+            //ab.Save("TestAsm.exe");
+            var mc = new MyClass();
+            Function(ref mc);
+            Console.WriteLine(mc.Inchvorban);
 
             Console.ReadKey();
+        }
+
+        static void Function(ref MyClass mc)
+        {
+            mc.Inchvorban = int.MaxValue;
         }
 
         static bool BinarySearch(int[] mynumbers, int target)
@@ -65,5 +73,10 @@ namespace TestsOfAllKinds
             }
             return found;
         }
+    }
+
+    class MyClass
+    {
+        public int Inchvorban { get; set; }
     }
 }
