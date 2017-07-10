@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationErrorCode", "ApplicationErrorCode\ApplicationErrorCode.csproj", "{67A40462-906D-46CC-B602-89DA0AD25785}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsOfAllKinds", "TestsOfAllKinds\TestsOfAllKinds.csproj", "{2327BE12-F0EC-4FB8-B410-B5020F11B351}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template", "Template\Template.csproj", "{7D4966B8-3F18-48D9-ABC2-5A19E3FAF4C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DattoBot", "DattoBot\DattoBot.csproj", "{078740D4-17FD-4D72-863C-BF0F50175157}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{7D4966B8-3F18-48D9-ABC2-5A19E3FAF4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D4966B8-3F18-48D9-ABC2-5A19E3FAF4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D4966B8-3F18-48D9-ABC2-5A19E3FAF4C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{078740D4-17FD-4D72-863C-BF0F50175157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{078740D4-17FD-4D72-863C-BF0F50175157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{078740D4-17FD-4D72-863C-BF0F50175157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{078740D4-17FD-4D72-863C-BF0F50175157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
