@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text.RegularExpressions;
 
 namespace TestsOfAllKinds
 {
@@ -31,18 +32,16 @@ namespace TestsOfAllKinds
             //il.Emit(OpCodes.Ret);
             //tb.CreateType();
             //ab.Save("TestAsm.exe");
-            var mc = new MyClass();
-            Function(ref mc);
-            Console.WriteLine(mc.Inchvorban);
+            var pattern = @"test|a| ";
+            var regex = new Regex(pattern);
+            var tests = new[] {"test","1test","12test","te1st","te12st", "test1", "test12", "1test2","1","12","123","st","test 007" };
+            foreach (var test in tests)
+            {
+                Console.WriteLine($"{test} matches the pattern?: {regex.IsMatch(test)}");
+            }
 
             Console.ReadKey();
         }
-
-        static void Function(ref MyClass mc)
-        {
-            mc.Inchvorban = int.MaxValue;
-        }
-
         static bool BinarySearch(int[] mynumbers, int target)
         {
             var found = false;
@@ -73,10 +72,5 @@ namespace TestsOfAllKinds
             }
             return found;
         }
-    }
-
-    class MyClass
-    {
-        public int Inchvorban { get; set; }
     }
 }
