@@ -32,14 +32,7 @@ namespace TestsOfAllKinds
             //il.Emit(OpCodes.Ret);
             //tb.CreateType();
             //ab.Save("TestAsm.exe");
-            var pattern = @"test|a| ";
-            var regex = new Regex(pattern);
-            var tests = new[] {"test","1test","12test","te1st","te12st", "test1", "test12", "1test2","1","12","123","st","test 007" };
-            foreach (var test in tests)
-            {
-                Console.WriteLine($"{test} matches the pattern?: {regex.IsMatch(test)}");
-            }
-
+            
             Console.ReadKey();
         }
         static bool BinarySearch(int[] mynumbers, int target)
