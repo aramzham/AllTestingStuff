@@ -67,12 +67,60 @@ def create_random_matrix(m,n):
 print(create_random_matrix(5,3))
 
 def set_matrix_to_zero(matrix):
-    if(len(matrix)<=0): raise ValueError
+    if(len(matrix) <= 0): raise ValueError
     for i in range(len(matrix[0])):
         for row in matrix:
-            row[i]=0
+            row[i] = 0
 
     return matrix
 
-matrix = create_random_matrix(3,5)
-print(set_matrix_to_zero(matrix))
+def set_matrix_to_identity(matrix):
+    if(sum(1 for e in filter(lambda row: len(row) != len(matrix),matrix)) > 0): raise ValueError
+
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            if(i == j): matrix[i][j] = 1
+            else: matrix[i][j] = 0
+
+    return matrix
+
+matrix = create_random_matrix(3,3)
+print(set_matrix_to_identity(matrix))
+
+def create_diagonal_matrix(*params):
+    if(params==None or len(params)==0): raise ValueError
+    
+    matrix = []
+    for i in range(len(params)):
+        row = []
+        for j in range(len(params)):
+            if(i==j): row.append(params[i])
+            else: row.append(0)
+        matrix.append(row)
+        del row
+
+    return matrix
+
+print(create_diagonal_matrix(3,2,5,10))
+
+# triangular matrix is always square :-)
+def create_lower_triangular_matrix(m):
+    matrix = []
+    for i in range(m):
+        row = []
+        for j in range(m):
+            if(i<j): row.append(0)
+            else: row.append(randint(-10,10))
+        matrix.append(row)
+        del row
+
+    return matrix
+
+print(create_lower_triangular_matrix(5))
+
+def transpose(A):
+    if(A==None or len(A)==0): raise ValueError
+    B=[]
+    for i in range(len(matrix[0])):
+        B.append(list(map(lambda x: x[i],matrix)))
+    return B
