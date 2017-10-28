@@ -1,12 +1,3 @@
-def print_matrix(matrix):
-    for array in matrix:
-        print(array)
-        
-
-matrix = [[a] for a in range(1,5)]
-
-print_matrix(matrix)
-
 def double_the_vector(vector):
     multiplyer = 2
     return list(map(lambda x: multiplyer * x,vector))
@@ -54,10 +45,34 @@ def algorithm_dot(a,x,y):
     result_vector = []
     index = 0
     while index < len(x):
-        result_vector.append(a*x[index] + y[index])
+        result_vector.append(a * x[index] + y[index])
         index+=1
 
     return result_vector
 
 print(algorithm_dot(-1,[2,-1,4,2,1],[1,-2,2,3,-1]))
     
+from random import *
+def create_random_matrix(m,n):
+    matrix = []
+    for length in range(m):
+        row = []
+        for width in range(n):
+            row.append(randint(-10,10))
+        matrix.append(row)
+        del row
+
+    return matrix
+
+print(create_random_matrix(5,3))
+
+def set_matrix_to_zero(matrix):
+    if(len(matrix)<=0): raise ValueError
+    for i in range(len(matrix[0])):
+        for row in matrix:
+            row[i]=0
+
+    return matrix
+
+matrix = create_random_matrix(3,5)
+print(set_matrix_to_zero(matrix))
