@@ -26,8 +26,8 @@ print(axpy(a,x,y))
 def dot(x,y):
     return sum([x[i] * y[i] for i in range(0,len(x))])
 
-x = [1,2,3]
-y = [1,3,-2]
+x = [90,30,10,15,5]
+y = [1.4,1.2,0.6,0.2,2.0]
 
 print(dot(x,y))
 
@@ -35,3 +35,29 @@ def length(vector):
     return dot(vector,vector) ** 0.5
 
 print(length([1,0,7]))
+
+def algorithm_dot(x,y):
+    a = 0
+    index = 0
+    while index < len(x):
+        a += x[index] * y[index]
+        index+=1
+
+    return a
+
+x = [2,-9,8]
+y = [1,0,-1]
+
+print(algorithm_dot(x,y))
+
+def algorithm_dot(a,x,y):
+    result_vector = []
+    index = 0
+    while index < len(x):
+        result_vector.append(a*x[index] + y[index])
+        index+=1
+
+    return result_vector
+
+print(algorithm_dot(-1,[2,-1,4,2,1],[1,-2,2,3,-1]))
+    
