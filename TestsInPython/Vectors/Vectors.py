@@ -88,13 +88,13 @@ matrix = create_random_matrix(3,3)
 print(set_matrix_to_identity(matrix))
 
 def create_diagonal_matrix(*params):
-    if(params==None or len(params)==0): raise ValueError
+    if(params == None or len(params) == 0): raise ValueError
     
     matrix = []
     for i in range(len(params)):
         row = []
         for j in range(len(params)):
-            if(i==j): row.append(params[i])
+            if(i == j): row.append(params[i])
             else: row.append(0)
         matrix.append(row)
         del row
@@ -109,7 +109,7 @@ def create_lower_triangular_matrix(m):
     for i in range(m):
         row = []
         for j in range(m):
-            if(i<j): row.append(0)
+            if(i < j): row.append(0)
             else: row.append(randint(-10,10))
         matrix.append(row)
         del row
@@ -119,8 +119,39 @@ def create_lower_triangular_matrix(m):
 print(create_lower_triangular_matrix(5))
 
 def transpose(A):
-    if(A==None or len(A)==0): raise ValueError
-    B=[]
+    if(A == None or len(A) == 0): raise ValueError
+    B = []
     for i in range(len(matrix[0])):
         B.append(list(map(lambda x: x[i],matrix)))
     return B
+
+def matrix_vector_multiplication(vector, matrix):
+    resultMatrix = []
+    for i in range(len(matrix)):
+        newRow = []
+        sum = 0
+        for j in range(len(matrix[i])):
+            sum += matrix[i][j] * vector[j][0]
+        newRow.append(sum)
+        resultMatrix.append(newRow)
+        del newRow
+
+    return resultMatrix
+
+# is it right?
+def traigular_matrix_vector_multiplication(matrix, vector):
+    resultMatrix = []
+    for i in range(len(matrix)):
+        newRow = []
+        sum = 0
+        for j in range(len(matrix[i])):
+            if(matrix[i][j] != 0): sum += matrix[i][j] * vector[j][0]
+        newRow.append(sum)
+        resultMatrix.append(newRow)
+        del newRow
+
+    return resultMatrix
+
+ltm = create_lower_triangular_matrix(3)
+vector = [[-1],[0],[2]]
+print(traigular_matrix_vector_multiplication(vector, ltm))
