@@ -88,13 +88,13 @@ matrix = create_random_matrix(3,3)
 print(set_matrix_to_identity(matrix))
 
 def create_diagonal_matrix(*params):
-    if(params==None or len(params)==0): raise ValueError
+    if(params == None or len(params) == 0): raise ValueError
     
     matrix = []
     for i in range(len(params)):
         row = []
         for j in range(len(params)):
-            if(i==j): row.append(params[i])
+            if(i == j): row.append(params[i])
             else: row.append(0)
         matrix.append(row)
         del row
@@ -109,7 +109,7 @@ def create_lower_triangular_matrix(m):
     for i in range(m):
         row = []
         for j in range(m):
-            if(i<j): row.append(0)
+            if(i < j): row.append(0)
             else: row.append(randint(-10,10))
         matrix.append(row)
         del row
@@ -119,8 +119,29 @@ def create_lower_triangular_matrix(m):
 print(create_lower_triangular_matrix(5))
 
 def transpose(A):
-    if(A==None or len(A)==0): raise ValueError
-    B=[]
+    if(A == None or len(A) == 0): raise ValueError
+    B = []
     for i in range(len(matrix[0])):
         B.append(list(map(lambda x: x[i],matrix)))
     return B
+
+def matrix_multiplication(matrix1, matrix2):
+    if(len(matrix1) < 1 or len(matrix2) < 1 or len(matrix1[0]) != len(matrix2)): raise ValueError
+
+    resultMatrix = []
+    for i in range(len(matrix1)):
+        row = []    
+        for j in range(len(matrix2[0])):
+            row.append(dot(matrix1[i], list(map(lambda x: x[j],matrix2))))
+        resultMatrix.extend(row)
+        del row
+
+    return resultMatrix
+
+matrix1 = create_random_matrix(3,2)
+matrix2 = create_random_matrix(2,4)
+print(matrix1)
+print(matrix2)
+
+result = matrix_multiplication(matrix1, matrix2)
+print(result)
