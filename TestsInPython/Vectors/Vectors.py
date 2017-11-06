@@ -11,8 +11,6 @@ def dot(x,y):
 def length(vector):
     return dot(vector,vector) ** 0.5
 
-print(length([1,0,7]))
-
 def algorithm_dot(x,y):
     a = 0
     index = 0
@@ -75,8 +73,6 @@ def create_diagonal_matrix(*params):
 
     return matrix
 
-print(create_diagonal_matrix(3,2,5,10))
-
 # triangular matrix is always square :-)
 def create_lower_triangular_matrix(m):
     matrix = []
@@ -89,8 +85,6 @@ def create_lower_triangular_matrix(m):
         del row
 
     return matrix
-
-print(create_lower_triangular_matrix(5))
 
 def transpose(A):
     if(A == None or len(A) == 0): raise ValueError
@@ -147,3 +141,11 @@ def matrix_power(matrix,n):
         matrix = matrix_multiplication(original_matrix, matrix)
 
     return matrix
+
+def nth_fibonacci(n):
+    base_matrix = [[1,1],[1,0]]
+    #     n
+    #[1,1]   _ [Fib(n+1),Fib(n)]
+    #[1,0]   - [Fib(n),Fib(n-1)]
+    fib_matrix = matrix_power(base_matrix,n)
+    return fib_matrix[0][1]
