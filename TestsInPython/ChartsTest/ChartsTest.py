@@ -1,23 +1,14 @@
-import matplotlib.pyplot as plt
-
-
-#import numpy as np
-#np.zeros(10)
-#theta_0 = 15
-#theta_1 = 0.2
-#variance=1.2
-#X_0 = np.random.randint(-50,50,100)
-#print(np.random.normal(loc=theta_0+theta_1*X_0))
-#print(X_0)
-#print(type(X_0))
-#if(type(X_0) is not np.ndarray): X_0.ravel()
-#else: print('hello')
-
 import numpy as np
-import pandas as pd 
-ecom = pd.read_csv(r'C:\Users\aram.zhamkochyan\Downloads\Ecommerce Purchases')
-print(list(ecom.columns.values))
-print(ecom.apply(['Language']).count())
+import pandas as pd
+ecom = pd.read_csv(r'C:\Users\Aram\Downloads\Ecommerce Purchases')
+print(ecom.columns.values)
+print(['Address', 'Lot', 'AM or PM', 'Browser Info', 'Company',
+       'Credit Card', 'CC Exp Date', 'CC Security Code', 'CC Provider',
+       'Email', 'Job', 'IP Address', 'Language', 'Purchase Price'])
 
-plt.scatterplot(Weight)
-plt.show()
+print(len([_ for _ in filter(lambda x: x[0].split('/')[1]=='25',ecom[['CC Exp Date']].values)]))
+
+l = list(map(lambda x: x[0].split('@')[1],ecom[['Email']].values))
+
+from collections import Counter
+print(list(Counter(l))[:5])
