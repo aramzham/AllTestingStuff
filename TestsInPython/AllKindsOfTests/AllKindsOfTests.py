@@ -17,8 +17,12 @@ def isCoolTeam(team):
 def almostIncreasingSequence(sequence):
     if(isStricktlyIncreasing(sequence)): return True
     initial_sequence = sequence[:]
-    for i in range(len(initial_sequence)):
+    for i in range(len(initial_sequence)-1):
+        if(sequence[i]<sequence[i+1]): continue
         del sequence[i]
+        if(isStricktlyIncreasing(sequence)): return True
+        sequence = initial_sequence[:]
+        del sequence[i+1]
         if(isStricktlyIncreasing(sequence)): return True
         sequence = initial_sequence[:]
     return False
