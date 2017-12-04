@@ -1,11 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitLog", "EmitLog\EmitLog.csproj", "{B7E5310C-49BA-4377-8446-AF76E6B505C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogsReceiver", "LogsReceiver\LogsReceiver.csproj", "{FB2F73D1-3CB7-4973-A06F-9883C811EF8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitLogsDirect", "EmitLogsDirect\EmitLogsDirect.csproj", "{D70A8717-904D-48A5-B102-62E6FE593CB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiveLogsDirect", "ReceiveLogsDirect\ReceiveLogsDirect.csproj", "{8C828157-794C-4F76-B1D9-6C4B13DF875A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitLogTopic", "EmitLogTopic\EmitLogTopic.csproj", "{55C19D26-BC90-499A-9E65-24228335795F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiveLogsTopic", "ReceiveLogsTopic\ReceiveLogsTopic.csproj", "{B9600766-DB94-463E-8DF8-3790CF2ABC3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPCServer", "RPCServer\RPCServer.csproj", "{264287DA-72C7-449D-B8D1-414C2D5F059A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPCClient", "RPCClient\RPCClient.csproj", "{857DBDA8-63B0-4125-81F4-BDEEA1A0C893}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +33,30 @@ Global
 		{FB2F73D1-3CB7-4973-A06F-9883C811EF8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB2F73D1-3CB7-4973-A06F-9883C811EF8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB2F73D1-3CB7-4973-A06F-9883C811EF8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D70A8717-904D-48A5-B102-62E6FE593CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70A8717-904D-48A5-B102-62E6FE593CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D70A8717-904D-48A5-B102-62E6FE593CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D70A8717-904D-48A5-B102-62E6FE593CB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C828157-794C-4F76-B1D9-6C4B13DF875A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C828157-794C-4F76-B1D9-6C4B13DF875A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C828157-794C-4F76-B1D9-6C4B13DF875A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C828157-794C-4F76-B1D9-6C4B13DF875A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C19D26-BC90-499A-9E65-24228335795F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C19D26-BC90-499A-9E65-24228335795F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C19D26-BC90-499A-9E65-24228335795F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C19D26-BC90-499A-9E65-24228335795F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9600766-DB94-463E-8DF8-3790CF2ABC3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9600766-DB94-463E-8DF8-3790CF2ABC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9600766-DB94-463E-8DF8-3790CF2ABC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9600766-DB94-463E-8DF8-3790CF2ABC3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{264287DA-72C7-449D-B8D1-414C2D5F059A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{264287DA-72C7-449D-B8D1-414C2D5F059A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{264287DA-72C7-449D-B8D1-414C2D5F059A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{264287DA-72C7-449D-B8D1-414C2D5F059A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{857DBDA8-63B0-4125-81F4-BDEEA1A0C893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{857DBDA8-63B0-4125-81F4-BDEEA1A0C893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{857DBDA8-63B0-4125-81F4-BDEEA1A0C893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{857DBDA8-63B0-4125-81F4-BDEEA1A0C893}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
