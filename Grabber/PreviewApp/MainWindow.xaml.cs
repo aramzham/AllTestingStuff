@@ -29,8 +29,7 @@ namespace PreviewApp
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            Uri uriResult;
-            bool validUri = Uri.TryCreate(url.Text, UriKind.Absolute, out uriResult)
+            var validUri = Uri.TryCreate(url.Text, UriKind.Absolute, out var uriResult)
                           && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
             if (!validUri)
             {
