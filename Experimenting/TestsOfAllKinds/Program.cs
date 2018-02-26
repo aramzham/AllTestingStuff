@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
@@ -32,7 +33,10 @@ namespace TestsOfAllKinds
             //il.Emit(OpCodes.Ret);
             //tb.CreateType();
             //ab.Save("TestAsm.exe");
-            
+
+            var v = new[] { "8","+","9","*","4","*","2","-","20"};
+            Console.WriteLine(P5(v));
+
             Console.ReadKey();
         }
         static bool BinarySearch(int[] mynumbers, int target)
@@ -64,6 +68,12 @@ namespace TestsOfAllKinds
                 }
             }
             return found;
+        }
+
+        static int P5(string[] elements)
+        {
+            var expression = string.Join("", elements);
+            return (int) new DataTable().Compute(expression,"");
         }
     }
 }
