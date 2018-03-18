@@ -24,4 +24,4 @@ values
 ('YSU','Alek Manukian 1')
 insert into Employee
 values
-('testName','testSurname','200000','1',1,'some information about employee')
+('secondName','secondSurname','500000','0',1,'here comes John Cena')

@@ -1,4 +1,5 @@
 ﻿using NFT.WebApi.Infrastructure;
+using NFT.WebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,12 @@ using System.Web.Http.Description;
 
 namespace NFT.WebApi.Controllers
 {
-    [RoutePrefix("api/employee")]
+    //[RoutePrefix("api/employee")]
     public class EmployeeController : ApiController
     {
         private DB_Manager db_manager = new DB_Manager();
 
-        [HttpGet]
+        [HttpGet, Route("api/employee")]
         public async Task<IHttpActionResult> GetAllEmployees()
         {
             var employees = await db_manager.GetAllEmployees();
@@ -24,15 +25,15 @@ namespace NFT.WebApi.Controllers
             return Ok(employees);
         }
 
-        //// GET: api/Contacts?Guid=guid
-        //[ResponseType(typeof(ContactResponseModel))]
-        //public async Task<IHttpActionResult> GetContactByGuid([FromUri]string guid)
-        //{
-        //    var contact = await appManager.GetContactByGuid(guid);
-        //    if (contact == null) return NotFound();
+        // GET: api/Contacts?Guid=guid
+        [HttpGet, Route("api/employee"), ResponseType(typeof(Employee))]
+        public async Task<IHttpActionResult> GetEmployeeById([FromUri]int id)
+        {
+            var employee = await db_manager.GetEmployeeById(id);
+            if (employee == null) return NotFound();
 
-        //    return Ok(contact);
-        //}
+            return Ok(employee);
+        }
 
         ////GET: api/Contacts/demo
         //[ResponseType(typeof(void)), Route("api/Contacts/reset"), HttpGet]
