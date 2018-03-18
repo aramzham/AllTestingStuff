@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DatabaseProj", "DatabaseProj\DatabaseProj.sqlproj", "{7FC9A4F7-5AE8-4F55-B574-07495C40A1F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{F6282A80-AEE9-43CA-A1E9-8E821565B110}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFT.WebApi", "NFT.WebApi\NFT.WebApi.csproj", "{635A8269-AAC9-44A4-9830-F99C6B6120FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,10 @@ Global
 		{7FC9A4F7-5AE8-4F55-B574-07495C40A1F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FC9A4F7-5AE8-4F55-B574-07495C40A1F0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FC9A4F7-5AE8-4F55-B574-07495C40A1F0}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{F6282A80-AEE9-43CA-A1E9-8E821565B110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6282A80-AEE9-43CA-A1E9-8E821565B110}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6282A80-AEE9-43CA-A1E9-8E821565B110}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6282A80-AEE9-43CA-A1E9-8E821565B110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{635A8269-AAC9-44A4-9830-F99C6B6120FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{635A8269-AAC9-44A4-9830-F99C6B6120FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{635A8269-AAC9-44A4-9830-F99C6B6120FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{635A8269-AAC9-44A4-9830-F99C6B6120FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
