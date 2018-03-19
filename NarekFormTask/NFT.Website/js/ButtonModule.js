@@ -3,7 +3,7 @@
     xhr.open("GET", "http://localhost:59406/api/employee", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            document.getElementById("mainTable").innerHTML = xhr.responseText;
+            fillTable(xhr.responseText);
         }
     }
     xhr.send();
@@ -26,11 +26,13 @@ function fillTable(list) {
     var tbody = document.getElementById("mainTable").children[1];
     //var tbody = table.getElementsByTagName("tbody")[0];
     tbody.innerHTML = "";
-    if (list instanceof Array) {
-
+    var json = JSON.parse(list);
+    if (json instanceof Array) {
+        for (var i = 0; i < json.length; i++) {
+            tbody.innerHTML += "<tr>" + "<td>" + json[i]["name"] + "</td>" + "<td>" + json[i].surname + "</td>" + "</tr>"
+        }
     }
     else {
-        var json = JSON.parse(list);
         tbody.innerHTML = "<tr>" + "<td>" + json["name"] + "</td>" + "<td>" + json.surname + "</td>" + "</tr>";
     }
 }
