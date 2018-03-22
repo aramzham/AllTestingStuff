@@ -1,4 +1,5 @@
 ﻿using NFT.WebApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -69,6 +70,30 @@ namespace NFT.WebApi.Infrastructure
                     }
                 }
                 return emp;
+            }
+        }
+
+        public void AddEmployee(Employee employee)
+        {
+            var query = "INSERT INTO Employee" +
+                           "VALUES (@Name, @Surname, @Salary, @IsGettingBonus, @UniversityId, @Info)";
+
+            // create connection and command
+            using (var cn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(query, cn))
+            {
+                // define parameters and their values
+                cmd.Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = employee.Name;
+                cmd.Parameters.Add("@Surname", SqlDbType.VarChar, 150).Value = employee.Surname;
+                cmd.Parameters.Add("@Salary", SqlDbType.Money).Value = employee.Salary;
+                cmd.Parameters.Add("@IsGettingBonus", SqlDbType.Bit).Value = employee.IsGettingBonus;
+                cmd.Parameters.Add("@UniversityId", SqlDbType.Int).Value = employee.UniversityId;
+                cmd.Parameters.Add("@Info", SqlDbType.VarChar, 500).Value = employee.Info;
+
+                // open connection, execute INSERT, close connection
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                cn.Close();
             }
         }
     }

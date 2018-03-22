@@ -35,15 +35,17 @@ namespace NFT.WebApi.Controllers
             return Ok(employee);
         }
 
-        ////GET: api/Contacts/demo
-        //[ResponseType(typeof(void)), Route("api/Contacts/reset"), HttpGet]
-        //public async Task<HttpResponseMessage> GetDemo()
-        //{
-        //    var content = await appManager.ResetForDemo();
-        //    if (content == null) return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Oops! Something went wrong");
-        //    var response = new HttpResponseMessage { Content = new StringContent(content) };
-        //    response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
-        //    return response;
-        //}
+        // POST: api/Contacts
+        [HttpPost, Route("api/employee")]
+        public async Task<IHttpActionResult> PostEmployee([FromBody]Employee contact)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            //if ((await appManager.GetAllEmails()).Contains(contact.Email)) return BadRequest("A contact with such email already exists");
+
+            db_manager.AddEmployee(contact);
+
+            return CreatedAtRoute("DefaultApi", new { }, contact); //return chexav ado-ov shows up in location header
+        }
     }
 }
