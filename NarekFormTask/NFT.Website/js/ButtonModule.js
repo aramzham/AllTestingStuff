@@ -22,9 +22,31 @@ function getEmployeeById() {
     xhr.send();
 }
 
-function addEmployee() {
-    var w = window.open("./html/addPage.html");
+function addButtonAction() {
+    var addLine = document.getElementsByClassName('addLine')[0];
+    var inputs = addLine.getElementsByTagName('input');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].style.display = 'block';
+    }
+    var addButton = document.getElementById('add');
+    addButton.disabled = 'disabled'; // disable add button
 
+    document.getElementById('submit').style.display = 'block'; // open submit button
+}
+
+function submitNewEmployee() {
+    var nameBox = document.getElementById('nameAdd');
+    var surnameBox = document.getElementById('surnameAdd');
+    if (nameBox.textContent == '') {
+        nameBox.style.color = 'red';
+        nameBox.textContent = 'name must not be blank!';
+        return;
+    }
+    if (nameBox.textContent == '') {
+        nameBox.style.color = 'red';
+        nameBox.textContent = 'surname must not be blank!';
+        return;
+    }
 }
 
 function sendPostRequest(emp) {
