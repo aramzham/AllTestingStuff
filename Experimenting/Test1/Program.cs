@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -14,36 +15,21 @@ namespace Test1
 {
     class Program
     {
-        const string url = "https://e1-api.aws.kambicdn.com/offering/api/v2/ub/event/live/open.json?lang=en_GB&market=ZZ&client_id=2&channel_id=1&ncid={ConvertToUnixTimestamp(DateTime.UtcNow)}";
+        //const string url = "https://e1-api.aws.kambicdn.com/offering/api/v2/ub/event/live/open.json?lang=en_GB&market=ZZ&client_id=2&channel_id=1&ncid={ConvertToUnixTimestamp(DateTime.UtcNow)}";
+        private const string url = "https://www.marathonbet.com/en/live/popular.htm";
         static readonly string connectionString = "Data Source=oddsct01-lx.betconstruct.int;initial catalog=EntityLibrary.OddsContext;integrated security=False;User ID=sa;Password=JZKCcpd84FyIOr7a;TrustServerCertificate=True;MultipleActiveResultSets=True;App=EntityFramework";
         static void Main(string[] args)
         {
             //var array = new[] { 1, 3, 2, 1 };
             //Console.WriteLine(almostIncreasingSequence(array));
-            var proxies = GetProxies();
-            var ps = new List<MyClass>();
-            foreach (var p in proxies)
+            foreach (var process in Process.GetProcessesByName("chromedriver"))
             {
-                var handler = new HttpClientHandler() { UseProxy = true, Proxy = new WebProxy(p.ip, p.port) };
-                var client = new HttpClient(handler);
-                client.Timeout = TimeSpan.FromSeconds(3);
-                try
-                {
-                    var result = client.GetStringAsync(url).GetAwaiter().GetResult();
-                    ps.Add(p);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                process.Kill();
             }
-
-            var serializeObject = JsonConvert.SerializeObject(ps);
-            File.WriteAllText(@"D:\Edik\proxiesUnibetJSON.txt", serializeObject);
-            foreach (var proxy in ps)
-            {
-                File.AppendAllText(@"D:\Edik\proxiesUnibet.txt", $"{proxy.id}{Environment.NewLine}");
-            }
+            //foreach (var process in Process.GetProcessesByName("chrome"))
+            //{
+            //    process.Kill();
+            //}
 
             Console.ReadKey();
         }
