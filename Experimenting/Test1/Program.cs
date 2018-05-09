@@ -2,14 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-using Newtonsoft.Json;
 
 namespace Test1
 {
@@ -20,16 +12,11 @@ namespace Test1
         static readonly string connectionString = "Data Source=oddsct01-lx.betconstruct.int;initial catalog=EntityLibrary.OddsContext;integrated security=False;User ID=sa;Password=JZKCcpd84FyIOr7a;TrustServerCertificate=True;MultipleActiveResultSets=True;App=EntityFramework";
         static void Main(string[] args)
         {
-            //var array = new[] { 1, 3, 2, 1 };
-            //Console.WriteLine(almostIncreasingSequence(array));
-            foreach (var process in Process.GetProcessesByName("chromedriver"))
-            {
-                process.Kill();
-            }
-            //foreach (var process in Process.GetProcessesByName("chrome"))
-            //{
-            //    process.Kill();
-            //}
+            //var phantomJs = new PhantomJS();
+            //phantomJs.OutputReceived += (sender, e) => {
+            //    Console.WriteLine($"PhantomJS output: {e.Data}");
+            //};
+            //phantomJs.RunScript("for (var i=0; i<10; i++) console.log('hello from js '+i); phantom.exit();", null);
 
             Console.ReadKey();
         }
