@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTesting"
+        xmlns:viewModels="clr-namespace:WpfTesting.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Client" Height="450" Width="800">
+    <Window.Resources>
+        <viewModels:BookmakerManagerViewModel x:Key="bookmakerViewModel" />
+    </Window.Resources>
+    <Grid DataContext="{StaticResource ResourceKey =bookmakerViewModel}">
         <!--<DockPanel LastChildFill="True">
             <Button Content="Dock=Top" DockPanel.Dock="Top"/>
             <Button Content="Dock=Bottom" DockPanel.Dock="Bottom"/>
@@ -14,17 +18,18 @@
             <Button Content="Dock=Right" DockPanel.Dock="Right"/>
             <Button Content="LastChildFill=True"/>
         </DockPanel>-->
-        <!--<WrapPanel Orientation="Horizontal">
-            <Button Content="Button" />
-            <Button Content="Button" />
-            <Button Content="Button" />
-            <Button Content="Button" />
-            <Button Content="Button" />
-        </WrapPanel>-->
-        <Canvas>
+        <WrapPanel Orientation="Horizontal">
+            <ComboBox Margin="20" ItemsSource="{StaticResource ResourceKey=bookmakerViewModel}" DisplayMemberPath="Id" SelectedItem="{Binding SelectedBookmaker}"/>
+            <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedBookmaker.Matches}" SelectedItem="{Binding SelectedMatch}"/>
+            <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedMatch.Markets}"/>
+        </WrapPanel>
+        <WrapPanel Orientation="Horizontal">
+            <TextBlock></TextBlock>
+        </WrapPanel>
+        <!--<Canvas>
             <Ellipse Fill="Green" Width="60" Height="60" Canvas.Left="30" Canvas.Top="20"
 Canvas.ZIndex="1"/>
             <Ellipse Fill="Blue" Width="60" Height="60" Canvas.Left="60" Canvas.Top="40" Canvas.ZIndex="2"/>
-        </Canvas>
+        </Canvas>-->
     </Grid>
 </Window>
