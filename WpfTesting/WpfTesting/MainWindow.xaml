@@ -11,19 +11,31 @@
         <viewModels:BookmakerManagerViewModel x:Key="bookmakerViewModel" />
     </Window.Resources>
     <Grid DataContext="{StaticResource ResourceKey =bookmakerViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <WrapPanel Orientation="Horizontal">
             <ComboBox Margin="20" ItemsSource="{StaticResource ResourceKey=bookmakerViewModel}" DisplayMemberPath="Id" SelectedItem="{Binding SelectedBookmaker}"/>
             <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedBookmaker.Matches}" SelectedItem="{Binding SelectedMatch}"/>
             <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedMatch.Markets}" SelectedItem="{Binding SelectedMarket}"/>
         </WrapPanel>
-        <WrapPanel Orientation="Horizontal" DataContext="{Binding Path=SelectedMarket}">
-            <TextBlock Text="{Binding Path=Selections[0].Name}"></TextBlock>
+        <WrapPanel Orientation="Horizontal" DataContext="{Binding Path=SelectedMarket.Selections}">
+            <WrapPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="5"></Setter>
+                </Style>
+            </WrapPanel.Resources>
+            <TextBlock Text="{Binding Path=[0].Name}"></TextBlock>
+            <TextBlock Text="{Binding Path=[0].Price}"></TextBlock>
+            <TextBlock Text="{Binding Path=[1].Name}"></TextBlock>
+            <TextBlock Text="{Binding Path=[1].Price}"></TextBlock>
+            <TextBlock Text="{Binding Path=[2].Name}"></TextBlock>
+            <TextBlock Text="{Binding Path=[2].Price}"></TextBlock>
+            <!--<TextBlock Text="{Binding Path=MatchIsSuspended}"></TextBlock>-->
+            <!--<TextBlock Text="{Binding Path=MarketIsSuspended}"></TextBlock>-->
         </WrapPanel>
-        <!--<Canvas>
-            <Ellipse Fill="Green" Width="60" Height="60" Canvas.Left="30" Canvas.Top="20"
-Canvas.ZIndex="1"/>
-            <Ellipse Fill="Blue" Width="60" Height="60" Canvas.Left="60" Canvas.Top="40" Canvas.ZIndex="2"/>
-        </Canvas>-->
+        <ListBox Grid.Column="1" ItemsSource="{Binding Path=History}"></ListBox>
     </Grid>
 </Window>
 

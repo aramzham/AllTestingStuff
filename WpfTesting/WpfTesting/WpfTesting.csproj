@@ -58,7 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Infrastructure\DrawHelper.cs" />
+    <Compile Include="Infrastructure\HistoryHelper.cs" />
     <Compile Include="Infrastructure\OddsMarketLiveClient.cs" />
     <Compile Include="ViewModels\BookmakerManagerViewModel.cs" />
     <Page Include="MainWindow.xaml">
