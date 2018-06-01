@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Newtonsoft.Json;
 using WpfTesting.Infrastructure;
 using WpfTesting.Models;
@@ -17,11 +18,12 @@ namespace WpfTesting.ViewModels
         private OddsMarketLiveClient _liveClient = new OddsMarketLiveClient();
         private BookmakerModel _selectedBookmaker;
         private MatchModel _match;
+        private MarketModel _market;
         public BookmakerManagerViewModel()
         {
             GetBookmakers();
         }
-
+        
         public BookmakerModel SelectedBookmaker
         {
             get { return _selectedBookmaker; }
@@ -42,9 +44,20 @@ namespace WpfTesting.ViewModels
             }
         }
 
+        public MarketModel SelectedMarket
+        {
+            get { return _market; }
+            set
+            {
+                _market = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedMarket)));
+            }
+        }
+
         private BookmakerModel GetBookmaker(long id)
         {
             var result = _liveClient.GetMatches(id);
+            if (result.StartsWith("\"There is")) return null;
             return JsonConvert.DeserializeObject<BookmakerModel>(result);
         }
 

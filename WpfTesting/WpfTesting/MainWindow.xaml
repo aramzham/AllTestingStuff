@@ -11,20 +11,13 @@
         <viewModels:BookmakerManagerViewModel x:Key="bookmakerViewModel" />
     </Window.Resources>
     <Grid DataContext="{StaticResource ResourceKey =bookmakerViewModel}">
-        <!--<DockPanel LastChildFill="True">
-            <Button Content="Dock=Top" DockPanel.Dock="Top"/>
-            <Button Content="Dock=Bottom" DockPanel.Dock="Bottom"/>
-            <Button Content="Dock=Left"/>
-            <Button Content="Dock=Right" DockPanel.Dock="Right"/>
-            <Button Content="LastChildFill=True"/>
-        </DockPanel>-->
         <WrapPanel Orientation="Horizontal">
             <ComboBox Margin="20" ItemsSource="{StaticResource ResourceKey=bookmakerViewModel}" DisplayMemberPath="Id" SelectedItem="{Binding SelectedBookmaker}"/>
             <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedBookmaker.Matches}" SelectedItem="{Binding SelectedMatch}"/>
-            <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedMatch.Markets}"/>
+            <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedMatch.Markets}" SelectedItem="{Binding SelectedMarket}"/>
         </WrapPanel>
-        <WrapPanel Orientation="Horizontal">
-            <TextBlock></TextBlock>
+        <WrapPanel Orientation="Horizontal" DataContext="{Binding Path=SelectedMarket}">
+            <TextBlock Text="{Binding Path=Selections[0].Name}"></TextBlock>
         </WrapPanel>
         <!--<Canvas>
             <Ellipse Fill="Green" Width="60" Height="60" Canvas.Left="30" Canvas.Top="20"
@@ -33,3 +26,4 @@ Canvas.ZIndex="1"/>
         </Canvas>-->
     </Grid>
 </Window>
+

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using WpfTesting.Annotations;
 
 namespace WpfTesting.Models
 {
@@ -29,9 +32,7 @@ namespace WpfTesting.Models
 
         public override string ToString()
         {
-            if (string.IsNullOrEmpty(Name)) return "Market has no name";
-            else if (MHandicap.HasValue == false) return Name;
-            else return $"{Name} ({MHandicap.Value})";
+            return !string.IsNullOrEmpty(Name) ? (MHandicap.HasValue == false ? Name : $"{Name} ({MHandicap.Value})") : "Market has no name";
         }
     }
 }
