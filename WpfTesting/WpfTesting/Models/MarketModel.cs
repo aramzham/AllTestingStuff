@@ -34,5 +34,39 @@ namespace WpfTesting.Models
         {
             return !string.IsNullOrEmpty(Name) ? (MHandicap.HasValue == false ? Name : $"{Name} ({MHandicap.Value})") : "Market has no name";
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is MarketModel other)) return false;
+            if (this.Selections is null && other.Selections != null) return false;
+            if (this.Selections != null && other.Selections is null) return false;
+            if (this.Selections is null && other.Selections is null)
+            {
+                if (this.Name == other.Name && this.MHandicap == other.MHandicap) return true;
+            }
+            else
+            {
+                if (this.Name != other.Name || this.MHandicap != other.MHandicap) return false;
+                if (this.Selections.Count != other.Selections.Count) return false;
+                else if (this.Selections.Count == 0) return true;
+                else if (this.Selections[0].HandicapSign == other.Selections[0].HandicapSign) return true;
+            }
+            return false;
+        }
+
+        public static bool operator ==(MarketModel left, MarketModel right)
+        {
+            if (System.Object.ReferenceEquals(left, null))
+            {
+                if (System.Object.ReferenceEquals(right, null)) return true;
+                return false;
+            }
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(MarketModel left, MarketModel right)
+        {
+            return !(left == right);
+        }
     }
 }

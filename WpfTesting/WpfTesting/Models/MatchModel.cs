@@ -101,10 +101,43 @@ namespace WpfTesting.Models
             switch (MatchMembers)
             {
                 case null:
-                    return "Matchmembers are null";
+                    return "Match members are null";
                 default:
                     return MatchMembers.Count < 1 ? "Match members are less than 1" : $"{MatchMembers[0].Name} vs {MatchMembers[1].Name}";
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is MatchModel other)) return false;
+            if (this.SportName != other.SportName) return false;
+            if (this.CompetitionName != other.SportName) return false;
+            if (this.MatchMembers is null && other.MatchMembers != null) return false;
+            if (this.MatchMembers != null && other.MatchMembers is null) return false;
+            if (this.MatchMembers is null && other.MatchMembers is null) return true;
+            if (this.MatchMembers.Count != other.MatchMembers.Count) return false;
+            if (this.MatchMembers.Count == 0) return true;
+            foreach (var thisMatchMember in this.MatchMembers)
+            {
+                if (other.MatchMembers.Any(x => x.Name == thisMatchMember.Name)) continue;
+                return false;
+            }
+            // if (this.StartTime == other.StartTime) return true; hl@ petq chi
+            return false;
+        }
+
+        public static bool operator ==(MatchModel left, MatchModel right)
+        {
+            if (System.Object.ReferenceEquals(left, null))
+            {
+                return System.Object.ReferenceEquals(right, null) ? true : false;
+            }
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(MatchModel left, MatchModel right)
+        {
+            return !(left == right);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

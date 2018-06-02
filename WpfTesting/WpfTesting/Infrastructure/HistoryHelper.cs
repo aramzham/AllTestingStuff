@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace WpfTesting.Infrastructure
 {
     public class HistoryHelper
     {
-        public static void AddHistory(MarketModel oldMarket, MarketModel newMarket, List<string> listBox)
+        public static void AddHistory(MarketModel oldMarket, MarketModel newMarket, ObservableCollection<string> listBox)
         {
             if (oldMarket is null || newMarket is null || newMarket.Selections is null || newMarket.Selections is null) return;
             //if (oldMarket.Name != newMarket.Name || oldMarket.MHandicap != newMarket.MHandicap || oldMarket.Selections[0].HandicapSign != newMarket.Selections[0].HandicapSign)

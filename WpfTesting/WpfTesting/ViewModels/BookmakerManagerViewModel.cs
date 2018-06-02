@@ -21,15 +21,16 @@ namespace WpfTesting.ViewModels
         private BookmakerModel _selectedBookmaker;
         private MatchModel _match;
         private MarketModel _market;
-        private System.Timers.Timer _timer = new Timer(2000);
+        private System.Timers.Timer _timer = new Timer(500);
         private long _selectedBookmakerId;
         private object _padlock = new object();
-        private List<string> _history = new List<string>();
+        private ObservableCollection<string> _history = new ObservableCollection<string>();
 
         public BookmakerManagerViewModel()
         {
-            GetBookmakers();
+            //GetBookmakers();
             _timer.Elapsed += TimerElapsedEventHandler;
+            _timer.Start();
         }
 
         private void TimerElapsedEventHandler(object sender, ElapsedEventArgs e)
@@ -41,25 +42,29 @@ namespace WpfTesting.ViewModels
             lock (_padlock) { bookmaker = GetBookmaker(_selectedBookmaker.Id); }
 
             if (SelectedMatch is null) return;
-            var presentMatch = bookmaker.Matches.FirstOrDefault(x => x.SportName == SelectedMatch.SportName &&
-                                                                     x.CompetitionName == SelectedMatch.CompetitionName &&
-                                                                     x.MatchMembers[0].Name == SelectedMatch.MatchMembers[0].Name &&
-                                                                     x.MatchMembers[1].Name == SelectedMatch.MatchMembers[1].Name);
+            //var presentMatch = bookmaker.Matches.FirstOrDefault(x => x.SportName == SelectedMatch.SportName &&
+            //                                                         x.CompetitionName == SelectedMatch.CompetitionName &&
+            //                                                         x.MatchMembers[0].Name == SelectedMatch.MatchMembers[0].Name &&
+            //                                                         x.MatchMembers[1].Name == SelectedMatch.MatchMembers[1].Name);
+            var presentMatch = bookmaker.Matches.FirstOrDefault(x => x == SelectedMatch);
             if (presentMatch is null) SelectedMatch = null;
             if (SelectedMarket is null) return;
-            var presentMarket = presentMatch.Markets.FirstOrDefault(x => x.Name == SelectedMarket.Name &&
-                                                                         x.MHandicap == SelectedMarket.MHandicap &&
-                                                                         x.Selections?.Count == SelectedMarket.Selections?.Count &&
-                                                                         x.Selections[0].HandicapSign == SelectedMarket.Selections[0].HandicapSign);
+            //var presentMarket = presentMatch.Markets.FirstOrDefault(x => x.Name == SelectedMarket.Name &&
+            //                                                             x.MHandicap == SelectedMarket.MHandicap &&
+            //                                                             x.Selections?.Count == SelectedMarket.Selections?.Count &&
+            //                                                             x.Selections[0].HandicapSign == SelectedMarket.Selections[0].HandicapSign);
+            var presentMarket = presentMatch.Markets.FirstOrDefault(x => x == SelectedMarket);
             if (presentMarket is null) SelectedMatch = presentMatch;
             else
             {
-                HistoryHelper.AddHistory(SelectedMarket, presentMarket, History);
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate { HistoryHelper.AddHistory(SelectedMarket, presentMarket, History); });
                 SelectedMarket = presentMarket;
             }
 
             _timer.Enabled = true;
         }
+
+        public ObservableCollection<string> History { get { return _history; } set { _history = value; } }
 
         public BookmakerModel SelectedBookmaker
         {
@@ -89,19 +94,9 @@ namespace WpfTesting.ViewModels
             set
             {
                 if (_timer.Enabled == false) _timer.Start();
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate { History.Clear(); });
                 _market = value;
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedMarket)));
-            }
-        }
-
-        public List<string> History
-        {
-            get { return _history; }
-            set
-            {
-                _history = value;
-                //OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add));
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(History)));
             }
         }
 
