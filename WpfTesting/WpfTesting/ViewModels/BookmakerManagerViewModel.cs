@@ -33,7 +33,7 @@ namespace WpfTesting.ViewModels
             _timer.Start();
         }
 
-        private void TimerElapsedEventHandler(object sender, ElapsedEventArgs e)
+        private void TimerElapsedEventHandler(object sender, ElapsedEventArgs e) // TODO: Add history clearing when market is changed, be careful with market selecting with timer
         {
             if (SelectedMarket is null || SelectedMatch is null) return;
 
