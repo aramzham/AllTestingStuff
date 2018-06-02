@@ -38,20 +38,14 @@ namespace WpfTesting.Models
         public override bool Equals(object obj)
         {
             if (!(obj is MarketModel other)) return false;
+            if (this.Name != other.Name || this.MHandicap != other.MHandicap) return false;
             if (this.Selections is null && other.Selections != null) return false;
             if (this.Selections != null && other.Selections is null) return false;
-            if (this.Selections is null && other.Selections is null)
-            {
-                if (this.Name == other.Name && this.MHandicap == other.MHandicap) return true;
-            }
-            else
-            {
-                if (this.Name != other.Name || this.MHandicap != other.MHandicap) return false;
-                if (this.Selections.Count != other.Selections.Count) return false;
-                else if (this.Selections.Count == 0) return true;
-                else if (this.Selections[0].HandicapSign == other.Selections[0].HandicapSign) return true;
-            }
-            return false;
+            if (this.Selections is null && other.Selections is null) return true;
+            if (this.Selections.Count != other.Selections.Count) return false;
+            if (this.Selections.Count == 0) return true;
+            if (this.Selections[0].HandicapSign != other.Selections[0].HandicapSign) return false;
+            return true;
         }
 
         public static bool operator ==(MarketModel left, MarketModel right)

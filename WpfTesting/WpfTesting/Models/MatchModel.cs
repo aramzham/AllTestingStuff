@@ -111,7 +111,7 @@ namespace WpfTesting.Models
         {
             if (!(obj is MatchModel other)) return false;
             if (this.SportName != other.SportName) return false;
-            if (this.CompetitionName != other.SportName) return false;
+            if (this.CompetitionName != other.CompetitionName) return false;
             if (this.MatchMembers is null && other.MatchMembers != null) return false;
             if (this.MatchMembers != null && other.MatchMembers is null) return false;
             if (this.MatchMembers is null && other.MatchMembers is null) return true;
@@ -123,7 +123,7 @@ namespace WpfTesting.Models
                 return false;
             }
             // if (this.StartTime == other.StartTime) return true; hl@ petq chi
-            return false;
+            return true;
         }
 
         public static bool operator ==(MatchModel left, MatchModel right)
