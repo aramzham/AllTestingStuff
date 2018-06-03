@@ -30,9 +30,12 @@ namespace WpfTesting.ViewModels
             //GetBookmakers();
             _timer.Elapsed += TimerElapsedEventHandler;
             //_timer.Start();
+            History.Add(new HistoryModel() { SelectionName = "a", From = 0, To = 1, Change = ChangeEnum.Up });
+            History.Add(new HistoryModel() { SelectionName = "b", From = 0, To = 1, Change = ChangeEnum.Down });
+            History.Add(new HistoryModel() { SelectionName = "c", From = 0, To = 1, Change = ChangeEnum.Created });
         }
 
-        public ObservableCollection<string> History { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<HistoryModel> History { get; set; } = new ObservableCollection<HistoryModel>();
 
         public BookmakerModel SelectedBookmaker
         {

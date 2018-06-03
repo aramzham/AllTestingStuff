@@ -31,7 +31,7 @@
                 </ComboBox.Style>
             </ComboBox>
             <Ellipse Fill="ForestGreen" Opacity="1" Height="30" x:Name="heartbeat"
-Stroke="Black" Width="30">                
+Stroke="Black" Width="30">
             </Ellipse>
         </WrapPanel>
         <WrapPanel Orientation="Horizontal" DataContext="{Binding Path=SelectedMarket.Selections}">
@@ -49,7 +49,28 @@ Stroke="Black" Width="30">
             <!--<TextBlock Text="{Binding Path=MatchIsSuspended}"></TextBlock>-->
             <!--<TextBlock Text="{Binding Path=MarketIsSuspended}"></TextBlock>-->
         </WrapPanel>
-        <ListBox Grid.Column="1" ItemsSource="{Binding Path=History}"></ListBox>
+        <ListBox Grid.Column="1" ItemsSource="{Binding Path=History}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="3" CornerRadius="6" BorderBrush="AliceBlue">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*" ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Path=Time}"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=SelectionName}"></TextBlock>
+                            <TextBlock Grid.Column="2" Text="{Binding Path=From}"></TextBlock>
+                            <TextBlock Grid.Column="3" Text="{Binding Path=Change}"></TextBlock>
+                            <TextBlock Grid.Column="4" Text="{Binding Path=To}"></TextBlock>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Image Opacity="0.7" Panel.ZIndex="0" Source="152796645273391979.png" Margin="-60,112,60,-112"></Image>
     </Grid>
 </Window>
