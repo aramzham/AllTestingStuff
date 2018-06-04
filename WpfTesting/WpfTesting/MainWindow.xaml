@@ -18,6 +18,9 @@
         </Grid.ColumnDefinitions>
         <WrapPanel Orientation="Horizontal" Panel.ZIndex="1">
             <ComboBox Margin="20" ItemsSource="{StaticResource ResourceKey=bookmakerViewModel}" DisplayMemberPath="Id" SelectedItem="{Binding SelectedBookmaker}"/>
+            <TextBox Margin="20" Text="{Binding Path=SelectedMatch.SportName}"></TextBox>
+            <TextBox Margin="20" Text="{Binding Path=SelectedMatch.RegionName}"></TextBox>
+            <TextBox Margin="20" Text="{Binding Path=SelectedMatch.CompetitionName}"></TextBox>
             <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedBookmaker.Matches}" SelectedItem="{Binding SelectedMatch}"/>
             <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedMatch.Markets}" SelectedItem="{Binding SelectedMarket}">
                 <ComboBox.Style>
