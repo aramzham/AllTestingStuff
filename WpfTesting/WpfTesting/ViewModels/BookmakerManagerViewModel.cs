@@ -21,7 +21,7 @@ namespace WpfTesting.ViewModels
         private BookmakerModel _selectedBookmaker;
         private MatchModel _match;
         private MarketModel _market;
-        private System.Timers.Timer _timer = new Timer(500);
+        private System.Windows.Threading.DispatcherTimer _timer = new System.Windows.Threading.DispatcherTimer() {Interval = TimeSpan.FromSeconds(2)};
         private long _selectedBookmakerId;
         private object _padlock = new object();
 
@@ -91,9 +91,9 @@ namespace WpfTesting.ViewModels
             get { return _market; }
             set
             {
-                if (_timer.Enabled == false) _timer.Start();
-                if (SelectedMarket != value) History.Clear();
-                else HistoryHelper.AddHistory(SelectedMarket, value, History);
+                if (_timer.IsEnabled == false) _timer.Start();
+                if (SelectedMarket != value) System.Windows.Application.Current.Dispatcher.Invoke(delegate { History.Clear(); });
+                else System.Windows.Application.Current.Dispatcher.Invoke(delegate { HistoryHelper.AddHistory(SelectedMarket, value, History); });
                 _market = value;
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedMarket)));
             }
@@ -119,26 +119,20 @@ namespace WpfTesting.ViewModels
             }
         }
 
-        private void TimerElapsedEventHandler(object sender, ElapsedEventArgs e) // TODO: Add history clearing when market is changed, be careful with market selecting with timer
+        private void TimerElapsedEventHandler(object sender, EventArgs e) // TODO: Add history clearing when market is changed, be careful with market selecting with timer
         {
             if (SelectedMarket is null || SelectedMatch is null) return;
 
-            _timer.Enabled = false;
+            _timer.IsEnabled = false;
             BookmakerModel bookmaker = null;
             lock (_padlock) { bookmaker = GetBookmaker(_selectedBookmaker.Id); }
 
             if (SelectedMatch is null) return;
-            //var presentMatch = bookmaker.Matches.FirstOrDefault(x => x.SportName == SelectedMatch.SportName &&
-            //                                                         x.CompetitionName == SelectedMatch.CompetitionName &&
-            //                                                         x.MatchMembers[0].Name == SelectedMatch.MatchMembers[0].Name &&
-            //                                                         x.MatchMembers[1].Name == SelectedMatch.MatchMembers[1].Name);
+            //var presentMatch = bookmaker.Matches.FirstOrDefault(x => x.SportName == SelectedMatch.SportName && x.CompetitionName == SelectedMatch.CompetitionName && x.MatchMembers[0].Name == SelectedMatch.MatchMembers[0].Name && x.MatchMembers[1].Name == SelectedMatch.MatchMembers[1].Name);
             var presentMatch = bookmaker.Matches.FirstOrDefault(x => x == SelectedMatch);
             if (presentMatch is null) SelectedMatch = null;
             if (SelectedMarket is null) return;
-            //var presentMarket = presentMatch.Markets.FirstOrDefault(x => x.Name == SelectedMarket.Name &&
-            //                                                             x.MHandicap == SelectedMarket.MHandicap &&
-            //                                                             x.Selections?.Count == SelectedMarket.Selections?.Count &&
-            //                                                             x.Selections[0].HandicapSign == SelectedMarket.Selections[0].HandicapSign);
+            //var presentMarket = presentMatch.Markets.FirstOrDefault(x => x.Name == SelectedMarket.Name && x.MHandicap == SelectedMarket.MHandicap && x.Selections?.Count == SelectedMarket.Selections?.Count && x.Selections[0].HandicapSign == SelectedMarket.Selections[0].HandicapSign);
             var presentMarket = presentMatch.Markets.FirstOrDefault(x => x == SelectedMarket);
             if (presentMarket is null) SelectedMatch = presentMatch;
             else
@@ -146,7 +140,7 @@ namespace WpfTesting.ViewModels
                 SelectedMarket = presentMarket;
             }
 
-            _timer.Enabled = true;
+            _timer.IsEnabled = true;
         }
     }
 }
