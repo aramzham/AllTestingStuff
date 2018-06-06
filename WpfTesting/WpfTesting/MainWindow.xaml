@@ -7,48 +7,83 @@
         xmlns:viewModels="clr-namespace:WpfTesting.ViewModels"
         mc:Ignorable="d"
         WindowStyle="ToolWindow" MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Title="Client" Height="450" Width="800">
+        Title="Client" Height="800" Width="1200">
     <Window.Resources>
         <viewModels:BookmakerManagerViewModel x:Key="bookmakerViewModel" />
     </Window.Resources>
     <Grid DataContext="{StaticResource ResourceKey =bookmakerViewModel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.35*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <WrapPanel Orientation="Horizontal" Panel.ZIndex="1">
-            <ComboBox Margin="20" ItemsSource="{StaticResource ResourceKey=bookmakerViewModel}" DisplayMemberPath="Id" SelectedItem="{Binding SelectedBookmaker}"/>
-            <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedBookmaker.Matches}" SelectedItem="{Binding SelectedMatch}"/>
-            <ComboBox Margin="20" ItemsSource="{Binding Path=SelectedMatch.Markets}" SelectedItem="{Binding SelectedMarket}">
-                <ComboBox.Style>
-                    <Style TargetType="ComboBox">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=heartbeat, Path=SelectedItem}">
-                                <Setter Property="Opacity" Value="0"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0" ItemsSource="{StaticResource ResourceKey=bookmakerViewModel}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedBookmaker}"/>
+            <ListBox Grid.Column="1" ItemsSource="{Binding Path=SelectedBookmaker.Matches}" SelectedItem="{Binding SelectedMatch}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Margin="5,0,5,0" Text="{Binding}"></TextBlock>
+                            <TextBlock Grid.Column="1" Margin="5,0,5,0" Text="0:0"></TextBlock>
+                            <TextBlock Grid.Column="2" Margin="5,0,0,0" Text="{Binding Path=Markets.Count}"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Column="2" ItemsSource="{Binding Path=SelectedMatch.Markets}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="{Binding Path=Name}" Grid.ColumnSpan="15"></TextBlock>
+                            <ListBox Grid.Row="1" ItemsSource="{Binding Path=Selections}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Path=Name}"/>
+                                            <TextBlock Text="{Binding Path=Price}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <!--<WrapPanel Orientation="Horizontal" DataContext="{Binding Path=SelectedMarket.Selections}">
+                <WrapPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="5"></Setter>
                     </Style>
-                </ComboBox.Style>
-            </ComboBox>
-            <Ellipse Fill="ForestGreen" Opacity="1" Height="30" x:Name="heartbeat"
-Stroke="Black" Width="30">
-            </Ellipse>
-        </WrapPanel>
-        <WrapPanel Orientation="Horizontal" DataContext="{Binding Path=SelectedMarket.Selections}">
-            <WrapPanel.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Margin" Value="5"></Setter>
-                </Style>
-            </WrapPanel.Resources>
-            <TextBlock Text="{Binding Path=[0].Name}"></TextBlock>
-            <TextBlock Text="{Binding Path=[0].Price}"></TextBlock>
-            <TextBlock Text="{Binding Path=[1].Name}"></TextBlock>
-            <TextBlock Text="{Binding Path=[1].Price}"></TextBlock>
-            <TextBlock Text="{Binding Path=[2].Name}"></TextBlock>
-            <TextBlock Text="{Binding Path=[2].Price}"></TextBlock>
-            <!--<TextBlock Text="{Binding Path=MatchIsSuspended}"></TextBlock>-->
-            <!--<TextBlock Text="{Binding Path=MarketIsSuspended}"></TextBlock>-->
-        </WrapPanel>
+                </WrapPanel.Resources>
+                
+                <TextBlock Text="{Binding Path=[0].Name}"></TextBlock>
+                <TextBlock Text="{Binding Path=[0].Price}"></TextBlock>
+                <TextBlock Text="{Binding Path=[1].Name}"></TextBlock>
+                <TextBlock Text="{Binding Path=[1].Price}"></TextBlock>
+                <TextBlock Text="{Binding Path=[2].Name}"></TextBlock>
+                <TextBlock Text="{Binding Path=[2].Price}"></TextBlock>
+                <TextBlock Text="{Binding Path=MatchIsSuspended}"></TextBlock>
+                <TextBlock Text="{Binding Path=MarketIsSuspended}"></TextBlock>
+            </WrapPanel>-->
+        </Grid>        
         <ListBox Grid.Column="1" ItemsSource="{Binding Path=History}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -71,7 +106,6 @@ Stroke="Black" Width="30">
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Image Opacity="0.7" Panel.ZIndex="0" Source="152796645273391979.png" Margin="-60,112,60,-112"></Image>
     </Grid>
 </Window>
 

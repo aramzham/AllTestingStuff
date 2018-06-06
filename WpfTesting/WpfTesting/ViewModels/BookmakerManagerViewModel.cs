@@ -30,6 +30,32 @@ namespace WpfTesting.ViewModels
             //GetBookmakers();
             _timer.Elapsed += TimerElapsedEventHandler;
             //_timer.Start();
+
+            Add(new BookmakerModel()
+            {
+                Id = 1,
+                Name = "Aram",
+                Matches = new List<MatchModel> {
+                    new MatchModel() {
+                        MatchMembers = new List<MatchMemberModel>() {
+                            new MatchMemberModel() { Name = "Team 1" }, new MatchMemberModel() { Name = "Team 2" } },
+                        Markets = new List<MarketModel>() {
+                            new MarketModel() { Name = "Result", MHandicap = null, Selections = new List<SelectionModel>() { new SelectionModel() { Name = "W1", Price = 3.1m }, new SelectionModel() { Name = "W2", Price = 1.8m } } },
+                        new MarketModel(){ Name="Over/Under", MHandicap=2.5, Selections= new List<SelectionModel>(){ new SelectionModel() { Name = "1", Price = 2.2m }, new SelectionModel() { Name = "2", Price = 1.1m } } } } } }
+            });
+            Add(new BookmakerModel()
+            {
+                Id = 2,
+                Name = "Vanik",
+                Matches = new List<MatchModel> {
+                    new MatchModel() {
+                        MatchMembers = new List<MatchMemberModel>() {
+                            new MatchMemberModel() { Name = "Team 3" }, new MatchMemberModel() { Name = "Team 4" } },
+                        Markets = new List<MarketModel>() {
+                            new MarketModel() { Name = "Result", MHandicap = null, Selections = new List<SelectionModel>() { new SelectionModel() { Name = "W1", Price = 3.1m }, new SelectionModel() { Name = "W2", Price = 1.8m } } },
+                        new MarketModel(){ Name="Over/Under", MHandicap=2.5, Selections= new List<SelectionModel>(){ new SelectionModel() { Name = "1", Price = 2.2m }, new SelectionModel() { Name = "2", Price = 1.1m } } } } }, new MatchModel(){ MatchMembers = new List<MatchMemberModel>(){ new MatchMemberModel() { Name="aranc market 1"}, new MatchMemberModel() { Name= "aranc market 2"} } } }
+            });
+
             History.Add(new HistoryModel() { SelectionName = "a", From = 0, To = 1, Change = ChangeEnum.Up });
             History.Add(new HistoryModel() { SelectionName = "b", From = 0, To = 1, Change = ChangeEnum.Down });
             History.Add(new HistoryModel() { SelectionName = "c", From = 0, To = 1, Change = ChangeEnum.Created });
@@ -43,7 +69,8 @@ namespace WpfTesting.ViewModels
             set
             {
                 _timer?.Stop();
-                lock (_padlock) _selectedBookmaker = GetBookmaker(value.Id);
+                //lock (_padlock) _selectedBookmaker = GetBookmaker(value.Id);
+                _selectedBookmaker = value;
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedBookmaker)));
             }
         }
