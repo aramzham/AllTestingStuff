@@ -1,0 +1,25 @@
+﻿@model MVCSuccinctly.Models.ItineraryItem
+
+<h2>Create</h2>
+@Html.ValidationSummary(true)
+<div class="form-group">
+    @using (Html.BeginForm())
+    {
+        <p>
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description)
+            @Html.ValidationMessageFor(m => m.Description)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.When)
+            @Html.TextBoxFor(m => m.When)
+            @Html.ValidationMessageFor(m => m.When)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Duration)
+            @Html.TextBoxFor(m => m.Duration)
+            @Html.ValidationMessageFor(m => m.Duration)
+        </p>
+        <p><input type="submit" value="Save" /></p>
+    }
+</div>
