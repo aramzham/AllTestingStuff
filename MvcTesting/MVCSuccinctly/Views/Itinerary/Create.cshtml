@@ -7,19 +7,42 @@
     {
         <p>
             @Html.LabelFor(m => m.Description)
-            @Html.TextBoxFor(m => m.Description)
+            @Html.EditorFor(m => m.Description)
             @Html.ValidationMessageFor(m => m.Description)
         </p>
         <p>
             @Html.LabelFor(m => m.When)
-            @Html.TextBoxFor(m => m.When)
+            @Html.EditorFor(m => m.When)
             @Html.ValidationMessageFor(m => m.When)
         </p>
         <p>
             @Html.LabelFor(m => m.Duration)
-            @Html.TextBoxFor(m => m.Duration)
+            @Html.EditorFor(m => m.Duration)
             @Html.ValidationMessageFor(m => m.Duration)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.IsActive)
+            @Html.EditorFor(m => m.IsActive)
+            @Html.ValidationMessageFor(m => m.IsActive)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Confirmed)
+            @Html.EditorFor(m => m.Confirmed)
+            @Html.ValidationMessageFor(m => m.Confirmed)
         </p>
         <p><input type="submit" value="Save" /></p>
     }
 </div>
+
+@section scripts
+{
+    <script>
+        $(".datePicker").datepicker({
+            showOn: "button",
+            gotoCurrent: true,
+            showAnim: 'fold',
+            buttonImage: "./App_Data/calendario-2018.png",
+            buttonImageOnly: true
+        });
+    </script>
+}
