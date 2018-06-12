@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\calendario-2018.png" />
+    <Content Include="App_Data\waterproof_phone_4g_lte_smartphones.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -192,8 +193,12 @@
     <Content Include="Views\Itinerary\Index.cshtml" />
     <Content Include="Views\Itinerary\Create.cshtml" />
     <Content Include="Views\Shared\Editor-Templates\DateTime.cshtml" />
+    <Content Include="Views\Shared\Editor-Templates\Phone.cshtml" />
+    <Content Include="Views\Shared\Editor-Templates\ItineraryItem.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\ItineraryItem\DisplayTemplates\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
