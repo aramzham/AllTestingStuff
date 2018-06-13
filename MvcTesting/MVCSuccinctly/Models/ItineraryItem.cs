@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using MVCSuccinctly.Models.Attributes;
 
 namespace MVCSuccinctly.Models
 {
+    [MetadataType(typeof(ItineraryItemAttributes))]
     public class ItineraryItem
     {
-        [Required(ErrorMessage ="You must specify when the event will occur")]
+        [Required(ErrorMessage ="You must specify when the event will occur"), Remote("VerifyAvailability", "Itinerary", AdditionalFields = "Description")]
         public DateTime? When { get; set; }
 
         [Required(ErrorMessage = "You must enter a description"), MaxLength(140, ErrorMessage ="The description must be less than 140 characters."), DataType(DataType.MultilineText)]

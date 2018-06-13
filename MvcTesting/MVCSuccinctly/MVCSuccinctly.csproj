@@ -147,6 +147,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Attributes\ItineraryItemAttributes.cs" />
     <Compile Include="Models\GreetingModel.cs" />
     <Compile Include="Models\ItineraryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -34,5 +34,11 @@ namespace MVCSuccinctly.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public JsonResult VerifyAvailability(DateTime when, string description)
+        {
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
 }
