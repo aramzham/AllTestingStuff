@@ -1,0 +1,62 @@
+﻿@model string
+
+@{
+    var areaCode = string.Empty;
+    var firstNumber = string.Empty;
+    var secondNumber = string.Empty;
+    if (Model != null)
+    {
+        areaCode = Model.Substring(0, 3);
+        firstNumber = Model.Substring(3, 3);
+        if (Model.Length >= 10)
+        {
+            secondNumber = Model.Substring(6, 4);
+        }
+    }
+}
+
+<input type="text" name="area_code" id="area_code"
+       maxlength="3" size="3" value="@areaCode" /> -
+<input type="text" name="number1" id="number1"
+       maxlength="3" size="3" value="@firstNumber" /> -
+<input type="text" name="number2" id="number2"
+       maxlength="4" size="5" value="@secondNumber" />
+<input type="hidden" name="@ViewData.TemplateInfo.HtmlFieldPrefix"
+       id="@ViewData.TemplateInfo.HtmlFieldPrefix" value="@Model" />
+
+<img src="~/App_Data/waterproof_phone_4g_lte_smartphones.jpg" id="phoneNumberEdit" alt="alternate text"/>
+<input type="text" name="unparsed" id="unparsed" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#unparsed").hide();
+        var edit = $("#phoneNumberEdit");
+        edit.click(function () { $("#unparsed").toggle(); });
+        var phone = $('#area_code, #number1, #number2');
+        phone.autotab_magic().autotab_filter('numeric');
+
+        $("#unparsed").change(function () {
+           var unparsed = $("#unparsed");
+            var value = unparsed.val();
+            value = value.replace(/\(|\)|\s|\-/gi, '');
+            value = value.replace(/[a-zA-Z]+/gi, '');
+            unparsed.val(value);
+            $("#area_code").val(value.substring(0, 3));
+            $("#number1").val(value.substring(3, 6));
+            $("#number2").val(value.substring(6, 10));
+            if (value.length == 10)
+                unparsed.hide();
+            var result = ($('#area_code').val()
+                + $("#number1").val()
+                + $("#number2").val());
+            $("#@ViewData.TemplateInfo.HtmlFieldPrefix")
+                .val(result);
+        });
+        phone.blur(function () {
+            var result = ($('#area_code').val()
+                + $("#number1").val()
+                + $("#number2").val());
+            $("#@ViewData.TemplateInfo.HtmlFieldPrefix")
+                .val(result);
+        });
+    });
+</script>

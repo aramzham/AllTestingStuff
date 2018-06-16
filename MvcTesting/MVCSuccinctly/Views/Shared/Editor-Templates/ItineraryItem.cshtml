@@ -1,0 +1,11 @@
+﻿@model MVCSuccinctly.Models.ItineraryItem
+<h2>Create</h2>
+<div class="editor">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.EditorFor(m=>m)
+    <p><input type="submit" value="Save"/></p>
+}
+ 
+</div>
