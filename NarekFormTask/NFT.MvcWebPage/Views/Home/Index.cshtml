@@ -1,31 +1,66 @@
-﻿@{
+﻿@model IEnumerable<NFT.MvcWebPage.Models.Employee>
+@{
     ViewBag.Title = "Home Page";
 }
+@Styles.Render("~/Content/MainTable.css")
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<h2>Employees</h2>
+<table id="employees">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Salary</th>
+        <th>IsGettingBonus</th>
+        <th>UniversityId</th>
+        <th>Info</th>
+    </tr>
+    @{
+        foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.Id</td>
+                <td>@employee.Name</td>
+                <td>@employee.Surname</td>
+                <td>@employee.Salary</td>
+                <td>@employee.IsGettingBonus</td>
+                <td>@employee.UniversityId</td>
+                <td>@employee.Info</td>
+            </tr>
+        }
+    }
+</table>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+@*<h2>Create</h2>
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        @using (Html.BeginForm())
+        {
+            <p>
+                @Html.LabelFor(m => m.Name)
+                @Html.EditorFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Surname)
+                @Html.EditorFor(m => m.Surname)
+                @Html.ValidationMessageFor(m => m.Surname)
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Salary)
+                @Html.EditorFor(m => m.Salary)
+                @Html.ValidationMessageFor(m => m.Salary)
+            </p>
+            <p>
+                @Html.LabelFor(m => m.IsGettingBonus)
+                @Html.EditorFor(m => m.IsGettingBonus)
+                @Html.ValidationMessageFor(m => m.IsGettingBonus)
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Info)
+                @Html.EditorFor(m => m.Info)
+                @Html.ValidationMessageFor(m => m.Info)
+            </p>
+            <p><input type="submit" value="Save" /></p>
+        }
+    </div>*@

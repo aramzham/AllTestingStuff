@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,11 +10,13 @@ namespace NFT.MvcWebPage.Controllers
 {
     public class HomeController : Controller
     {
-        private DB_Manager db_manager = new DB_Manager();
+        private readonly DB_Manager db_manager = new DB_Manager();
 
-        public ActionResult Index()
+        public async System.Threading.Tasks.Task<ActionResult> Index()
         {
-            return View();
+            var employees = await db_manager.GetAllEmployees();
+            if (employees == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "naughty");
+            return View(employees);
         }
 
         public ActionResult About()
@@ -29,14 +32,6 @@ namespace NFT.MvcWebPage.Controllers
 
             return View();
         }
-
-        //[HttpGet, Route("api/employee")]
-        //public async Task<IHttpActionResult> GetAllEmployees()
-        //{
-        //    var employees = await db_manager.GetAllEmployees();
-        //    if (employees == null) return BadRequest();
-        //    return Ok(employees);
-        //}
 
         //// GET: api/Contacts?Guid=guid
         //[HttpGet, Route("api/employee"), ResponseType(typeof(Employee))]
