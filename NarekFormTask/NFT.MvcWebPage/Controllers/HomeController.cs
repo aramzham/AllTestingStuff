@@ -1,4 +1,5 @@
 ﻿using NFT.MvcWebPage.Infrastructure;
+using NFT.MvcWebPage.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,12 @@ namespace NFT.MvcWebPage.Controllers
             return View();
         }
 
+        public void AddEmployee(object[] toAdd)
+        {
+            if (toAdd is null || toAdd.Length != 6) return;
+            var emp = new Employee() { Info = (string)toAdd[5], IsGettingBonus = (bool)toAdd[3], Name = (string)toAdd[0], Salary = (decimal)toAdd[2], Surname = (string)toAdd[1], UniversityId = (int)toAdd[4] };
+            db_manager.AddEmployee(emp);
+        }
         //// GET: api/Contacts?Guid=guid
         //[HttpGet, Route("api/employee"), ResponseType(typeof(Employee))]
         //public async Task<IHttpActionResult> GetEmployeeById([FromUri]int id)

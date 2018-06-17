@@ -5,6 +5,8 @@
 @Styles.Render("~/Content/MainTable.css")
 
 <h2>Employees</h2>
+<button type="button" id="addButton">Add</button>
+<button type="button" id="cancelButton">Cancel</button>
 <table id="employees">
     <tr>
         <th>Id</th>
@@ -31,36 +33,34 @@
     }
 </table>
 
-@*<h2>Create</h2>
-    @Html.ValidationSummary(true)
-    <div class="form-group">
-        @using (Html.BeginForm())
-        {
-            <p>
-                @Html.LabelFor(m => m.Name)
-                @Html.EditorFor(m => m.Name)
-                @Html.ValidationMessageFor(m => m.Name)
-            </p>
-            <p>
-                @Html.LabelFor(m => m.Surname)
-                @Html.EditorFor(m => m.Surname)
-                @Html.ValidationMessageFor(m => m.Surname)
-            </p>
-            <p>
-                @Html.LabelFor(m => m.Salary)
-                @Html.EditorFor(m => m.Salary)
-                @Html.ValidationMessageFor(m => m.Salary)
-            </p>
-            <p>
-                @Html.LabelFor(m => m.IsGettingBonus)
-                @Html.EditorFor(m => m.IsGettingBonus)
-                @Html.ValidationMessageFor(m => m.IsGettingBonus)
-            </p>
-            <p>
-                @Html.LabelFor(m => m.Info)
-                @Html.EditorFor(m => m.Info)
-                @Html.ValidationMessageFor(m => m.Info)
-            </p>
-            <p><input type="submit" value="Save" /></p>
-        }
-    </div>*@
+@section scripts
+{
+    <script>
+        $("#cancelButton").hide();
+        $("#addButton").click(function () {
+            if ($("#addButton").text() == "Add") {
+                $('#employees tr:last').after("<tr id=\"lastTr\"><td></td><td><input type=\"text\" id=\"addName\"/></td><td><input type=\"text\" id=\"addSurname\"/></td><td><input type=\"text\" id=\"addSalary\"/></td><td><input type=\"checkbox\" id=\"addIsBonus\"/></td><td><input type=\"number\" id=\"addUnivId\"/></td><td><input type=\"text\" id=\"addInfo\"/></td></tr>");
+                $("#addButton").text("Save");
+                $("#cancelButton").show();
+            }
+            else if ($("#addButton").text() == "Save") {
+                alert("save-i mej a");
+                $("#addButton").text("Add");
+                $("#cancelButton").hide();
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/AddEmployee",
+                    data: { toAdd: [$("#addName").val(), $("#addSurname").val(), $("#addSalary").val(), $("#addIsBonus").val(), $("#addUnivId").val(), $("#addInfo").val(),]},
+                    success: function () {
+                        alert("success elav");
+                        $("#addButton").text("Add");
+                        $("#cancelButton").hide();
+                    }
+                });
+            }
+        });
+        $("#cancelButton").on("click", function () {
+            $("#lastTr").remove();
+        });
+    </script>
+}
