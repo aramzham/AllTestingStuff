@@ -37,30 +37,65 @@
 {
     <script>
         $("#cancelButton").hide();
-        $("#addButton").click(function () {
-            if ($("#addButton").text() == "Add") {
-                $('#employees tr:last').after("<tr id=\"lastTr\"><td></td><td><input type=\"text\" id=\"addName\"/></td><td><input type=\"text\" id=\"addSurname\"/></td><td><input type=\"text\" id=\"addSalary\"/></td><td><input type=\"checkbox\" id=\"addIsBonus\"/></td><td><input type=\"number\" id=\"addUnivId\"/></td><td><input type=\"text\" id=\"addInfo\"/></td></tr>");
-                $("#addButton").text("Save");
-                $("#cancelButton").show();
-            }
-            else if ($("#addButton").text() == "Save") {
-                alert("save-i mej a");
-                $("#addButton").text("Add");
-                $("#cancelButton").hide();
-                $.ajax({
-                    type: "POST",
-                    url: "/Home/AddEmployee",
-                    data: { toAdd: [$("#addName").val(), $("#addSurname").val(), $("#addSalary").val(), $("#addIsBonus").val(), $("#addUnivId").val(), $("#addInfo").val(),]},
-                    success: function () {
-                        alert("success elav");
-                        $("#addButton").text("Add");
-                        $("#cancelButton").hide();
-                    }
-                });
-            }
-        });
+        //$("#addButton").click(function () {
+        //    if ($("#addButton").text() == "Add") {
+        //        $('#employees tr:last').after("<tr id=\"lastTr\"><td></td><td><input type=\"text\" id=\"addName\"/></td><td><input type=\"text\" id=\"addSurname\"/></td><td><input type=\"text\" id=\"addSalary\"/></td><td><input type=\"checkbox\" id=\"addIsBonus\"/></td><td><input type=\"number\" id=\"addUnivId\"/></td><td><input type=\"text\" id=\"addInfo\"/></td></tr>");
+        //        $("#addButton").text("Save");
+        //        $("#cancelButton").show();
+        //    }
+        //    else if ($("#addButton").text() == "Save") {
+        //        alert("save-i mej a");
+        //        $("#addButton").text("Add");
+        //        $("#cancelButton").hide();
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "/Home/AddEmployee",
+        //            data: { toAdd: [$("#addName").val(), $("#addSurname").val(), $("#addSalary").val(), $("#addIsBonus").val(), $("#addUnivId").val(), $("#addInfo").val(),]},
+        //            success: function () {
+        //                alert("success elav");
+        //                $("#addButton").text("Add");
+        //                $("#cancelButton").hide();
+        //            }
+        //        });
+        //    }
+        //});
+        $("#addButton").on("click", addTextBoxes);
         $("#cancelButton").on("click", function () {
-            $("#lastTr").remove();
+            saveToAdd();
         });
+
+        function saveEmployee() {
+                $.ajax({
+                    url: '@Url.Action("AddEmployee")',
+                    dataType: "json",
+                    type: "POST",
+                    data: { toAdd: [$("#addName").val(), $("#addSurname").val(), $("#addSalary").val(), $("#addIsBonus").val(), $("#addUnivId").val(), $("#addInfo").val(),] },
+                    success: function (result) {
+                        //$("#helpContent").empty().append(result);
+                        //$("#helpContent").show();
+                        //$("#addButton").removeClass("helpTrigger").addClass("closeTrigger");
+                        saveToAdd();
+                }
+            });
+
+        }
+        function addTextBoxes() {
+            //$("#helpContent").empty();
+            //$("#helpContent").hide();
+            //$("#helpTrigger").removeClass("closeTrigger").addClass("helpTrigger");
+            $('#employees tr:last').after("<tr id=\"lastTr\"><td></td><td><input type=\"text\" id=\"addName\"/></td><td><input type=\"text\" id=\"addSurname\"/></td><td><input type=\"text\" id=\"addSalary\"/></td><td><input type=\"checkbox\" id=\"addIsBonus\"/></td><td><input type=\"number\" id=\"addUnivId\"/></td><td><input type=\"text\" id=\"addInfo\"/></td></tr>");
+            $("#addButton").text("Save");
+            $("#cancelButton").show();
+            $("#addButton").unbind("click");
+            $("#addButton").click(getHelp);
+        }
+
+        function saveToAdd() {
+            $("#addButton").unbind("click");
+            $("#addButton").click(addTextBoxes);
+            $("#addButton").text("Add");
+            $("#cancelButton").hide();
+            $("#lastTr").remove();
+        }
     </script>
 }

@@ -24,3 +24,39 @@
     background-color: #4CAF50;
     color: white;
 }
+
+.helpTrigger {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    height: 50px;
+    width: 50px;
+    background: url('HelpClose.png') 0px 0px;
+}
+
+.closeTrigger {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    height: 50px;
+    width: 50px;
+    background: url('HelpClose.png') 0px 50px;
+}
+
+
+
+#helpContent {
+    border: solid 1px black;
+    border-right: 3em;
+    min-height: 4em;
+    border-radius: 1em;
+    box-shadow: 1px 1px 15px black;
+    position: fixed;
+    top: 5em;
+    right: 5em;
+    height: 25em;
+    width: 60em;
+    overflow: auto;
+    background-color: whitesmoke;
+    padding: 1.5em;
+}
