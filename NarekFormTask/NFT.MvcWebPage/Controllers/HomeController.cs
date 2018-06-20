@@ -34,11 +34,20 @@ namespace NFT.MvcWebPage.Controllers
             return View();
         }
 
-        public void AddEmployee(object[] toAdd)
+        public void AddEmployee(string[] toAdd)
         {
             if (toAdd is null || toAdd.Length != 6) return;
-            var emp = new Employee() { Info = (string)toAdd[5], IsGettingBonus = (bool)toAdd[3], Name = (string)toAdd[0], Salary = (decimal)toAdd[2], Surname = (string)toAdd[1], UniversityId = (int)toAdd[4] };
+            var emp = new Employee() { Info = toAdd[5], IsGettingBonus = bool.Parse(toAdd[3]), Name = toAdd[0], Salary = decimal.Parse(toAdd[2]), Surname = toAdd[1], UniversityId = int.Parse(toAdd[4]) };
             db_manager.AddEmployee(emp);
+        }
+
+        public void RemoveEmployeesByIds(List<int> ids)
+        {
+            if (ids is null || ids.Count == 0) return;
+            foreach (var id in ids)
+            {
+                //db_manager.RemoveEmployeeById(id);
+            }
         }
         //// GET: api/Contacts?Guid=guid
         //[HttpGet, Route("api/employee"), ResponseType(typeof(Employee))]

@@ -75,8 +75,8 @@ namespace NFT.MvcWebPage.Infrastructure
 
         public void AddEmployee(Employee employee)
         {
-            var query = "INSERT INTO Employee" +
-                           "VALUES (@Name, @Surname, @Salary, @IsGettingBonus, @UniversityId, @Info)";
+            var query = "INSERT INTO Employee " +
+                           "VALUES (@Name, @Surname, @Salary, @IsGettingBonus, @UniversityId, @Info) ";
 
             // create connection and command
             using (var cn = new SqlConnection(connectionString))
