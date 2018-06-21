@@ -49,13 +49,14 @@
         $("#cancelButton").hide();
         $("#addButton").on("click", addTextBoxes);
         $("#deleteButton").on("click", deleteToConfirm);
-        $("#cancelButton").on("click", saveToAdd);
+        $("#cancelButton").on("click", function () { saveToAdd(); confirmToDelete();});
         $(".checkbox").on("check", function () {
             ids.push($(this).parent().children()[0].innerText);
         });
         $(".checkbox").on("uncheck", function () {
             var index = ids.indexOf($(this).parent().children()[0].innerText);
             if (index != -1) ids.splice(index, 1);
+            
         });
 
         function saveEmployee() {
@@ -97,22 +98,31 @@
 
         function deleteToConfirm() {
             $(".chbox").show();
+            $("#cancelButton").show();
             $("#deleteButton").text("Confirm");
+            $("#deleteButton").unbind("click");
+            $("#deleteButton").click(submitDelete);
         }
 
         function submitDelete() {
-            $.ajax({
-                url: '@Url.Action("RemoveEmployeesByIds")',
-                data: { 'ids': ids },
-                type: "DELETE",
-                dataType: "json"
-            });
-            deleteToConfirm();
+            if (ids != undefined && ids.length > 0) {
+                $.ajax({
+                    url: '@Url.Action("RemoveEmployeesByIds")',
+                    data: { 'ids': ids },
+                    type: "POST",
+                    dataType: "json"
+                });
+            }
+            confirmToDelete();
             window.location.href = window.location.href;
         }
 
         function confirmToDelete() {
-
+            $(".chbox").hide();
+            $("#cancelButton").hide();
+            $("#deleteButton").text("Delete");
+            $("#deleteButton").unbind("click");
+            $("#deleteButton").click(deleteToConfirm);
         }
 
     </script>
