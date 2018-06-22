@@ -24,4 +24,7 @@ values
 ('YSU','Alek Manukian 1')
 insert into Employee
 values
-('secondName','secondSurname','500000','0',1,'here comes John Cena')
+('secondName','secondSurname','500000','0',1,'here comes John Cena'),
+('Aram','Zhamkochyan','270000','1',1,'the best .net developer')
+
+SELECT * FROM Employee

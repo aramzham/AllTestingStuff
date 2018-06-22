@@ -96,5 +96,25 @@ namespace NFT.MvcWebPage.Infrastructure
                 cn.Close();
             }
         }
+
+        public void DeleteEmployeeByIds(List<int> ids)
+        {
+            var parameterIds = string.Join(", ", ids);
+            var query = "DELETE FROM EMPLOYEE " +
+                        $"WHERE ID in ({parameterIds})";
+
+            // create connection and command
+            using (var cn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(query, cn))
+            {
+                // define parameters and their values
+                //cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+                // open connection, execute DELETE, close connection
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                cn.Close();
+            }
+        }
     }
 }

@@ -11,11 +11,11 @@ namespace NFT.MvcWebPage.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly DB_Manager db_manager = new DB_Manager();
+        private readonly DB_Manager _dbManager = new DB_Manager();
 
         public async System.Threading.Tasks.Task<ActionResult> Index()
         {
-            var employees = await db_manager.GetAllEmployees();
+            var employees = await _dbManager.GetAllEmployees();
             if (employees == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "naughty");
             return View(employees);
         }
@@ -38,16 +38,13 @@ namespace NFT.MvcWebPage.Controllers
         {
             if (toAdd is null || toAdd.Length != 6) return;
             var emp = new Employee() { Info = toAdd[5], IsGettingBonus = bool.Parse(toAdd[3]), Name = toAdd[0], Salary = decimal.Parse(toAdd[2]), Surname = toAdd[1], UniversityId = int.Parse(toAdd[4]) };
-            db_manager.AddEmployee(emp);
+            _dbManager.AddEmployee(emp);
         }
 
         public void RemoveEmployeesByIds(List<int> ids)
         {
             if (ids is null || ids.Count == 0) return;
-            foreach (var id in ids)
-            {
-                //db_manager.RemoveEmployeeById(id);
-            }
+            _dbManager.DeleteEmployeeByIds(ids);
         }
         //// GET: api/Contacts?Guid=guid
         //[HttpGet, Route("api/employee"), ResponseType(typeof(Employee))]

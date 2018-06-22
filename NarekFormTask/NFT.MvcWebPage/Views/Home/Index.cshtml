@@ -33,7 +33,7 @@
                 <td>@employee.IsGettingBonus</td>
                 <td>@employee.UniversityId</td>
                 <td>@employee.Info</td>
-                <td class="chbox"><input type="checkbox" name="deleteBox" value="" class="checkbox" /></td>
+                <td class="chbox"><input type="checkbox" name="deleteBox" value=""/></td>
             </tr>
         }
     }
@@ -50,14 +50,19 @@
         $("#addButton").on("click", addTextBoxes);
         $("#deleteButton").on("click", deleteToConfirm);
         $("#cancelButton").on("click", function () { saveToAdd(); confirmToDelete();});
-        $(".checkbox").on("check", function () {
-            ids.push($(this).parent().children()[0].innerText);
+        $(":checkbox").on("change", function () {
+            if (this.checked) {
+                ids.push($(this).parent().parent().children().first().text());
+                console.log(ids);
+            } else {
+                var index = ids.indexOf($(this).parent().parent().children().first().text());
+                if (index != -1) ids.splice(index, 1);
+                console.log(ids);
+            }
         });
-        $(".checkbox").on("uncheck", function () {
-            var index = ids.indexOf($(this).parent().children()[0].innerText);
-            if (index != -1) ids.splice(index, 1);
+        //$("input[type='checkbox']").on("uncheck", function () {
             
-        });
+        //});
 
         function saveEmployee() {
                 $.ajax({
