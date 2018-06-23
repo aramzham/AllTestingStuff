@@ -73,10 +73,12 @@ namespace NFT.MvcWebPage.Infrastructure
             }
         }
 
-        public void AddEmployee(Employee employee)
+        public int AddEmployee(Employee employee)
         {
+            int id;
             var query = "INSERT INTO Employee " +
-                           "VALUES (@Name, @Surname, @Salary, @IsGettingBonus, @UniversityId, @Info) ";
+                           "VALUES (@Name, @Surname, @Salary, @IsGettingBonus, @UniversityId, @Info); " +
+                           "SELECT CAST(scope_identity() AS int)";
 
             // create connection and command
             using (var cn = new SqlConnection(connectionString))
@@ -92,9 +94,10 @@ namespace NFT.MvcWebPage.Infrastructure
 
                 // open connection, execute INSERT, close connection
                 cn.Open();
-                cmd.ExecuteNonQuery();
+                id = (int)cmd.ExecuteScalar();
                 cn.Close();
             }
+            return id;
         }
 
         public void DeleteEmployeeByIds(List<int> ids)
