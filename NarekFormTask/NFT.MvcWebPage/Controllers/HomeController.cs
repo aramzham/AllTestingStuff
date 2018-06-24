@@ -37,9 +37,22 @@ namespace NFT.MvcWebPage.Controllers
         public JsonResult AddEmployee(string[] toAdd)
         {
             if (toAdd is null || toAdd.Length != 6) return null;
-            var emp = new Employee() { Info = toAdd[5], IsGettingBonus = bool.Parse(toAdd[3]), Name = toAdd[0], Salary = decimal.Parse(toAdd[2]), Surname = toAdd[1], UniversityId = int.Parse(toAdd[4]) };
+            var emp = new Employee()
+            {
+                Info = string.IsNullOrEmpty(toAdd[5]) ? "no info" : toAdd[5],
+                IsGettingBonus = bool.Parse(toAdd[3]),
+                Name = string.IsNullOrEmpty(toAdd[0]) ? "no name" : toAdd[0],
+                Salary = decimal.TryParse(toAdd[2], out var s) ? s : 0,
+                Surname = string.IsNullOrEmpty(toAdd[1]) ? "no surname" : toAdd[1],
+                UniversityId = int.TryParse(toAdd[4], out var uid) ? uid : 1
+            };
             var id = _dbManager.AddEmployee(emp);
             return Json(id);
+        }
+
+        public JsonResult Test()
+        {
+            return Json(20, JsonRequestBehavior.AllowGet);
         }
 
         public void RemoveEmployeesByIds(List<int> ids)

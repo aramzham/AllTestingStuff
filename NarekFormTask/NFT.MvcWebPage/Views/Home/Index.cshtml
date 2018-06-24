@@ -3,14 +3,21 @@
     ViewBag.Title = "Home Page";
 }
 @Styles.Render("~/Content/MainTable.css")
+@Styles.Render("~/Content/MessagePopUp.css")
 
 <h2>Employees</h2>
 <button type="button" id="addButton">Add</button>
 <button type="button" id="deleteButton">Delete</button>
 <button type="button" id="cancelButton">Cancel</button>
+<button type="button" id="testButton">Test</button>
 
 <div id="helpTrigger" class="helpTrigger"></div>
 <div id="helpContent" style="display:none"></div>
+
+<div class="popup" onclick="myFunction()">
+    Click me!
+    <span class="popuptext" id="myPopup">Popup text...</span>
+</div>
 
 <table id="employees">
     <tr>
@@ -21,6 +28,7 @@
         <th>IsGettingBonus</th>
         <th>UniversityId</th>
         <th>Info</th>
+        <th id="checkallTh"><input id="checkall" type="checkbox" name="checkall" value="" /></th>
     </tr>
     @{
         foreach (var employee in Model)
@@ -42,14 +50,34 @@
 @section scripts
 {
     <script>
+        $("#testButton").click(function () {
+            $.ajax({
+                url: '@Url.Action("Test")',
+                dataType: "json",
+                type: "GET",
+                success: function (result) {
+                    console.log('<tr id="' + result + '"><td>' + result + '</td><td>' + $("#addName").val() + '</td><td>' + $("#addSurname").val() + '</td><td>' + $("#addIsBonus").is(":checked") + '</td><td>' + $("#addUnivId").val() + '</td><td>' + $("#addInfo").val() + '</td></tr>');
+                }
+            });
+        });
+
+        function myFunction() {
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+        }
         //alert("mtanq script");
         var ids = [];
 
         $(".chbox").hide();
+        $("#checkallTh").hide();
         $("#cancelButton").hide();
         $("#addButton").on("click", addTextBoxes);
         $("#deleteButton").on("click", deleteToConfirm);
-        $("#cancelButton").on("click", function () { saveToAdd(); confirmToDelete();});
+        $("#cancelButton").on("click", function () { saveToAdd(); confirmToDelete(); });
+        $('#checkall').click(function () {
+            var checked = $(this).prop('checked');
+            $("input[type='checkbox']").prop('checked', checked);
+        });
         $(":checkbox").on("change", function () {
             if (this.checked) {
                 //ids.push($(this).parent().parent().children().first().text());
@@ -59,22 +87,29 @@
                 if (index != -1) ids.splice(index, 1);
             }
         });
-        //$("input[type='checkbox']").on("uncheck", function () {
 
-        //});
+        function addRow(result) {
+            var addName = $("#addName").val() ? $("#addName").val() : "no name";
+            var addSurname = $("#addSurname").val() ? $("#addSurname").val() : "no surname";
+            var addSalary = $("#addSalary").val() ? $("#addSalary").val() : 0;
+            var addIsBonus = $("#addIsBonus").is(":checked") ? true : false
+            var addUnivId = $("#addUnivId").val() ? $("#addUnivId").val() : 1
+            var addInfo = $("#addInfo").val() ? $("#addInfo").val() : "no info";
+            $('#employees tr:last').after('<tr id="' + result + '"><td>' + result + '</td><td>' + addName + '</td><td>' + addSurname + '</td><td>' + addSalary + '</td><td>' + addIsBonus + '</td><td>' + addUnivId + '</td><td>' + addInfo + '</td><td class="chbox"><input type="checkbox" name="deleteBox" value="" /></td></tr>');
+            $(".chbox").hide();
+        }
 
         function saveEmployee() {
                 $.ajax({
                     url: '@Url.Action("AddEmployee")',
                     dataType: "json",
                     type: "POST",
-                    data: { toAdd: [$("#addName").val(), $("#addSurname").val(), $("#addSalary").val(), $("#addIsBonus").is(":checked") ? true : false, $("#addUnivId").val(), $("#addInfo").val(),] },
+                    data: { toAdd: [$("#addName").val(), $("#addSurname").val(), $("#addSalary").val(), $("#addIsBonus").is(":checked") ? true : false, $("#addUnivId").val(), $("#addInfo").val()] },
                     success: function (result) {
                         //$("#helpContent").empty().append(result);
                         //$("#helpContent").show();
                         //$("#addButton").removeClass("helpTrigger").addClass("closeTrigger");
-                        console.log('<tr id="' + result.data + '"><td>' + result.data + '</td><td>' + $("#addName").val() + '</td><td>' + $("#addSurname").val() + '</td><td>' + $("#addIsBonus").is(":checked") ? true : false + '</td><td>' + $("#addUnivId").val() + '</td><td>' + $("#addInfo").val() + '</td></tr>');
-                        //$('#employees tr:last').after('<tr id="' + result + '"><td>' + result + '</td><td>' + $("#addName").val() + '</td><td>' + $("#addSurname").val() + '</td><td>' + $("#addIsBonus").is(":checked") ? true : false + '</td><td>' + $("#addUnivId").val() + '</td><td>' + $("#addInfo").val() +'</td></tr>');
+                        addRow(result);
                         saveToAdd();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
@@ -88,7 +123,7 @@
             //$("#helpContent").empty();
             //$("#helpContent").hide();
             //$("#helpTrigger").removeClass("closeTrigger").addClass("helpTrigger");
-            $('#employees tr:last').after("<tr id=\"lastTr\"><td></td><td><input type=\"text\" id=\"addName\"/></td><td><input type=\"text\" id=\"addSurname\"/></td><td><input type=\"text\" id=\"addSalary\"/></td><td><input type=\"checkbox\" id=\"addIsBonus\"/></td><td><input type=\"number\" id=\"addUnivId\"/></td><td><input type=\"text\" id=\"addInfo\"/></td></tr>");
+            $('#employees tr:last').after("<tr id=\"addBlocks\"><td></td><td><input type=\"text\" id=\"addName\"/></td><td><input type=\"text\" id=\"addSurname\"/></td><td><input type=\"text\" id=\"addSalary\"/></td><td><input type=\"checkbox\" id=\"addIsBonus\"/></td><td><input type=\"number\" id=\"addUnivId\"/></td><td><input type=\"text\" id=\"addInfo\"/></td></tr>");
             $("#addButton").text("Save");
             $("#cancelButton").show();
             $("#addButton").unbind("click");
@@ -100,12 +135,13 @@
             $("#addButton").click(addTextBoxes);
             $("#addButton").text("Add");
             $("#cancelButton").hide();
-            $("#lastTr").remove();
+            $("#addBlocks").remove();
         }
 
         function deleteToConfirm() {
             $(".chbox").show();
             $("#cancelButton").show();
+            $("#checkallTh").show();
             $("#deleteButton").text("Confirm");
             $("#deleteButton").unbind("click");
             $("#deleteButton").on("click",submitDelete);
@@ -138,16 +174,10 @@
             ids = [];
         }
 
-        function checkUncheckAll() {
-            $('#checkall').click(function () {
-                var checked = $(this).prop('checked');
-                $("input[type='checkbox']").prop('checked', checked);
-            });
-        }
-
         function confirmToDelete() {
             $(".chbox").hide();
             $("#cancelButton").hide();
+            $("#checkallTh").hide();
             $("#deleteButton").text("Delete");
             $("#deleteButton").unbind("click");
             $("#deleteButton").on("click", deleteToConfirm);
