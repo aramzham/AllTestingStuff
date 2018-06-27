@@ -28,6 +28,7 @@
         <th>IsGettingBonus</th>
         <th>UniversityId</th>
         <th>Info</th>
+        <th>Edit</th>
         <th id="checkallTh"><input id="checkall" type="checkbox" name="checkall" value="" /></th>
     </tr>
     @{
@@ -41,7 +42,8 @@
                 <td>@employee.IsGettingBonus</td>
                 <td>@employee.UniversityId</td>
                 <td>@employee.Info</td>
-                <td class="chbox"><input type="checkbox" name="deleteBox" value="" /></td>
+                <td><img src="@Url.Content("~/App_Data/edit.jpg")" /></td>
+                <td class="chbox"><input type="checkbox" value="" /></td>
             </tr>
         }
     }
@@ -60,6 +62,8 @@
                 }
             });
         });
+
+        var rowTemplate = '<tr id="{id}"><td>{id}</td><td>{name}</td><td>{surname}</td><td>{salary}</td><td>{isBonus}</td><td>{univId}</td><td>{info}</td><td><img src="@Url.Content("~/App_Data/edit.jpg")"></td><td class="chbox"><input type="checkbox" value="" /></td></tr>';
 
         function myFunction() {
             var popup = document.getElementById("myPopup");
@@ -95,7 +99,7 @@
             var addIsBonus = $("#addIsBonus").is(":checked") ? true : false
             var addUnivId = $("#addUnivId").val() ? $("#addUnivId").val() : 1
             var addInfo = $("#addInfo").val() ? $("#addInfo").val() : "no info";
-            $('#employees tr:last').after('<tr id="' + result + '"><td>' + result + '</td><td>' + addName + '</td><td>' + addSurname + '</td><td>' + addSalary + '</td><td>' + addIsBonus + '</td><td>' + addUnivId + '</td><td>' + addInfo + '</td><td class="chbox"><input type="checkbox" name="deleteBox" value="" /></td></tr>');
+            $('#employees tr:last').after(rowTemplate.replace(/{id}/g, result).replace("{name}", addName).replace("{surname}", addSurname).replace("{salary}", addSalary).replace("{isBonus}", addIsBonus).replace("{univId}", addUnivId).replace("{info}",addInfo));
             $(".chbox").hide();
         }
 
@@ -124,6 +128,8 @@
             //$("#helpContent").hide();
             //$("#helpTrigger").removeClass("closeTrigger").addClass("helpTrigger");
             $('#employees tr:last').after("<tr id=\"addBlocks\"><td></td><td><input type=\"text\" id=\"addName\"/></td><td><input type=\"text\" id=\"addSurname\"/></td><td><input type=\"text\" id=\"addSalary\"/></td><td><input type=\"checkbox\" id=\"addIsBonus\"/></td><td><input type=\"number\" id=\"addUnivId\"/></td><td><input type=\"text\" id=\"addInfo\"/></td></tr>");
+            $("#addBlocks").animate({ height: "200px" });
+            $("#addBlocks").animate({ height: "" });
             $("#addButton").text("Save");
             $("#cancelButton").show();
             $("#addButton").unbind("click");
@@ -175,9 +181,9 @@
         }
 
         function confirmToDelete() {
-            $(".chbox").hide();
+            $(".chbox").hide("slow", "linear");
             $("#cancelButton").hide();
-            $("#checkallTh").hide();
+            $("#checkallTh").hide("slow", "swing");
             $("#deleteButton").text("Delete");
             $("#deleteButton").unbind("click");
             $("#deleteButton").on("click", deleteToConfirm);

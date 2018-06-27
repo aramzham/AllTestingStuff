@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\close.png" />
+    <Content Include="App_Data\edit.jpg" />
     <Content Include="App_Data\help.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
