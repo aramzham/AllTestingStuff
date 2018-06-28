@@ -6,10 +6,12 @@
 @Styles.Render("~/Content/MessagePopUp.css")
 
 <h2>Employees</h2>
-<button type="button" id="addButton">Add</button>
-<button type="button" id="deleteButton">Delete</button>
-<button type="button" id="cancelButton">Cancel</button>
-<button type="button" id="testButton">Test</button>
+<div id="buttonsContainer">
+    <button type="button" id="addButton">Add</button>
+    <button type="button" id="deleteButton">Delete</button>
+    <button type="button" id="cancelButton">Cancel</button>
+    <button type="button" id="testButton">Test</button>
+</div>
 
 <div id="helpTrigger" class="helpTrigger"></div>
 <div id="helpContent" style="display:none"></div>
@@ -42,7 +44,7 @@
                 <td>@employee.IsGettingBonus</td>
                 <td>@employee.UniversityId</td>
                 <td>@employee.Info</td>
-                <td><img src="@Url.Content("~/App_Data/edit.jpg")" /></td>
+                <td><img src="@Url.Content("~/App_Data/edit.jpg")" class="editImg" /></td>
                 <td class="chbox"><input type="checkbox" value="" /></td>
             </tr>
         }
@@ -63,7 +65,7 @@
             });
         });
 
-        var rowTemplate = '<tr id="{id}"><td>{id}</td><td>{name}</td><td>{surname}</td><td>{salary}</td><td>{isBonus}</td><td>{univId}</td><td>{info}</td><td><img src="@Url.Content("~/App_Data/edit.jpg")"></td><td class="chbox"><input type="checkbox" value="" /></td></tr>';
+        var rowTemplate = '<tr id="{id}"><td>{id}</td><td>{name}</td><td>{surname}</td><td>{salary}</td><td>{isBonus}</td><td>{univId}</td><td>{info}</td><td><img src="@Url.Content("~/App_Data/edit.jpg")" class="editImg"></td><td class="chbox"><input type="checkbox" value="" /></td></tr>';
 
         function myFunction() {
             var popup = document.getElementById("myPopup");
@@ -75,6 +77,7 @@
         $(".chbox").hide();
         $("#checkallTh").hide();
         $("#cancelButton").hide();
+        $(".editImg").on("click", editRow);
         $("#addButton").on("click", addTextBoxes);
         $("#deleteButton").on("click", deleteToConfirm);
         $("#cancelButton").on("click", function () { saveToAdd(); confirmToDelete(); });
@@ -91,6 +94,36 @@
                 if (index != -1) ids.splice(index, 1);
             }
         });
+
+        function saveEdit() {
+            $.ajax({
+                url: '@Url.Action("Test")',
+                dataType: "json",
+                type: "GET",
+                success: function (result) {
+                    console.log('<tr id="' + result + '"><td>' + result + '</td><td>' + $("#addName").val() + '</td><td>' + $("#addSurname").val() + '</td><td>' + $("#addIsBonus").is(":checked") + '</td><td>' + $("#addUnivId").val() + '</td><td>' + $("#addInfo").val() + '</td></tr>');
+                }
+            });
+        }
+
+        function editRow() {
+            var currentTrId = $(this).closest("tr").attr("id");
+            $("#" + currentTrId + " td").each(function () {
+                if ($(this).html().indexOf("img src") != -1) {
+                    console.log($(this).children().eq(0).html());
+                    console.log($(this).children().eq(1).html());
+                    var img = $(this).children().eq(0);
+                    img.attr('class', 'saveImg');
+                    img.attr('src', '@Url.Content("~/App_Data/save.jpg")');
+                    img.attr('alt', 'chka nkar');
+                    img.unbind("click");
+                    img.on("click", saveEdit);
+
+                }
+                else if ($(this).html().indexOf('checkbox')==-1) $(this).html('<input type="text" value="' + $(this).text() + '"/>');
+            });
+            //$(this).closest("tr").hide();
+        }
 
         function addRow(result) {
             var addName = $("#addName").val() ? $("#addName").val() : "no name";
