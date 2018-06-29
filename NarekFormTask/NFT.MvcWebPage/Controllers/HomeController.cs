@@ -60,27 +60,20 @@ namespace NFT.MvcWebPage.Controllers
             if (ids is null || ids.Count == 0) return;
             _dbManager.DeleteEmployeeByIds(ids);
         }
-        //// GET: api/Contacts?Guid=guid
-        //[HttpGet, Route("api/employee"), ResponseType(typeof(Employee))]
-        //public async Task<IHttpActionResult> GetEmployeeById([FromUri]int id)
-        //{
-        //    var employee = await db_manager.GetEmployeeById(id);
-        //    if (employee == null) return NotFound();
 
-        //    return Ok(employee);
-        //}
-
-        //// POST: api/Contacts
-        //[HttpPost, Route("api/employee")]
-        //public async Task<IHttpActionResult> PostEmployee([FromBody]Employee contact)
-        //{
-        //    if (!ModelState.IsValid) return BadRequest(ModelState);
-
-        //    //if ((await appManager.GetAllEmails()).Contains(contact.Email)) return BadRequest("A contact with such email already exists");
-
-        //    db_manager.AddEmployee(contact);
-
-        //    return CreatedAtRoute("DefaultApi", new { }, contact); //return chexav ado-ov shows up in location header
-        //}
+        public void EditEmployeeById(Employee editEmployee)
+        {
+            if(editEmployee is null || editEmployee.Id == default(int)) return;
+            //var emp = new Employee()
+            //{
+            //    Name = string.IsNullOrEmpty(editEmployee.Item2[0]) ? "no name" : editEmployee.Item2[0],
+            //    Surname = string.IsNullOrEmpty(editEmployee.Item2[1]) ? "no surname" : editEmployee.Item2[1],
+            //    Salary = decimal.TryParse(editEmployee.Item2[2], out var s) ? s : 0,
+            //    IsGettingBonus = bool.Parse(editEmployee.Item2[3]),
+            //    UniversityId = int.TryParse(editEmployee.Item2[4], out var uid) ? uid : 1,
+            //    Info = string.IsNullOrEmpty(editEmployee.Item2[5]) ? "no info" : editEmployee.Item2[5],
+            //};
+            _dbManager.EditEmployeeById(editEmployee.Id, editEmployee);
+        }
     }
 }

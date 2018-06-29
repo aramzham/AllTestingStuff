@@ -95,15 +95,18 @@
             }
         });
 
-        function saveEdit() {
+        function saveEditedEmployee() {
+            @*var currentTrChildren = $(this).closest("tr").children();
+            var dataToSave = { id: currentTrChildren.eq(0).closest("input").val(), name: currentTrChildren.eq(1).closest("input").attr("value"), surname: currentTrChildren.eq(2).eq(0).val(), salary: currentTrChildren.eq(3).eq(0).attr("value"), isGettingBonus: currentTrChildren.eq(4).eq(0).attr("value"), universityId: currentTrChildren.eq(5).eq(0).attr("value"), info: currentTrChildren.eq(6).eq(0).attr("value")};
             $.ajax({
-                url: '@Url.Action("Test")',
+                url: '@Url.Action("EditEmployeeById")',
                 dataType: "json",
-                type: "GET",
+                type: "POST",
+                data: { editEmployee: dataToSave},
                 success: function (result) {
                     console.log('<tr id="' + result + '"><td>' + result + '</td><td>' + $("#addName").val() + '</td><td>' + $("#addSurname").val() + '</td><td>' + $("#addIsBonus").is(":checked") + '</td><td>' + $("#addUnivId").val() + '</td><td>' + $("#addInfo").val() + '</td></tr>');
                 }
-            });
+            });*@
         }
 
         function editRow() {
@@ -117,12 +120,10 @@
                     img.attr('src', '@Url.Content("~/App_Data/save.jpg")');
                     img.attr('alt', 'chka nkar');
                     img.unbind("click");
-                    img.on("click", saveEdit);
-
+                    img.on("click", saveEditedEmployee);
                 }
                 else if ($(this).html().indexOf('checkbox')==-1) $(this).html('<input type="text" value="' + $(this).text() + '"/>');
             });
-            //$(this).closest("tr").hide();
         }
 
         function addRow(result) {
@@ -139,7 +140,7 @@
         function saveEmployee() {
                 $.ajax({
                     url: '@Url.Action("AddEmployee")',
-                    dataType: "json",
+                    //dataType: "json",
                     type: "POST",
                     data: { toAdd: [$("#addName").val(), $("#addSurname").val(), $("#addSalary").val(), $("#addIsBonus").is(":checked") ? true : false, $("#addUnivId").val(), $("#addInfo").val()] },
                     success: function (result) {

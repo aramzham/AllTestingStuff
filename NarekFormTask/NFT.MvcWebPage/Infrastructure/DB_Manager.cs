@@ -119,5 +119,31 @@ namespace NFT.MvcWebPage.Infrastructure
                 cn.Close();
             }
         }
+
+        public void EditEmployeeById(int id, Employee employee)
+        {
+            var query = "UPDATE EMPLOYEE " +
+                        "SET [Name] = @Name, Surname = @Surname, Salary = @Salary, IsGettingBonus = @IsGettingBonus, UniversityId = @UniversityId, Info = @Info " +
+                        "WHERE id = @Id";
+
+            // create connection and command
+            using (var cn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(query, cn))
+            {
+                // define parameters and their values
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                cmd.Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = employee.Name;
+                cmd.Parameters.Add("@Surname", SqlDbType.VarChar, 150).Value = employee.Surname;
+                cmd.Parameters.Add("@Salary", SqlDbType.Money).Value = employee.Salary;
+                cmd.Parameters.Add("@IsGettingBonus", SqlDbType.Bit).Value = employee.IsGettingBonus;
+                cmd.Parameters.Add("@UniversityId", SqlDbType.Int).Value = employee.UniversityId;
+                cmd.Parameters.Add("@Info", SqlDbType.VarChar, 500).Value = employee.Info;
+
+                // open connection, execute DELETE, close connection
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                cn.Close();
+            }
+        }
     }
 }
