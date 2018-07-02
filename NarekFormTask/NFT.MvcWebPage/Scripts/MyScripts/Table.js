@@ -9,7 +9,7 @@
     });
 });
 
-var rowTemplate = '<tr id="{id}"><td>{id}</td><td>{name}</td><td>{surname}</td><td>{salary}</td><td>{isBonus}</td><td>{univId}</td><td>{info}</td><td><img src="@Url.Content("~/App_Data/edit.jpg")" class="editImg"></td><td class="chbox"><input type="checkbox" value="" /></td></tr>';
+var rowTemplate = '<tr id="{id}"><td>{id}</td><td>{name}</td><td>{surname}</td><td>{salary}</td><td>{isBonus}</td><td>{univId}</td><td>{info}</td><td><img src="C:\Users\Aram\Source\Repos\AllTestingStuff\NarekFormTask\NFT.MvcWebPage\Content\Images\edit.jpg" class="editImg"></td><td class="chbox"><input type="checkbox" value="" /></td></tr>';
 
 function myFunction() {
     var popup = document.getElementById("myPopup");
@@ -21,6 +21,7 @@ var ids = [];
 $(".chbox").hide();
 $("#checkallTh").hide();
 $("#cancelButton").hide();
+$('button').addClass('btn btn-primary');
 $(".editImg").on("click", editRow);
 $("#addButton").on("click", addTextBoxes);
 $("#deleteButton").on("click", deleteToConfirm);
@@ -40,16 +41,23 @@ $(":checkbox").on("change", function () {
 });
 
 function saveEditedEmployee() {
-    var dataToSave = {};
-    var currentTrChildren = $(this).closest("tr").children("td > input");
-    var dataToSave = { id: currentTrChildren.eq(0).closest("input").val(), name: currentTrChildren.eq(1).closest("input").attr("value"), surname: currentTrChildren.eq(2).eq(0).val(), salary: currentTrChildren.eq(3).eq(0).attr("value"), isGettingBonus: currentTrChildren.eq(4).eq(0).attr("value"), universityId: currentTrChildren.eq(5).eq(0).attr("value"), info: currentTrChildren.eq(6).eq(0).attr("value") };
+    var currentTr = $(this).closest("tr");
+    var trChildren = currentTr.children("td");
+    var editId = trChildren.eq(0).children("input").val();
+    var editName = trChildren.eq(1).children("input").attr("value");
+    var editSurname = currentTrChildren.eq(2).children("input").val();
+    var editSalary = currentTrChildren.eq(3).children("input").attr("value");
+    var editIsBonus = currentTrChildren.eq(4).children("input").attr("value");
+    var editUnivId = currentTrChildren.eq(5).children("input").attr("value");
+    var editInfo = currentTrChildren.eq(6).children("input").attr("value");
+    var dataToSave = { id: editId, name: editName, surname: editSurname, salary: editSalary, isGettingBonus: editIsBonus, universityId: editUnivId, info: editInfo };
     $.ajax({
-        url: '@Url.Action("EditEmployeeById")',
+        url: '/home/EditEmployeeById',
         dataType: "json",
         type: "POST",
         data: { editEmployee: dataToSave },
         success: function (result) {
-            console.log('<tr id="' + result + '"><td>' + result + '</td><td>' + $("#addName").val() + '</td><td>' + $("#addSurname").val() + '</td><td>' + $("#addIsBonus").is(":checked") + '</td><td>' + $("#addUnivId").val() + '</td><td>' + $("#addInfo").val() + '</td></tr>');
+            currentTr.replaceWith('<tr id="' + editId + '"><td>' + editId + '</td><td>' + editName + '</td><td>' + editSurname + '</td><td>' + editSalary + '</td><td>' + editIsBonus + '</td><td>' + editUnivId + '</td><td>' + editInfo + '</td></tr>');
         }
     });
 }
@@ -62,7 +70,7 @@ function editRow() {
             console.log($(this).children().eq(1).html());
             var img = $(this).children().eq(0);
             img.attr('class', 'saveImg');
-            img.attr('src', '@Url.Content("~/App_Data/save.jpg")');
+            img.attr('src', 'C:\Users\Aram\Source\Repos\AllTestingStuff\NarekFormTask\NFT.MvcWebPage\Content\Images\save.png');
             img.attr('alt', 'chka nkar');
             img.unbind("click");
             img.on("click", saveEditedEmployee);
