@@ -6,6 +6,7 @@
 @Styles.Render("~/Content/MessagePopUp.css")
 
 <h2>Employees</h2><i class="icon-heart"></i><i class="icon-heart"></i><i class="icon-heart"></i>
+
 <div class="btn-group">
     <button type="button" id="addButton">Add</button>
     <button type="button" id="deleteButton">Delete</button>
@@ -21,35 +22,71 @@
     <span class="popuptext" id="myPopup">Popup text...</span>
 </div>
 
-<table id="employees">
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Salary</th>
-        <th>IsGettingBonus</th>
-        <th>UniversityId</th>
-        <th>Info</th>
-        <th>Edit</th>
-        <th id="checkallTh"><input id="checkall" type="checkbox" name="checkall" value="" /></th>
-    </tr>
-    @{
-        foreach (var employee in Model)
-        {
-            <tr id="@employee.Id">
-                <td>@employee.Id</td>
-                <td>@employee.Name</td>
-                <td>@employee.Surname</td>
-                <td>@employee.Salary</td>
-                <td>@employee.IsGettingBonus</td>
-                <td>@employee.UniversityId</td>
-                <td>@employee.Info</td>
-                <td><img src="@Url.Content("~/App_Data/edit.jpg")" class="editImg" /></td>
-                <td class="chbox"><input type="checkbox" value="" /></td>
+<div class="container-fluid">
+    <div class="row">
+        <table id="employees" class="table table-striped table-bordered">
+            <tr>
+                <th>Id</th>
+                <th><span class="label label-info">Name</span></th>
+                <th><span class="badge badge-info">Surname</span></th>
+                <th>Salary</th>
+                <th>IsGettingBonus</th>
+                <th><span class="badge badge-success">UniversityId</span></th>
+                <th><span class="label label-warning">Info</span></th>
+                <th>Edit</th>
+                <th id="checkallTh"><input id="checkall" type="checkbox" name="checkall" value="" /></th>
             </tr>
-        }
-    }
-</table>
+            @{
+                foreach (var employee in Model)
+                {
+                    <tr id="@employee.Id">
+                        <td>@employee.Id</td>
+                        <td>@employee.Name</td>
+                        <td>@employee.Surname</td>
+                        <td>@employee.Salary</td>
+                        <td>@employee.IsGettingBonus</td>
+                        <td>@employee.UniversityId</td>
+                        <td>@employee.Info</td>
+                        <td><img src="@Url.Content("~/Content/Images/edit.jpg")" class="editImg" data-toggle="modal" data-target="#myModal"/></td>
+                        <td class="chbox"><input type="checkbox" value="" /></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <h2>Modal Example</h2>
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
 
 @section scripts
 {

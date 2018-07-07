@@ -1,37 +1,10 @@
-﻿#employees {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#employees td, #employees th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#employees tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-#employees tr:hover {
-    background-color: #ddd;
-}
-
-#employees th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-}
-
-.helpTrigger {
+﻿.helpTrigger {
     position: fixed;
     top: 1em;
     right: 1em;
     height: 50px;
     width: 50px;
-    background: url('../App_Data/help.png') 0px 0px;
+    background: url('../Content/Images/help.png') 0px 0px;
 }
 
 .closeTrigger {
@@ -40,7 +13,7 @@
     right: 1em;
     height: 50px;
     width: 50px;
-    background: url('../App_Data/close.png') 0px 50px;
+    background: url('../Content/Images/close.png') 0px 50px;
 }
 
 
@@ -59,4 +32,10 @@
     overflow: auto;
     background-color: whitesmoke;
     padding: 1.5em;
+}
+
+img {
+    display: block;
+    width: auto;
+    height: 20px;
 }

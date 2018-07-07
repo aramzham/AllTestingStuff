@@ -44,20 +44,31 @@ function saveEditedEmployee() {
     var currentTr = $(this).closest("tr");
     var trChildren = currentTr.children("td");
     var editId = trChildren.eq(0).children("input").val();
-    var editName = trChildren.eq(1).children("input").attr("value");
+    var editName = trChildren.eq(1).children("input").val();
     var editSurname = trChildren.eq(2).children("input").val();
-    var editSalary = trChildren.eq(3).children("input").attr("value");
-    var editIsBonus = trChildren.eq(4).children("input").attr("value");
-    var editUnivId = trChildren.eq(5).children("input").attr("value");
+    var editSalary = trChildren.eq(3).children("input").val();
+    var editIsBonus = trChildren.eq(4).children("input").val();
+    var editUnivId = trChildren.eq(5).children("input").val();
     var editInfo = trChildren.eq(6).children("input").attr("value");
     var dataToSave = { id: editId, name: editName, surname: editSurname, salary: editSalary, isGettingBonus: editIsBonus, universityId: editUnivId, info: editInfo };
     $.ajax({
         url: '/home/EditEmployeeById',
-        dataType: "json",
         type: "POST",
         data: { editEmployee: dataToSave },
         success: function (result) {
-            $(this).closest("tr").replaceWith('<tr id="' + editId + '"><td>' + editId + '</td><td>' + editName + '</td><td>' + editSurname + '</td><td>' + editSalary + '</td><td>' + editIsBonus + '</td><td>' + editUnivId + '</td><td>' + editInfo + '</td></tr>');
+            for (var i = 0; i < 7; i++) {
+                trChildren.eq(i).html(trChildren.eq(i).children("input").val());
+            }
+            trChildren.eq(7).children("img").attr('src','../Content/Images/edit.png');
+            trChildren.eq(7).children("img").removeAttr("alt");
+            $(".saveImg").unbind("click");
+            $(".saveImg").on("click", editRow);
+            $(".saveImg").attr("class","editImg");
+            //$(this).closest("tr").replaceWith('<tr id="' + editId + '"><td>' + editId + '</td><td>' + editName + '</td><td>' + editSurname + '</td><td>' + editSalary + '</td><td>' + editIsBonus + '</td><td>' + editUnivId + '</td><td>' + editInfo + '</td></tr>');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.statusText);
+            alert(thrownError);
         }
     });
 }
@@ -65,12 +76,13 @@ function saveEditedEmployee() {
 function editRow() {
     var currentTrId = $(this).closest("tr").attr("id");
     $("#" + currentTrId + " td").each(function () {
-        if ($(this).html().indexOf("img src") != -1) {
+        if ($(this).is($("#" + currentTrId).children(":first"))) return;
+        else if ($(this).html().indexOf("img src") != -1) {
             console.log($(this).children().eq(0).html());
             console.log($(this).children().eq(1).html());
             var img = $(this).children().eq(0);
             img.attr('class', 'saveImg');
-            img.attr('src', 'C:\Users\Aram\Source\Repos\AllTestingStuff\NarekFormTask\NFT.MvcWebPage\Content\Images\save.png');
+            img.attr('src', '../Content/Images/save.png');
             img.attr('alt', 'chka nkar');
             img.unbind("click");
             img.on("click", saveEditedEmployee);
