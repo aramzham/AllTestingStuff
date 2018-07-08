@@ -47,7 +47,7 @@
                         <td>@employee.IsGettingBonus</td>
                         <td>@employee.UniversityId</td>
                         <td>@employee.Info</td>
-                        <td><img src="@Url.Content("~/Content/Images/edit.jpg")" class="editImg" data-toggle="modal" data-target="#myModal"/></td>
+                        <td><img src="@Url.Content("~/Content/Images/edit.jpg")" class="editImg"/></td>
                         <td class="chbox"><input type="checkbox" value="" /></td>
                     </tr>
                 }
@@ -66,27 +66,25 @@
         <div class="modal-dialog">
 
             <!-- Modal content-->
-            <div class="modal-content">
+            <div class="modal-content col-md-4">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title">Confirm</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="yesBtn">Yes</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" id="noBtn">No</button>
+                    @*<p>Some text in the modal.</p>*@
                 </div>
-                <div class="modal-footer">
+                @*<div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+                </div>*@
             </div>
 
         </div>
     </div>
 
 </div>
-
-
-
-
 
 @section scripts
 {

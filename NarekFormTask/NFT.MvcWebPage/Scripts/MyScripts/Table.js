@@ -17,6 +17,7 @@ function myFunction() {
 }
 //alert("mtanq script");
 var ids = [];
+var yes = false;
 
 $(".chbox").hide();
 $("#checkallTh").hide();
@@ -39,6 +40,8 @@ $(":checkbox").on("change", function () {
         if (index != -1) ids.splice(index, 1);
     }
 });
+$("#yesBtn").on("click", function () { yes = true; });
+$("#noBtn").on("click", function () { yes = false; });
 
 function saveEditedEmployee() {
     var currentTr = $(this).closest("tr");
@@ -51,39 +54,44 @@ function saveEditedEmployee() {
     var editUnivId = trChildren.eq(5).children("input").val();
     var editInfo = trChildren.eq(6).children("input").attr("value");
     var dataToSave = { id: editId, name: editName, surname: editSurname, salary: editSalary, isGettingBonus: editIsBonus, universityId: editUnivId, info: editInfo };
-    $.ajax({
-        url: '/home/EditEmployeeById',
-        type: "POST",
-        data: { editEmployee: dataToSave },
-        success: function (result) {
-            for (var i = 0; i < 7; i++) {
-                trChildren.eq(i).html(trChildren.eq(i).children("input").val());
+    trChildren.eq(7).children("img").attr('data-toggle', 'modal');
+    trChildren.eq(7).children("img").attr('data-target', '#myModal');
+    if (yes) {
+        $.ajax({
+            url: '/home/EditEmployeeById',
+            type: "POST",
+            data: { editEmployee: dataToSave },
+            success: function (result) {
+                for (var i = 0; i < 7; i++) {
+                    trChildren.eq(i).html(trChildren.eq(i).children("input").val());
+                }
+                trChildren.eq(7).children("img").attr('src', '../Content/Images/edit.png');
+                //trChildren.eq(7).children("img").removeAttr("alt");
+                $(".saveImg").unbind("click");
+                $(".saveImg").on("click", editRow);
+                $(".saveImg").attr("class", "editImg");
+                //$(this).closest("tr").replaceWith('<tr id="' + editId + '"><td>' + editId + '</td><td>' + editName + '</td><td>' + editSurname + '</td><td>' + editSalary + '</td><td>' + editIsBonus + '</td><td>' + editUnivId + '</td><td>' + editInfo + '</td></tr>');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.statusText);
+                alert(thrownError);
             }
-            trChildren.eq(7).children("img").attr('src','../Content/Images/edit.png');
-            trChildren.eq(7).children("img").removeAttr("alt");
-            $(".saveImg").unbind("click");
-            $(".saveImg").on("click", editRow);
-            $(".saveImg").attr("class","editImg");
-            //$(this).closest("tr").replaceWith('<tr id="' + editId + '"><td>' + editId + '</td><td>' + editName + '</td><td>' + editSurname + '</td><td>' + editSalary + '</td><td>' + editIsBonus + '</td><td>' + editUnivId + '</td><td>' + editInfo + '</td></tr>');
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.statusText);
-            alert(thrownError);
-        }
-    });
+        });
+        yes = false;
+    }
 }
 
 function editRow() {
     var currentTrId = $(this).closest("tr").attr("id");
-    $("#" + currentTrId + " td").each(function () {
-        if ($(this).is($("#" + currentTrId).children(":first"))) return;
-        else if ($(this).html().indexOf("img src") != -1) {
-            console.log($(this).children().eq(0).html());
-            console.log($(this).children().eq(1).html());
+    $("#" + currentTrId + " td:gt(0)").each(function () {
+        //if ($(this).is($("#" + currentTrId).children(":first"))) return; else
+         if ($(this).html().indexOf("img src") != -1) {
             var img = $(this).children().eq(0);
             img.attr('class', 'saveImg');
             img.attr('src', '../Content/Images/save.png');
             img.attr('alt', 'chka nkar');
+            img.removeAttr("data-toggle"); 
+            img.removeAttr("data-target");
             img.unbind("click");
             img.on("click", saveEditedEmployee);
         }
