@@ -17,23 +17,7 @@ namespace TestsOfAllKinds
     class Program
     {
         static void Main(string[] args)
-        {
-            //var list = new List<string> { "Aram", "Hovo" };
-            //AppDomain ad = AppDomain.CurrentDomain;
-            //AssemblyName am = new AssemblyName();
-            //am.Name = "TestAsm";
-            //AssemblyBuilder ab = ad.DefineDynamicAssembly(am, AssemblyBuilderAccess.Save);
-            //ModuleBuilder mb = ab.DefineDynamicModule("testmod", "TestAsm.exe");
-            //TypeBuilder tb = mb.DefineType("mytype", TypeAttributes.Public);
-            //MethodBuilder metb = tb.DefineMethod("hi", MethodAttributes.Public |
-            //MethodAttributes.Static, null, null);
-            //ab.SetEntryPoint(metb);
-            //ILGenerator il = metb.GetILGenerator();
-            //il.EmitWriteLine(list[0]);
-            //il.Emit(OpCodes.Ret);
-            //tb.CreateType();
-            //ab.Save("TestAsm.exe");
-
+        {            
             var v = new[] { "8","+","9","*","4","*","2","-","20"};
             Console.WriteLine(P5(v));
 
