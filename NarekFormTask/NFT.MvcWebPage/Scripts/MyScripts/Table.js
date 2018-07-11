@@ -57,26 +57,33 @@
         var dataToSave = { id: editId, name: editName, surname: editSurname, salary: editSalary, isGettingBonus: editIsBonus, universityId: editUnivId, info: editInfo };
         //trChildren.eq(7).children("img").attr('data-toggle', 'modal');
         //trChildren.eq(7).children("img").attr('data-target', '#myModal');  
-        $.ajax({
-            url: '/home/EditEmployeeById',
-            type: "POST",
-            data: { editEmployee: dataToSave },
-            success: function (result) {
-                for (var i = 0; i < 7; i++) {
-                    trChildren.eq(i).html(trChildren.eq(i).children("input").val());
+        $("#myModal").modal('toggle');
+        if (yes) {
+            $.ajax({
+                url: '/home/EditEmployeeById',
+                type: "POST",
+                data: { editEmployee: dataToSave },
+                success: function (result) {
+                    for (var i = 0; i < 7; i++) {
+                        trChildren.eq(i).html(trChildren.eq(i).children("input").val());
+                    }
+                    trChildren.eq(7).children("img").attr('src', '../Content/Images/edit.png');
+                    //trChildren.eq(7).children("img").removeAttr("alt");
+                    $(".saveImg").unbind("click");
+                    $(".saveImg").on("click", editRow);
+                    $(".saveImg").attr("class", "editImg");
+                    //$(this).closest("tr").replaceWith('<tr id="' + editId + '"><td>' + editId + '</td><td>' + editName + '</td><td>' + editSurname + '</td><td>' + editSalary + '</td><td>' + editIsBonus + '</td><td>' + editUnivId + '</td><td>' + editInfo + '</td></tr>');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.statusText);
+                    alert(thrownError);
                 }
-                trChildren.eq(7).children("img").attr('src', '../Content/Images/edit.png');
-                //trChildren.eq(7).children("img").removeAttr("alt");
-                $(".saveImg").unbind("click");
-                $(".saveImg").on("click", editRow);
-                $(".saveImg").attr("class", "editImg");
-                //$(this).closest("tr").replaceWith('<tr id="' + editId + '"><td>' + editId + '</td><td>' + editName + '</td><td>' + editSurname + '</td><td>' + editSalary + '</td><td>' + editIsBonus + '</td><td>' + editUnivId + '</td><td>' + editInfo + '</td></tr>');
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.statusText);
-                alert(thrownError);
-            }
-        });
+            });
+        }
+        else {
+            currentTr.replaceWith(rowTemplate.replace(/{id}/g, editId).replace("{name}", editName).replace("{surname}", editSurname).replace("{salary}", editSalary).replace("{isBonus}", editIsBonus).replace("{univId}", editUnivId).replace("{info}", editInfo));
+            $(".chbox").hide();
+        }
     }
 
     function editRow() {
