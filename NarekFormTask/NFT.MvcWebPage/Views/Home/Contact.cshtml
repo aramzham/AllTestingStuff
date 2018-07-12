@@ -1,17 +1,108 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+@*<h2>@ViewBag.Title.</h2>
+    <h3>@ViewBag.Message</h3>*@
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="container-fluid">
+    <div class="row">
+        <section id="contact">
+            <div class="container">
+                @*<div class="well well-sm">
+            <h3><strong>Contact Us</strong></h3>
+        </div>*@
+
+
+                <div class="row-fluid">
+                    <div class="page-header">
+                        <h1>Contact <small>Contact page</small></h1>
+                    </div>
+                    <div class="hero-unit">
+                        <h1>Contact us right now</h1>
+                        <p>and you will get an opportunity to earn BONUSES right now or, if not, you'll get it NEXT MONTH FOR SURE, 100% GUARANTEE!!!</p>
+                        <p>
+                            <a id="bonusBtn" class="btn btn-primary btn-lg">Press This Button To Get Bonus Next Month</a>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-7">
+                        @*<iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d3736489.7218514383!2d90.21589792292741!3d23.857125486636733!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1506502314230" width="100%" height="315" frameborder="0" style="border:0" allowfullscreen></iframe>*@
+                        @*<iframe src="http://maps.google.com/?q=40.152424,44.5411223" width="100%" height="315" frameborder="0" style="border:0" allowfullscreen></iframe>*@
+                        <iframe src="https://maps.google.com/maps?q=Garegin%20Hovsepyan%2020&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="315" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="col-md-5">
+                        <h4><strong>Get in Touch</strong></h4>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="" value="" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="" value="" placeholder="E-mail">
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" class="form-control" name="" value="" placeholder="Phone">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="" rows="3" placeholder="Message"></textarea>
+                            </div>
+                            <button class="btn btn-default" type="submit" name="button">
+                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i> Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <address>
+                        BetConstruct<br />
+                        Yerevan, Garegin Hovsepyan str. 20<br />
+                        <abbr title="Phone">P:</abbr>
+                        041-32-52-53
+                    </address>
+
+                    <address>
+                        <strong>Support:</strong>   <a href="mailto:Support@example.com">aram.zhamkochyan@betconstruct.com</a><br />
+                        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">aram532@yandex.ru</a>
+                    </address>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="modal fade" id="myDialog" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content col-md-7">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bonuses coming!!!</h4>
+            </div>
+            <div class="modal-body">
+                <p>You'll get your bonuses next month! 100% guaranteed!</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+                <a href="#" class="btn btn-primary">Ignore</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#bonusBtn").on("click", function() {
+            $('#myDialog').modal('toggle');
+        });
+    });
+</script>
