@@ -1,6 +1,12 @@
 ﻿USE TestTaskDb
 GO
-
+create table University
+(
+	[Id] int identity primary key not null,
+	[Name] varchar(500) not null,
+	[Address] varchar(300) null
+)
+GO
 CREATE TABLE Employee
 (   
  [Id] int identity primary key NOT NULL,
@@ -12,12 +18,6 @@ CREATE TABLE Employee
  [Info] nvarchar(3000) null
 ) ON [PRIMARY]
 GO
-create table University
-(
-	[Id] int identity primary key not null,
-	[Name] varchar(500) not null,
-	[Address] varchar(300) null
-)
 
 insert into University
 values
