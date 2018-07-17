@@ -64,15 +64,6 @@ namespace NFT.MvcWebPage.Controllers
         public void EditEmployeeById(Employee editEmployee)
         {
             if(editEmployee is null || editEmployee.Id == default(int)) return;
-            //var emp = new Employee()
-            //{
-            //    Name = string.IsNullOrEmpty(editEmployee.Item2[0]) ? "no name" : editEmployee.Item2[0],
-            //    Surname = string.IsNullOrEmpty(editEmployee.Item2[1]) ? "no surname" : editEmployee.Item2[1],
-            //    Salary = decimal.TryParse(editEmployee.Item2[2], out var s) ? s : 0,
-            //    IsGettingBonus = bool.Parse(editEmployee.Item2[3]),
-            //    UniversityId = int.TryParse(editEmployee.Item2[4], out var uid) ? uid : 1,
-            //    Info = string.IsNullOrEmpty(editEmployee.Item2[5]) ? "no info" : editEmployee.Item2[5],
-            //};
             _dbManager.EditEmployeeById(editEmployee.Id, editEmployee);
         }
     }
