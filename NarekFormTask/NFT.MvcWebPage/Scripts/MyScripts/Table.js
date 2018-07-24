@@ -27,7 +27,7 @@
     $(".editImg").on("click", editRow);
     $("#addButton").on("click", addTextBoxes);
     $("#deleteButton").on("click", deleteToConfirm);
-    $("#cancelButton").on("click", function () { saveToAdd(); confirmToDelete(); });
+    //$("#cancelButton").on("click", function () { saveToAdd(); confirmToDelete(); });
     $('#checkall').click(function () {
         var checked = $(this).prop('checked');
         $("input[type='checkbox']").prop('checked', checked);
@@ -139,13 +139,16 @@
         //$("#helpContent").empty();
         //$("#helpContent").hide();
         //$("#helpTrigger").removeClass("closeTrigger").addClass("helpTrigger");
-        $('#employees tr:last').after("<tr id=\"addBlocks\"><td></td><td><input type=\"text\" id=\"addName\"/></td><td><input type=\"text\" id=\"addSurname\"/></td><td><input type=\"text\" id=\"addSalary\"/></td><td><input type=\"checkbox\" id=\"addIsBonus\"/></td><td><input type=\"number\" id=\"addUnivId\"/></td><td><input type=\"text\" id=\"addInfo\"/></td></tr>");
+        $("#employees tr:last").after("<tr id=\"addBlocks\"\ ><td></td><td><input type=\"text\" id=\"addName\"/></td><td><input type=\"text\" id=\"addSurname\"/></td><td><input type=\"text\" id=\"addSalary\"/></td><td><input type=\"checkbox\" id=\"addIsBonus\"/></td><td><input type=\"number\" id=\"addUnivId\"/></td><td><input type=\"text\" id=\"addInfo\"/></td></tr>");
         $("#addBlocks").animate({ height: "200px" });
         $("#addBlocks").animate({ height: "" });
         $("#addButton").text("Save");
         $("#cancelButton").show();
+        $("#cancelButton").on("click", saveToAdd);
         $("#addButton").unbind("click");
         $("#addButton").on("click", saveEmployee);
+        $("#deleteButton").addClass("disabled");
+        $("#deleteButton").unbind("click");
     }
 
     function saveToAdd() {
@@ -153,16 +156,22 @@
         $("#addButton").click(addTextBoxes);
         $("#addButton").text("Add");
         $("#cancelButton").hide();
+        $("#cancelButton").unbind("click");
         $("#addBlocks").remove();
+        $("#deleteButton").removeClass("disabled");
+        $("#deleteButton").on("click", deleteToConfirm);
     }
 
     function deleteToConfirm() {
         $(".chbox").show();
-        $("#cancelButton").show();
         $("#checkallTh").show();
+        $("#cancelButton").show();
+        $("#cancelButton").on("click",confirmToDelete);
         $("#deleteButton").text("Confirm");
         $("#deleteButton").unbind("click");
         $("#deleteButton").on("click", submitDelete);
+        $("#addButton").addClass("disabled");
+        $("#addButton").unbind("click");
     }
 
     function submitDelete() {
@@ -195,9 +204,12 @@
     function confirmToDelete() {
         $(".chbox").hide("slow", "linear");
         $("#cancelButton").hide();
+        $("#cancelButton").unbind("click");
         $("#checkallTh").hide("slow", "swing");
         $("#deleteButton").text("Delete");
         $("#deleteButton").unbind("click");
         $("#deleteButton").on("click", deleteToConfirm);
+        $("#addButton").removeClass("disabled");
+        $("#addButton").on("click",addTextBoxes);
     }
 });
