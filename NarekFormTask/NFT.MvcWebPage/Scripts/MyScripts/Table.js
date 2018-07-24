@@ -132,8 +132,9 @@
         $("#cancelButton").on("click", saveToAdd);
         $("#addButton").unbind("click");
         $("#addButton").on("click", saveEmployee);
-        $("#deleteButton").addClass("disabled");
-        $("#deleteButton").unbind("click");
+        //$("#deleteButton").addClass("disabled");
+        //$("#deleteButton").unbind("click");
+        $("#deleteButton").prop("disabled", true);
     }
 
     function saveToAdd() {
@@ -143,8 +144,9 @@
         $("#cancelButton").hide();
         $("#cancelButton").unbind("click");
         $("#addBlocks").remove();
-        $("#deleteButton").removeClass("disabled");
-        $("#deleteButton").on("click", deleteToConfirm);
+        //$("#deleteButton").removeClass("disabled");
+        //$("#deleteButton").on("click", deleteToConfirm);
+        $("#deleteButton").removeAttr("disabled");
     }
 
     function deleteToConfirm() {
@@ -155,8 +157,9 @@
         $("#deleteButton").text("Confirm");
         $("#deleteButton").unbind("click");
         $("#deleteButton").on("click", submitDelete);
-        $("#addButton").addClass("disabled");
-        $("#addButton").unbind("click");
+        //$("#addButton").addClass("disabled");
+        //$("#addButton").unbind("click");
+        $("#addButton").prop("disabled",true);
     }
 
     function submitDelete() {
@@ -204,7 +207,8 @@
         $("#deleteButton").text("Delete");
         $("#deleteButton").unbind("click");
         $("#deleteButton").on("click", deleteToConfirm);
-        $("#addButton").removeClass("disabled");
-        $("#addButton").on("click",addTextBoxes);
+        //$("#addButton").removeClass("disabled");
+        //$("#addButton").on("click",addTextBoxes);
+        $("#addButton").removeAttr("disabled");
     }
 });
