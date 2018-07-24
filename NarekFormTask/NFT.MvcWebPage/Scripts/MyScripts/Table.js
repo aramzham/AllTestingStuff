@@ -1,24 +1,7 @@
 ﻿$(document).ready(function () {
-    $("#testButton").click(function () {
-        $.ajax({
-            url: '@Url.Action("Test")',
-            dataType: "json",
-            type: "GET",
-            success: function (result) {
-                console.log('<tr id="' + result + '"><td>' + result + '</td><td>' + $("#addName").val() + '</td><td>' + $("#addSurname").val() + '</td><td>' + $("#addIsBonus").is(":checked") + '</td><td>' + $("#addUnivId").val() + '</td><td>' + $("#addInfo").val() + '</td></tr>');
-            }
-        });
-    });
+    var rowTemplate = '<tr id="{id}"><td>{id}</td><td>{name}</td><td>{surname}</td><td>{salary}</td><td>{isBonus}</td><td>{univId}</td><td>{info}</td><td><img src="C:\Users\Aram\Source\Repos\AllTestingStuff\NarekFormTask\NFT.MvcWebPage\Content\Images\edit.jpg" class="editImg"></td><td class="chbox" style="display:none"><input type="checkbox" value="" /></td></tr>';
 
-    var rowTemplate = '<tr id="{id}"><td>{id}</td><td>{name}</td><td>{surname}</td><td>{salary}</td><td>{isBonus}</td><td>{univId}</td><td>{info}</td><td><img src="C:\Users\Aram\Source\Repos\AllTestingStuff\NarekFormTask\NFT.MvcWebPage\Content\Images\edit.jpg" class="editImg"></td><td class="chbox"><input type="checkbox" value="" /></td></tr>';
-
-    function myFunction() {
-        var popup = document.getElementById("myPopup");
-        popup.classList.toggle("show");
-    }
-    //alert("mtanq script");
     var ids = [];
-    var yes = false;
 
     $(".chbox").hide();
     $("#checkallTh").hide();
@@ -34,20 +17,17 @@
     });
     $(":checkbox").on("change", function () {
         if (this.checked) {
-            //ids.push($(this).parent().parent().children().first().text());
             ids.push($(this).closest("tr").attr("id"));
         } else {
             var index = ids.indexOf($(this).closest("tr").attr("id"));
             if (index != -1) ids.splice(index, 1);
         }
     });
-    $("#yesBtn").on("click", function () { yes = true; });
-    $("#noBtn").on("click", function () { yes = false; });
 
     function saveEditedEmployee() {
         var currentTr = $(this).closest("tr");
         var trChildren = currentTr.children("td");
-        var editId = trChildren.eq(0).children("input").val();
+        var editId = trChildren.eq(0).text();
         var editName = trChildren.eq(1).children("input").val();
         var editSurname = trChildren.eq(2).children("input").val();
         var editSalary = trChildren.eq(3).children("input").val();
@@ -55,35 +35,40 @@
         var editUnivId = trChildren.eq(5).children("input").val();
         var editInfo = trChildren.eq(6).children("input").attr("value");
         var dataToSave = { id: editId, name: editName, surname: editSurname, salary: editSalary, isGettingBonus: editIsBonus, universityId: editUnivId, info: editInfo };
-        //trChildren.eq(7).children("img").attr('data-toggle', 'modal');
-        //trChildren.eq(7).children("img").attr('data-target', '#myModal');  
+        $("#yesBtn").unbind("click");
+        $("#noBtn").unbind("click");
+
         $("#myModal").modal('toggle');
-        if (yes) {
-            $.ajax({
-                url: '/home/EditEmployeeById',
-                type: "POST",
-                data: { editEmployee: dataToSave },
-                success: function (result) {
-                    for (var i = 0; i < 7; i++) {
-                        trChildren.eq(i).html(trChildren.eq(i).children("input").val());
+
+        $("#yesBtn").on("click",
+            function () {
+                $.ajax({
+                    url: '/home/EditEmployeeById',
+                    type: "POST",
+                    data: { editEmployee: dataToSave },
+                    success: function (result) {
+                        for (var i = 0; i < 7; i++) {
+                            trChildren.eq(i).html(trChildren.eq(i).children("input").val());
+                        }
+                        trChildren.eq(7).children("img").attr('src', '../Content/Images/edit.png');
+                        //trChildren.eq(7).children("img").removeAttr("alt");
+                        $(".saveImg").unbind("click");
+                        $(".saveImg").on("click", editRow);
+                        $(".saveImg").attr("class", "editImg");
+                        //$(this).closest("tr").replaceWith('<tr id="' + editId + '"><td>' + editId + '</td><td>' + editName + '</td><td>' + editSurname + '</td><td>' + editSalary + '</td><td>' + editIsBonus + '</td><td>' + editUnivId + '</td><td>' + editInfo + '</td></tr>');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.statusText);
+                        alert(thrownError);
                     }
-                    trChildren.eq(7).children("img").attr('src', '../Content/Images/edit.png');
-                    //trChildren.eq(7).children("img").removeAttr("alt");
-                    $(".saveImg").unbind("click");
-                    $(".saveImg").on("click", editRow);
-                    $(".saveImg").attr("class", "editImg");
-                    //$(this).closest("tr").replaceWith('<tr id="' + editId + '"><td>' + editId + '</td><td>' + editName + '</td><td>' + editSurname + '</td><td>' + editSalary + '</td><td>' + editIsBonus + '</td><td>' + editUnivId + '</td><td>' + editInfo + '</td></tr>');
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.statusText);
-                    alert(thrownError);
-                }
+                });
             });
-        }
-        else {
+        $("#noBtn").on("click", function () {
+            console.log(rowTemplate.replace(/{id}/g, editId).replace("{name}", editName).replace("{surname}", editSurname).replace("{salary}", editSalary).replace("{isBonus}", editIsBonus).replace("{univId}", editUnivId).replace("{info}", editInfo));
             currentTr.replaceWith(rowTemplate.replace(/{id}/g, editId).replace("{name}", editName).replace("{surname}", editSurname).replace("{salary}", editSalary).replace("{isBonus}", editIsBonus).replace("{univId}", editUnivId).replace("{info}", editInfo));
-            $(".chbox").hide();
-        }
+        });
+        
+        $(".chbox").hide();
     }
 
     function editRow() {
@@ -176,22 +161,32 @@
 
     function submitDelete() {
         if (ids != undefined && ids.length > 0) {
-            $.ajax({
-                url: '@Url.Action("RemoveEmployeesByIds")',
-                data: { 'ids': ids },
-                type: "POST",
-                //dataType: "json",
-                success: function (result, status, jqXHR) {
-                    for (var i = 0; i < ids.length; i++) {
-                        $("#" + ids[i].toString()).remove();
+            $("#yesBtn").unbind("click");
+            $("#noBtn").unbind("click");
+
+            $("#myModal").modal('toggle');
+            $("#yesBtn").on("click", function() {
+                $.ajax({
+                    url: '/home/RemoveEmployeesByIds',
+                    data: { 'ids': ids },
+                    type: "POST",
+                    //dataType: "json",
+                    success: function (result, status, jqXHR) {
+                        for (var i = 0; i < ids.length; i++) {
+                            $("#" + ids[i].toString()).remove();
+                        }
+                        uncheckChecked();
+                        confirmToDelete();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.statusText);
+                        alert(thrownError);
                     }
-                    uncheckChecked();
-                    confirmToDelete();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.statusText);
-                    alert(thrownError);
-                }
+                });
+            });
+            $("#noBtn").on("click", function() {
+                uncheckChecked();
+                confirmToDelete();
             });
         }
     }
