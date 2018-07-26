@@ -5,7 +5,6 @@ namespace SouqScrapper
     public class ItemModel
     {
     //1- Product page link: https://uae.souq.com/ae-en/anker-soundcore-bluetooth-speaker-black-a3102011-10725120/i/
-
     //2- Product title: Anker SoundCore Bluetooth Speaker - Black, A3102011
     //3- Reviews Count "just the number": 149
     //4- Rating: 4.6
@@ -22,6 +21,6 @@ namespace SouqScrapper
         public decimal FinalPrice { get; set; }
         public string CategoryName { get; set; }
         public string EAN { get; set; }
-        public DateTime ListingDate { get; set; }
+        public string ListingDate { get; set; }
     }
 }

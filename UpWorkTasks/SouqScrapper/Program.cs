@@ -74,7 +74,12 @@ namespace SouqScrapper
                             break;
                         }
                         if (item.EAN is null) item.EAN = "no ean";
-                        item.ListingDate = DateTime.Now;
+                        var reviewsTag = doc.DocumentNode.SelectSingleNode(".//a[@href='#Reviews'] and @class='linkToReviewsTab'");
+                        var reviewsTagText = reviewsTag.InnerText.Replace("ratings","").Replace("rating","").Replace("&nbsp;","");
+                        if (int.TryParse(reviewsTagText, out var reviewCount)) item.ReviewsCount = reviewCount;
+                        var dateTag = doc.DocumentNode.SelectSingleNode(".//meta[@property='og:image']").GetAttributeValue("content","XXX");
+                        var date = dateTag.Split(new[] {"souqcdn.com/item/"}, StringSplitOptions.RemoveEmptyEntries).Last().Take(10);
+                        item.ListingDate = new string(date.ToArray());
                     }
                     catch (Exception e)
                     {
