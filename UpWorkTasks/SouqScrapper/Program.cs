@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using HtmlAgilityPack;
 
 namespace SouqScrapper
@@ -37,6 +38,8 @@ namespace SouqScrapper
             //    }
             //}
             //var allCategoryLinks = GetAllCategoryLinks(_client, _doc);
+            List<LargeCategoryModel> largeCategories = null;
+            largeCategories = GetLargeCategories(_client, _doc);
 
             var firstPageUrl = "https://uae.souq.com/ae-en/tablet/microsoft/new/a-7-c/l/?ref=nav&section=2&page=1";
             var number = GetPageNumber(firstPageUrl, _client, _doc);
@@ -83,6 +86,78 @@ namespace SouqScrapper
             }
         }
 
+        private static List<LargeCategoryModel> GetLargeCategories(HttpClient client, HtmlDocument doc)
+        {
+            var content = client.GetStringAsync(AllCategoriesLink).GetAwaiter().GetResult();
+            doc.LoadHtml(content);
+            var shopAllContainer = doc.DocumentNode.SelectSingleNode(".//div[@class='row shop-all-container']");
+            if (shopAllContainer is null) return null;
+            var columns = shopAllContainer.SelectNodes(".//div[@class='large-4 columns']");
+            if (columns is null) return null;
+            var listOfCategories = new List<LargeCategoryModel>();
+            foreach (var column in columns)
+            {
+                var h3s = column.SelectNodes(".//h3");
+                var groupedLists = column.SelectNodes(".//div[@class='grouped-list']");
+                if (h3s is null || groupedLists is null || h3s.Count != groupedLists.Count) continue;
+                for (int i = 0; i < h3s.Count; i++)
+                {
+                    var largeCategory = new LargeCategoryModel() { Name = HttpUtility.HtmlDecode(h3s[i].InnerText)?.Replace(',',';').Trim() };
+                    var sideNav = groupedLists[i].SelectSingleNode(".//ul[@class='side-nav']");
+                    if(sideNav is null) continue;
+                    var lis = sideNav.Elements("li");
+                    if(lis is null) continue;
+                    foreach (var li in lis)
+                    {
+                        if (li.HasAttributes)
+                        {
+                            var aParent = li.Element("a");
+                            var ulParent = li.Element("ul");
+                            if (aParent is null || ulParent is null) continue;
+                            var mediumCategory = new MediumCategoryModel() { Name = HttpUtility.HtmlDecode(aParent.InnerText.Replace(',', ';')).Trim() };
+                            var lisParent = ulParent.Elements("li");
+                            foreach (var liParent in lisParent)
+                            {
+                                if (liParent.HasAttributes)
+                                {
+                                    var aParent2 = li.Element("a");
+                                    if (aParent2 is null) continue;
+                                    var lisParent2 = ulParent.SelectNodes(".//li");
+                                    foreach (var liParent2 in lisParent2)
+                                    {
+                                        var smallCategory = GetSmallCategoryFromA(liParent2.Element("a"));
+                                        if (smallCategory != null && smallCategory.Link != "no link") mediumCategory.SmallCategories.Add(smallCategory);
+                                    }
+                                }
+                                else
+                                {
+                                    var smallCategory = GetSmallCategoryFromA(liParent.Element("a"));
+                                    if (smallCategory != null && smallCategory.Link != "no link") mediumCategory.SmallCategories.Add(smallCategory);
+                                }
+                            }
+                            largeCategory.MediumCategories.Add(mediumCategory);
+                        }
+                        else
+                        {
+                            var aNonParent = li.Element("a");
+                            if (aNonParent is null) continue;
+                            var smallCategory = GetSmallCategoryFromA(aNonParent);
+                            if (smallCategory != null && smallCategory.Link != "no link") largeCategory.SmallCategories.Add(smallCategory);
+                        }
+                    }
+                    listOfCategories.Add(largeCategory);
+                }
+            }
+
+            return listOfCategories;
+        }
+
+        static SmallCategoryModel GetSmallCategoryFromA(HtmlNode a)
+        {
+            if (a is null || !a.HasAttributes) return null;
+            return new SmallCategoryModel() { Name = HttpUtility.HtmlDecode(a.InnerText.Replace(',',';'))?.Trim(), Link = a.GetAttributeValue("href", "no link") };
+        }
+
         static string GetHrefFromA(HtmlNode a)
         {
             if (a is null) return null;
@@ -100,14 +175,14 @@ namespace SouqScrapper
             foreach (var groupedList in groupedLists)
             {
                 var lisInGroup = groupedList.SelectNodes(".//li");
-                if(lisInGroup is null) continue;
+                if (lisInGroup is null) continue;
                 foreach (var li in lisInGroup)
                 {
                     if (!li.HasClass("parent"))
                     {
                         //continue;
                         var href = GetHrefFromA(li.SelectSingleNode(".//a"));
-                        if(href != null) links.Add(href);
+                        if (href != null) links.Add(href);
                     }
                     else
                     {
@@ -151,8 +226,6 @@ namespace SouqScrapper
         static ItemModel CreateItem(string url, HttpClient client, HtmlDocument doc)
         {
             var item = new ItemModel();
-            //try
-            //{
             var itemContent = client.GetStringAsync(url).GetAwaiter().GetResult();
             doc.LoadHtml(itemContent);
 
@@ -207,11 +280,6 @@ namespace SouqScrapper
             var dateTag = doc.DocumentNode.SelectSingleNode(".//*[@*[contains(., 'souqcdn.com/item/')]]")?.OuterHtml;
             var date = dateTag?.Split(new[] { "souqcdn.com/item/" }, StringSplitOptions.RemoveEmptyEntries).Last().Take(10);
             if (date != null) item.ListingDate = new string(date.ToArray());
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e);
-            //}
 
             return item;
         }
