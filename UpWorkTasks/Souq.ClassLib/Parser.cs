@@ -15,8 +15,9 @@ namespace Souq.ClassLib
 {
     public class Parser
     {
-        private const string Section2Page1 = "?section=2&page=1";
-        private const string Section2Page1WithoutQuestion = "section=2&page=1";
+        public const string Section2Page1 = "?section=2&page=1";
+        public const string Section2Page1WithAmpersand = "&section=2&page=1";
+        public const string Section2Page1WithoutQuestion = "section=2&page=1";
         private const string AllCategoriesLink = "https://uae.souq.com/ae-en/shop-all-categories/c/";
         private const int SleepTime = 1000;
 
@@ -25,24 +26,24 @@ namespace Souq.ClassLib
         private static HttpClient _client = new HttpClient(_handler);
         private static HtmlDocument _doc = new HtmlDocument();
         private static HashSet<string> _allLinks = new HashSet<string>();
-
-        public static void Start(List<LargeCategoryModel> largeCategories)
+        
+        public static void Start(List<LargeCategoryModel> largeCategories, string path)
         {
             _client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36");
             if (largeCategories is null) return;
             foreach (var largeCategory in largeCategories)
             {
-                Directory.CreateDirectory(largeCategory.Name);
+                Directory.CreateDirectory($"{path}\\{largeCategory.Name}");
                 foreach (var mediumCategory in largeCategory.MediumCategories)
                 {
-                    Directory.CreateDirectory($"{largeCategory.Name}\\{mediumCategory.Name}");
+                    Directory.CreateDirectory($"{path}\\{largeCategory.Name}\\{mediumCategory.Name}");
                     foreach (var smallCategory in mediumCategory.SmallCategories)
                     {
                         if (_allLinks.Contains(smallCategory.Link)) continue;
                         _allLinks.Add(smallCategory.Link);
                         var link = $"{smallCategory.Link}{Section2Page1}";
                         var number = GetPageNumber(link);
-                        GetItems(SleepTime, $"{largeCategory.Name}\\{mediumCategory.Name}\\{smallCategory.Name}.csv", number, link);
+                        GetItems(SleepTime, $"{path}\\{largeCategory.Name}\\{mediumCategory.Name}\\{smallCategory.Name}.csv", number, link);
                     }
                 }
 
@@ -52,7 +53,7 @@ namespace Souq.ClassLib
                     _allLinks.Add(smallCategory.Link);
                     var link = $"{smallCategory.Link}{Section2Page1}";
                     var number = GetPageNumber(link);
-                    GetItems(SleepTime, $"{largeCategory.Name}\\{smallCategory.Name}.csv", number, link);
+                    GetItems(SleepTime, $"{path}\\{largeCategory.Name}\\{smallCategory.Name}.csv", number, link);
                 }
             }
         }
@@ -146,13 +147,13 @@ namespace Souq.ClassLib
 
             // final price
             var priceTag = _doc.DocumentNode.SelectSingleNode(".//h3[starts-with(@class,'price')]");
-            if (decimal.TryParse(HttpUtility.HtmlDecode(priceTag?.InnerText.Trim(' ', '\n', '\t', '\r').Replace("AED", "")), out var price)) item.FinalPrice = price;
+            if (decimal.TryParse(HttpUtility.HtmlDecode(priceTag?.InnerText.Replace("AED", ""))?.Trim(' ', '\n', '\t', '\r'), out var price)) item.FinalPrice = price;
 
             // rating and total rating count
             var ratingTag = _doc.DocumentNode.SelectSingleNode(".//div[contains(@class,'product-rating')]//div[contains(@class,'mainRating')]");
             var ratingScoreTag = ratingTag?.SelectSingleNode(".//strong");
             var ratingCountTag = ratingTag?.SelectSingleNode(".//div[@class='reviews-total']");
-            if (ratingCountTag != null && int.TryParse(ratingCountTag.InnerText.Replace("&nbsp;", "").Replace("ratings", "").Replace("rating", ""), out var totalRating)) item.TotalRatingCount = totalRating;
+            if (ratingCountTag != null && int.TryParse(HttpUtility.HtmlDecode(ratingCountTag.InnerText)?.Replace("ratings", "").Replace("rating", "").Trim(), out var totalRating)) item.TotalRatingCount = totalRating;
             if (decimal.TryParse(ratingScoreTag?.InnerText, out var rating)) item.Rating = rating;
 
             // category and title
@@ -189,7 +190,7 @@ namespace Souq.ClassLib
             if (reviewsTag is null) item.ReviewsCount = 0;
             else
             {
-                var reviewsTagText = HttpUtility.HtmlDecode(reviewsTag.InnerText.Replace("reviews", "").Replace("review", ""));
+                var reviewsTagText = HttpUtility.HtmlDecode(reviewsTag.InnerText.Replace("reviews", "").Replace("review", "")).Trim();
                 if (int.TryParse(reviewsTagText, out var reviewCount)) item.ReviewsCount = reviewCount;
             }
 
@@ -209,7 +210,7 @@ namespace Souq.ClassLib
             File.AppendAllText(fileName, sb.ToString());
         }
 
-        private static int GetPageNumber(string firstPageUrl)
+        public static int GetPageNumber(string firstPageUrl)
         {
             var firstPageContent = _client.GetStringAsync(firstPageUrl).GetAwaiter().GetResult();
             _doc.LoadHtml(firstPageContent);
@@ -217,7 +218,7 @@ namespace Souq.ClassLib
             return int.TryParse(itemsFound, out var number) ? number / 60 + 1 : 1;
         }
 
-        private static void GetItems(int sleepTime, string fileName, int pageCount, string url)
+        public static void GetItems(int sleepTime, string filePath, int pageCount, string url)
         {
             count = 0;
             for (var j = 1; j <= pageCount; j++)
@@ -254,7 +255,7 @@ namespace Souq.ClassLib
                     _allLinks.Add(link);
 
                     count++;
-                    WriteToCsv(item, fileName);
+                    WriteToCsv(item, filePath);
                     Thread.Sleep(new Random().Next(sleepTime - 500, sleepTime + 501));
                 }
             }
