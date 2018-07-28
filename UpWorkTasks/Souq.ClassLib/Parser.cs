@@ -25,12 +25,10 @@ namespace Souq.ClassLib
         private static HttpClient _client = new HttpClient(_handler);
         private static HtmlDocument _doc = new HtmlDocument();
         private static HashSet<string> _allLinks = new HashSet<string>();
-        private static List<LargeCategoryModel> largeCategories;
 
-        public static void Start()
+        public static void Start(List<LargeCategoryModel> largeCategories)
         {
             _client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36");
-            if (largeCategories is null) largeCategories = GetLargeCategories();
             if (largeCategories is null) return;
             foreach (var largeCategory in largeCategories)
             {
@@ -40,16 +38,20 @@ namespace Souq.ClassLib
                     Directory.CreateDirectory($"{largeCategory.Name}\\{mediumCategory.Name}");
                     foreach (var smallCategory in mediumCategory.SmallCategories)
                     {
+                        if (_allLinks.Contains(smallCategory.Link)) continue;
+                        _allLinks.Add(smallCategory.Link);
                         var link = $"{smallCategory.Link}{Section2Page1}";
-                        var number = GetPageNumber(link) / 60 + 1;
+                        var number = GetPageNumber(link);
                         GetItems(SleepTime, $"{largeCategory.Name}\\{mediumCategory.Name}\\{smallCategory.Name}.csv", number, link);
                     }
                 }
 
                 foreach (var smallCategory in largeCategory.SmallCategories)
                 {
+                    if (_allLinks.Contains(smallCategory.Link)) continue;
+                    _allLinks.Add(smallCategory.Link);
                     var link = $"{smallCategory.Link}{Section2Page1}";
-                    var number = GetPageNumber(link) / 60 + 1;
+                    var number = GetPageNumber(link);
                     GetItems(SleepTime, $"{largeCategory.Name}\\{smallCategory.Name}.csv", number, link);
                 }
             }
@@ -144,7 +146,7 @@ namespace Souq.ClassLib
 
             // final price
             var priceTag = _doc.DocumentNode.SelectSingleNode(".//h3[starts-with(@class,'price')]");
-            if (decimal.TryParse(priceTag?.InnerText.Trim(' ', '\n', '\t', '\r').Replace("AED", "").Replace("&nbsp;", ""), out var price)) item.FinalPrice = price;
+            if (decimal.TryParse(HttpUtility.HtmlDecode(priceTag?.InnerText.Trim(' ', '\n', '\t', '\r').Replace("AED", "")), out var price)) item.FinalPrice = price;
 
             // rating and total rating count
             var ratingTag = _doc.DocumentNode.SelectSingleNode(".//div[contains(@class,'product-rating')]//div[contains(@class,'mainRating')]");
@@ -160,7 +162,12 @@ namespace Souq.ClassLib
                 var titleTag = headerTag.SelectSingleNode(".//h1");
                 item.Title = titleTag is null ? "no title" : titleTag.InnerText.Replace(',', '.');
                 var categoryTag = headerTag.SelectSingleNode(".//span");
-                item.CategoryName = categoryTag != null ? categoryTag.InnerText.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).Last().Trim() : "no category";
+                if (categoryTag != null && categoryTag.InnerText.Contains("by"))
+                {
+                    var categoryInnerText = HttpUtility.HtmlDecode(categoryTag.InnerText);
+                    if (!string.IsNullOrEmpty(categoryInnerText)) item.CategoryName = categoryInnerText.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries).Last().Trim();
+                }
+                else item.CategoryName = "no category";
             }
 
             // ean
@@ -182,7 +189,7 @@ namespace Souq.ClassLib
             if (reviewsTag is null) item.ReviewsCount = 0;
             else
             {
-                var reviewsTagText = reviewsTag.InnerText.Replace("reviews", "").Replace("review", "").Replace("&nbsp;", "");
+                var reviewsTagText = HttpUtility.HtmlDecode(reviewsTag.InnerText.Replace("reviews", "").Replace("review", ""));
                 if (int.TryParse(reviewsTagText, out var reviewCount)) item.ReviewsCount = reviewCount;
             }
 

@@ -34,6 +34,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" HorizontalAlignment="Center">Medium categories</Label>
                 <ListView Grid.Row="1" Name="MediumList" SelectionMode="Multiple" SelectionChanged="FillSmalls" ScrollViewer.VerticalScrollBarVisibility ="Visible" ScrollViewer.CanContentScroll="True"></ListView>
+                <CheckBox Grid.Row="0" Checked="SelectAllMedium" Unchecked="UnSelectAllMedium" HorizontalAlignment="Left" Margin="192,7,0,0" VerticalAlignment="Top" Name="MediumSelectAll"/>
             </Grid>
             <Grid Column="2">
                 <Grid.RowDefinitions>
@@ -41,14 +42,15 @@
                     <RowDefinition Height="12*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" HorizontalAlignment="Center">Small categories</Label>
-                <ListView Grid.Row="1" Name="SmallList" SelectionMode="Multiple" SelectionChanged="FillSmalls" ScrollViewer.VerticalScrollBarVisibility ="Visible" ScrollViewer.CanContentScroll="True"></ListView>
+                <ListView Grid.Row="1" Name="SmallList" SelectionMode="Multiple" ScrollViewer.VerticalScrollBarVisibility ="Visible" ScrollViewer.CanContentScroll="True"></ListView>
+                <CheckBox Grid.Row="0" Checked="SelectAllSmall" Unchecked="UnSelectAllSmall" Name="SmallSelectAll" HorizontalAlignment="Left" Margin="182,7,0,0" VerticalAlignment="Top"/>
             </Grid>
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Click="GetAllCategories" Name="CategoriesBtn" Margin="10" Width="85">Get categories</Button>
             <Button Click="Add" Width="85" Margin="10">Add</Button>
             <Button Click="Start" Width="85" Margin="10" Name="StartBtn">Start</Button>
-            <Label Name="AddedLbl" Padding="20" FontSize="20" FontWeight="Bold" Foreground="LimeGreen" Visibility="Collapsed">Added</Label>
+            <Label Name="AddedLbl" Padding="20" FontSize="20" FontWeight="Bold" Foreground="LimeGreen" Visibility="Visible">Added</Label>
         </StackPanel>
     </Grid>
 </Window>

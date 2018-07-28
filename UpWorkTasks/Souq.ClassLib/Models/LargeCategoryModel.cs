@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Souq.ClassLib.Models
 {
+    [Serializable]
     public class LargeCategoryModel
     {
         public string Name { get; set; }
