@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SouqScrapper
+namespace Souq.ClassLib.Models
 {
     public class ItemModel
     {
