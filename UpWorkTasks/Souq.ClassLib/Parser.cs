@@ -21,6 +21,7 @@ namespace Souq.ClassLib
         private const string AllCategoriesLink = "https://uae.souq.com/ae-en/shop-all-categories/c/";
         private const int SleepTime = 1000;
 
+        public static int ParsedItemsCount { get; set; }
         private static int count = 0;
         private static HttpClientHandler _handler = new HttpClientHandler() { AllowAutoRedirect = false };
         private static HttpClient _client = new HttpClient(_handler);
@@ -255,6 +256,7 @@ namespace Souq.ClassLib
                     _allLinks.Add(link);
 
                     count++;
+                    ParsedItemsCount++;
                     WriteToCsv(item, filePath);
                     Thread.Sleep(new Random().Next(sleepTime - 500, sleepTime + 501));
                 }

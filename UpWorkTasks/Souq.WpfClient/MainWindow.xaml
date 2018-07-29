@@ -53,6 +53,9 @@
             <Button Click="Start" Width="85" Margin="10" Name="StartBtn" Background="Red">Start</Button>
             <Button Click="BrowsePath" Width="85" Margin="10" Name="BrowseBtn">Browse</Button>
             <Button Click="ResetSelection" Width="85" Margin="10" Name="ResetBtn">Reset</Button>
+            <Button Click="Stop" Width="85" Margin="10" Name="StopBtn">Stop</Button>
+            <Label FontSize="15" FontWeight="Bold" Margin="5">count:</Label>
+            <Label FontSize="15" FontWeight="Bold" Margin="5" Name="CountLbl"></Label>
             <!--<Label Name="AddedLbl" Padding="20" FontSize="20" FontWeight="Bold" Background="LimeGreen" Visibility="Visible">Added</Label>-->
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal">

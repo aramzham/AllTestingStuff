@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using HtmlAgilityPack;
 using Souq.ClassLib;
 using Souq.ClassLib.Models;
@@ -33,13 +35,20 @@ namespace Souq.WpfClient
         public static List<LargeCategoryModel> LargeCategories { get; set; } = new List<LargeCategoryModel>();
 
         private static List<LargeCategoryModel> _selectedItems = new List<LargeCategoryModel>();
+        private static ConcurrentBag<Thread> _threads = new ConcurrentBag<Thread>();
+        private static DispatcherTimer t;
         private static string _path;
 
         public MainWindow()
         {
             InitializeComponent();
             StartBtn.IsEnabled = false;
-            //AddedLbl.Visibility = Visibility.Collapsed;
+            t = new DispatcherTimer(new TimeSpan(0, 0, 0, 1, 0), DispatcherPriority.Background, t_Tick, Dispatcher.CurrentDispatcher) {IsEnabled = true};
+        }
+
+        private void t_Tick(object sender, EventArgs e)
+        {
+            CountLbl.Content = Convert.ToString(Parser.ParsedItemsCount);
         }
 
         private void GetAllCategories(object sender, RoutedEventArgs e)
@@ -99,6 +108,14 @@ namespace Souq.WpfClient
             }
         }
 
+        private void Stop(object sender, RoutedEventArgs e)
+        {
+            foreach (var thread in _threads)
+            {
+                thread.Abort();
+            }
+        }
+
         private void Start(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(_path))
@@ -109,7 +126,13 @@ namespace Souq.WpfClient
 
             if (_selectedItems.Any())
             {
-                Task.Run(() => Parser.Start(_selectedItems, _path));
+                Thread thread = null;
+                Task.Run(() =>
+                {
+                    thread = Thread.CurrentThread;
+                    _threads.Add(thread);
+                    Parser.Start(_selectedItems, _path);
+                });
                 MessageBox.Show($"Scrapping started.{Environment.NewLine}{GetLinksCount(_selectedItems)} category(ies) selected");
             }
             else MessageBox.Show("No category selected");
@@ -147,7 +170,13 @@ namespace Souq.WpfClient
 
                 var filePath = string.IsNullOrEmpty(FileNameBox.Text) ? $"{_path}\\{GetTimestampNow()}.csv" : $"{_path}\\{FileNameBox.Text}.csv";
                 // sleep time is 1000ms by default
-                Task.Run(() => Parser.GetItems(1000, filePath, pageCount, link));
+                Thread thread = null;
+                Task.Run(() =>
+                {
+                    thread = Thread.CurrentThread;
+                    _threads.Add(thread);
+                    Parser.GetItems(1000, filePath, pageCount, link);
+                });
                 MessageBox.Show("Scrapping started");
             }
             else
