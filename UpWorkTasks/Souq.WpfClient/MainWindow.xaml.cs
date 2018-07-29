@@ -43,7 +43,7 @@ namespace Souq.WpfClient
         {
             InitializeComponent();
             StartBtn.IsEnabled = false;
-            t = new DispatcherTimer(new TimeSpan(0, 0, 0, 1, 0), DispatcherPriority.Background, t_Tick, Dispatcher.CurrentDispatcher) {IsEnabled = true};
+            t = new DispatcherTimer(new TimeSpan(0, 0, 0, 1, 0), DispatcherPriority.Background, t_Tick, Dispatcher.CurrentDispatcher) { IsEnabled = true };
         }
 
         private void t_Tick(object sender, EventArgs e)
@@ -160,8 +160,8 @@ namespace Souq.WpfClient
                 else if (link.EndsWith("?")) link = link.Insert(link.Length, Parser.Section2Page1WithoutQuestion);
                 else link = link.Insert(link.Length, Parser.Section2Page1WithAmpersand);
 
-                var pageCount = Parser.GetPageNumber(link);
-                var isValid = !string.IsNullOrEmpty(FileNameBox.Text) && FileNameBox.Text.IndexOfAny(System.IO.Path.GetInvalidFileNameChars()) < 0 && !File.Exists(System.IO.Path.Combine(_path, FileNameBox.Text));
+                // string is null or empty case is take into other statement
+                var isValid = FileNameBox.Text.IndexOfAny(System.IO.Path.GetInvalidFileNameChars()) < 0 && !File.Exists(System.IO.Path.Combine(_path, FileNameBox.Text));
                 if (isValid == false)
                 {
                     MessageBox.Show("Enter a valid file name");
@@ -175,7 +175,16 @@ namespace Souq.WpfClient
                 {
                     thread = Thread.CurrentThread;
                     _threads.Add(thread);
-                    Parser.GetItems(1000, filePath, pageCount, link);
+                    if (link.Contains("/i/"))
+                    {
+                        var item = Parser.CreateItem(link);
+                        Parser.WriteToCsv(item, filePath);
+                    }
+                    else if (link.Contains("/l/"))
+                    {
+                        var pageCount = Parser.GetPageNumber(link);
+                        Parser.GetItems(1000, filePath, pageCount, link);
+                    }
                 });
                 MessageBox.Show("Scrapping started");
             }

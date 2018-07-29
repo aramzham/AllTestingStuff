@@ -27,7 +27,7 @@ namespace Souq.ClassLib
         private static HttpClient _client = new HttpClient(_handler);
         private static HtmlDocument _doc = new HtmlDocument();
         private static HashSet<string> _allLinks = new HashSet<string>();
-        
+
         public static void Start(List<LargeCategoryModel> largeCategories, string path)
         {
             _client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36");
@@ -137,7 +137,7 @@ namespace Souq.ClassLib
             return new SmallCategoryModel() { Name = HttpUtility.HtmlDecode(a.InnerText.Replace(',', ';')).Trim(), Link = a.GetAttributeValue("href", "no link") };
         }
 
-        private static ItemModel CreateItem(string url)
+        public static ItemModel CreateItem(string url)
         {
             var item = new ItemModel();
             var itemContent = _client.GetStringAsync(url).GetAwaiter().GetResult();
@@ -148,26 +148,26 @@ namespace Souq.ClassLib
 
             // final price
             var priceTag = _doc.DocumentNode.SelectSingleNode(".//h3[starts-with(@class,'price')]");
-            if (decimal.TryParse(HttpUtility.HtmlDecode(priceTag?.InnerText.Replace("AED", ""))?.Trim(' ', '\n', '\t', '\r'), out var price)) item.FinalPrice = price;
+            if (decimal.TryParse(HttpUtility.HtmlDecode(priceTag?.InnerText.Trim(' ', '\n', '\t', '\r').Replace("AED", ""))?.Trim(), out var price)) item.FinalPrice = price;
 
             // rating and total rating count
             var ratingTag = _doc.DocumentNode.SelectSingleNode(".//div[contains(@class,'product-rating')]//div[contains(@class,'mainRating')]");
             var ratingScoreTag = ratingTag?.SelectSingleNode(".//strong");
             var ratingCountTag = ratingTag?.SelectSingleNode(".//div[@class='reviews-total']");
             if (ratingCountTag != null && int.TryParse(HttpUtility.HtmlDecode(ratingCountTag.InnerText)?.Replace("ratings", "").Replace("rating", "").Trim(), out var totalRating)) item.TotalRatingCount = totalRating;
-            if (decimal.TryParse(ratingScoreTag?.InnerText, out var rating)) item.Rating = rating;
+            if (decimal.TryParse(ratingScoreTag?.InnerText.Trim(' ', '\n', '\t', '\r'), out var rating)) item.Rating = rating;
 
             // category and title
             var headerTag = _doc.DocumentNode.SelectSingleNode(".//div[contains(@class,'product-title')]");
             if (headerTag != null)
             {
                 var titleTag = headerTag.SelectSingleNode(".//h1");
-                item.Title = titleTag is null ? "no title" : titleTag.InnerText.Replace(',', '.');
+                item.Title = titleTag is null ? "no title" : HttpUtility.HtmlDecode(titleTag.InnerText.Replace(',', '.')).Trim(' ', '\n', '\t', '\r');
                 var categoryTag = headerTag.SelectSingleNode(".//span");
                 if (categoryTag != null && categoryTag.InnerText.Contains("by"))
                 {
                     var categoryInnerText = HttpUtility.HtmlDecode(categoryTag.InnerText);
-                    if (!string.IsNullOrEmpty(categoryInnerText)) item.CategoryName = categoryInnerText.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries).Last().Trim();
+                    if (!string.IsNullOrEmpty(categoryInnerText)) item.CategoryName = categoryInnerText.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).Last().Trim(' ', '\n', '\t', '\r');
                 }
                 else item.CategoryName = "no category";
             }
@@ -181,7 +181,7 @@ namespace Souq.ClassLib
                 for (int i = 0; i < dts.Count; i++)
                 {
                     if (dts[i].InnerText != "Item EAN") continue;
-                    item.EAN = dds[i].InnerText;
+                    item.EAN = dds[i].InnerText.Trim();
                     break;
                 }
             }
@@ -203,12 +203,14 @@ namespace Souq.ClassLib
             return item;
         }
 
-        private static void WriteToCsv(ItemModel item, string fileName)
+        // if item is written is csv => parsed items count ++
+        public static void WriteToCsv(ItemModel item, string fileName)
         {
             var sb = new StringBuilder();
             sb.AppendFormat("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}{10}", count, item.Link, item.Title, item.ReviewsCount, item.Rating,
                 item.TotalRatingCount, item.FinalPrice, item.CategoryName, item.EAN, item.ListingDate, Environment.NewLine);
             File.AppendAllText(fileName, sb.ToString());
+            ParsedItemsCount++;
         }
 
         public static int GetPageNumber(string firstPageUrl)
@@ -256,7 +258,6 @@ namespace Souq.ClassLib
                     _allLinks.Add(link);
 
                     count++;
-                    ParsedItemsCount++;
                     WriteToCsv(item, filePath);
                     Thread.Sleep(new Random().Next(sleepTime - 500, sleepTime + 501));
                 }
