@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Net.Http;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
@@ -18,9 +19,13 @@ namespace TestsOfAllKinds
     {
         static void Main(string[] args)
         {            
-            var v = new[] { "8","+","9","*","4","*","2","-","20"};
-            Console.WriteLine(P5(v));
+            //var v = new[] { "8","+","9","*","4","*","2","-","20"};
+            //Console.WriteLine(P5(v));
 
+            var client = new HttpClient();
+            var s = client.GetStringAsync("https://www.1v1y.com/urun/diesel-10-t-shirt-beyaz-14815144").GetAwaiter().GetResult();
+            var s1 = client.GetStringAsync(
+                "https://www.sligofuels.ie/wp-content/plugins/oil-price-quote-calculator/calculation.php?number=500&units=litres&oiltype=kerosene&zone=3&county=Sligo&town=Aclare").GetAwaiter().GetResult();
             Console.ReadKey();
         }
         static bool BinarySearch(int[] mynumbers, int target)
