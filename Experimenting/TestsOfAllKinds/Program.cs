@@ -23,7 +23,7 @@ namespace TestsOfAllKinds
             //Console.WriteLine(P5(v));
 
             var client = new HttpClient();
-            var s = client.GetStringAsync("https://www.1v1y.com/urun/diesel-10-t-shirt-beyaz-14815144").GetAwaiter().GetResult();
+            var s = client.GetStringAsync("https://www.lenovo.com/us/en/outletus/laptops/c/LAPTOPS?q=%3Aprice-asc%3AfacetSys-ScreenResolution%3A3840x2160&uq=&text=#").GetAwaiter().GetResult();
             var s1 = client.GetStringAsync(
                 "https://www.sligofuels.ie/wp-content/plugins/oil-price-quote-calculator/calculation.php?number=500&units=litres&oiltype=kerosene&zone=3&county=Sligo&town=Aclare").GetAwaiter().GetResult();
             Console.ReadKey();

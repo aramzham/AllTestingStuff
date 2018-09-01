@@ -11,39 +11,41 @@ namespace LeoDaVinciRiddle
     {
         static void Main(string[] args)
         {
-            var number = -1L;
-            while (number < 10000000000)
+            do
             {
-                number++;
-                if (SumOfDigits(number) != 10) continue;
-                ClearCurrentConsoleLine();
-                Console.Write(number);
-                //var arr = InsertNumberIntoArray(number);
-                if (!IsSuccess(number)) continue;
-                Console.WriteLine($"The riddle solution is{Environment.NewLine}{number.ToString().PadLeft(10, '0')}");
-                break;
-            }
+                var number = -1L;
+                var input = string.Empty;
+                var length = 0;
+                var success = false;
+                do
+                {
+                    Console.Write("Enter a number:");
+                    input = Console.ReadLine();
+                } while (!int.TryParse(input, out length) || length <= 0);
+
+                while (number < Math.Pow(10, length))
+                {
+                    number++;
+                    if (SumOfDigits(number) != length) continue;
+                    Console.Write(number);
+                    ClearCurrentConsoleLine();
+                    if (!IsSuccess(number, length)) continue;
+                    success = true;
+                    break;
+                }
+
+                Console.WriteLine(success
+                    ? $"The riddle solution for length = {length} is {number.ToString().PadLeft(length, '0')}"
+                    : $"There is no solution for length = {length}"); 
+            } while (Console.ReadKey().Key != ConsoleKey.X);
 
             Console.ReadKey();
         }
 
-        static bool IsSuccess(long n)
+        static bool IsSuccess(long n, int length)
         {
-            var str = n.ToString().PadLeft(10, '0');
+            var str = n.ToString().PadLeft(length, '0');
             return !str.Where((t, i) => t - '0' != str.Count(x => x == i + '0')).Any();
-        }
-
-        static int[] InsertNumberIntoArray(long n)
-        {
-            var arr = new int[10];
-            for (int i = arr.Length - 1; i >= 0; i--)
-            {
-                arr[i] = (int)(n % 10);
-                n /= 10;
-                if (n == 0) break;
-            }
-
-            return arr;
         }
 
         public static void ClearCurrentConsoleLine()
