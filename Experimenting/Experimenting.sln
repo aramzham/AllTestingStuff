@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetNumberWithoutConvertOrPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoBot", "GoBot\GoBot.csproj", "{6D2D133A-3E0B-4860-B269-F192DC142999}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dices", "Dices\Dices.csproj", "{6EC4911D-DF67-4E36-BD60-B271BE4D198A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplyBigIntegers", "MultiplyBigIntegers\MultiplyBigIntegers.csproj", "{2A781C37-6EB2-4DFF-BB69-912492093343}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsOfAllKinds", "TestsOfAllKinds\TestsOfAllKinds.csproj", "{2327BE12-F0EC-4FB8-B410-B5020F11B351}"
@@ -30,6 +28,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminder_for_Van", "Reminder_for_Van\Reminder_for_Van.csproj", "{47304BB2-56C2-4284-9047-393E1DB9C21F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeoDaVinciRiddle", "LeoDaVinciRiddle\LeoDaVinciRiddle.csproj", "{CAD592E4-8D99-4B9C-9630-9F405DC353EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcLoginPageDemo", "MvcLoginPageDemo\MvcLoginPageDemo.csproj", "{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,14 +79,6 @@ Global
 		{6D2D133A-3E0B-4860-B269-F192DC142999}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D2D133A-3E0B-4860-B269-F192DC142999}.Release|x86.ActiveCfg = Release|Any CPU
 		{6D2D133A-3E0B-4860-B269-F192DC142999}.Release|x86.Build.0 = Release|Any CPU
-		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Debug|x86.Build.0 = Debug|Any CPU
-		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Release|x86.ActiveCfg = Release|Any CPU
-		{6EC4911D-DF67-4E36-BD60-B271BE4D198A}.Release|x86.Build.0 = Release|Any CPU
 		{2A781C37-6EB2-4DFF-BB69-912492093343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2A781C37-6EB2-4DFF-BB69-912492093343}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A781C37-6EB2-4DFF-BB69-912492093343}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -147,6 +139,14 @@ Global
 		{CAD592E4-8D99-4B9C-9630-9F405DC353EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CAD592E4-8D99-4B9C-9630-9F405DC353EE}.Release|x86.ActiveCfg = Release|Any CPU
 		{CAD592E4-8D99-4B9C-9630-9F405DC353EE}.Release|x86.Build.0 = Release|Any CPU
+		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Debug|x86.Build.0 = Debug|Any CPU
+		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Release|x86.ActiveCfg = Release|Any CPU
+		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
