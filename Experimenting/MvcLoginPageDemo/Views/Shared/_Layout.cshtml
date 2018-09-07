@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="apple-touch-icon" sizes="57x57" href="~/FavIcons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="~/FavIcons//apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/FavIcons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/FavIcons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/FavIcons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/FavIcons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="~/FavIcons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/FavIcons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/FavIcons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="~/FavIcons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/FavIcons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/FavIcons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/FavIcons/favicon-16x16.png">
+    <link rel="manifest" href="~/FavIcons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="~/FavIcons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    @* favicon part ^ *@
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("Styles", false)
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
