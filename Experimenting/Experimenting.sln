@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminder_for_Van", "Reminde
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeoDaVinciRiddle", "LeoDaVinciRiddle\LeoDaVinciRiddle.csproj", "{CAD592E4-8D99-4B9C-9630-9F405DC353EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcLoginPageDemo", "MvcLoginPageDemo\MvcLoginPageDemo.csproj", "{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heepsy", "Heepsy\Heepsy.csproj", "{851AB19D-8C17-4CBD-84E1-24836ECAA49F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,14 +139,14 @@ Global
 		{CAD592E4-8D99-4B9C-9630-9F405DC353EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CAD592E4-8D99-4B9C-9630-9F405DC353EE}.Release|x86.ActiveCfg = Release|Any CPU
 		{CAD592E4-8D99-4B9C-9630-9F405DC353EE}.Release|x86.Build.0 = Release|Any CPU
-		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Debug|x86.Build.0 = Debug|Any CPU
-		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Release|x86.ActiveCfg = Release|Any CPU
-		{9DE60903-2CF0-49FA-80BF-8EA6A30A115C}.Release|x86.Build.0 = Release|Any CPU
+		{851AB19D-8C17-4CBD-84E1-24836ECAA49F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851AB19D-8C17-4CBD-84E1-24836ECAA49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851AB19D-8C17-4CBD-84E1-24836ECAA49F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{851AB19D-8C17-4CBD-84E1-24836ECAA49F}.Debug|x86.Build.0 = Debug|Any CPU
+		{851AB19D-8C17-4CBD-84E1-24836ECAA49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851AB19D-8C17-4CBD-84E1-24836ECAA49F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{851AB19D-8C17-4CBD-84E1-24836ECAA49F}.Release|x86.ActiveCfg = Release|Any CPU
+		{851AB19D-8C17-4CBD-84E1-24836ECAA49F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
