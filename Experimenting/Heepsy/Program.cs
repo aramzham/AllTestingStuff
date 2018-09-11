@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Heepsy
             var driver = new ChromeDriver();
             var doc = new HtmlDocument();
             driver.Navigate().GoToUrl("https://www.heepsy.com");
-            var loginButton =driver.FindElementByXPath(".//a[@href='/login']");
+            var loginButton = driver.FindElementByXPath(".//a[@href='/login']");
             loginButton.Click();
             doc.LoadHtml(driver.PageSource);
             //if (doc.DocumentNode.SelectSingleNode(".//h3[text()='Log in']") != null)
@@ -46,9 +47,36 @@ namespace Heepsy
             var cardHandleNames = driver.FindElementsByClassName("hp-card-handle-and-name");
             foreach (var cardHandleName in cardHandleNames)
             {
-                
+                var aSharp = cardHandleName.FindElement(By.TagName("a"));
+                aSharp.Click();
+                var wrapper = driver.FindElementById("wrapper");
+                var psm = wrapper.FindElement(By.ClassName("p-sm"));
+                var colmd8 = psm.FindElement(By.ClassName("col-md-8"));
+                var model = new HeepsyModel();
+                model.InstagramUrl = colmd8.FindElement(By.XPath(".//h4//a")).GetAttribute("href");
+                model.InstagramName = colmd8.FindElement(By.XPath(".//h4/a")).Text;
+                model.Email = colmd8.FindElement(By.Id("sidebarProfile_personal-info")).Text.Trim();
+                model.Name = colmd8.FindElement(By.Id("sidebarProfile_full_name")).Text.Trim();
+                model.NumberOfFollowers = psm.FindElement(By.Id("sidebarProfile_follower_count")).Text.Trim();
+                WriteToFile(model);
+                var closeButton = wrapper.FindElement(By.Id("sidebar-close"));
+                closeButton.Click();
             }
             //}
         }
+
+        public static void WriteToFile(HeepsyModel model)
+        {
+            File.AppendAllText(@"E:\test\heepsy.txt", $"{model.InstagramName}, {model.Name}, {model.Email}, {model.NumberOfFollowers}, {model.InstagramUrl}{Environment.NewLine}");
+        }
+    }
+
+    public class HeepsyModel
+    {
+        public string InstagramName { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string NumberOfFollowers { get; set; }
+        public string InstagramUrl { get; set; }
     }
 }
