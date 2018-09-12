@@ -26,13 +26,7 @@ namespace TestsOfAllKinds
 
             //var client = new HttpClient();
             //var s = client.GetStringAsync("https://treato.com/Glucophage,Type+2+Diabetes/?a=s").GetAwaiter().GetResult();
-            var json = File.ReadAllText(@"D:\Temp\marathonjson.txt");
-            //var bookmaker = JsonConvert.DeserializeObject<BookmakerModel>();
-            var xml = JsonConvert.DeserializeXmlNode(json, "root");
-            var outerXml = xml.OuterXml;
-            File.WriteAllText(@"D:\Temp\xml.txt", outerXml);
-            var backToJson = JsonConvert.SerializeXmlNode(xml);
-
+           
             Console.ReadKey();
         }
         static bool BinarySearch(int[] mynumbers, int target)
