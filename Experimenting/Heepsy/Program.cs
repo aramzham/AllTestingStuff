@@ -78,5 +78,6 @@ namespace Heepsy
         public string Email { get; set; }
         public string NumberOfFollowers { get; set; }
         public string InstagramUrl { get; set; }
+        public string Engagement { get; set; }
     }
 }
