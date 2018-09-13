@@ -53,7 +53,7 @@ namespace Heepsy
             log_inButton.Click();
             Thread.Sleep(500);
 
-            driver.Navigate().GoToUrl("https://www.heepsy.com/influencers?utf8=%E2%9C%93&filter%5Bfixed_search%5D=&filter%5Blocation_aal0%5D=France&filter%5Blocation_aal1%5D=&filter%5Blocation_type%5D=mixed_frequent_location&filter%5Bcategories_AND%5D%5B%5D=&filter%5Bmentions_AND_mobile%5D=&filter%5Bmentions_AND%5D%5B%5D=&filter%5Binstagram_followers_greater_than%5D=&filter%5Binstagram_followers_less_than%5D=&filter%5Binstagram_engagement_greater_than%5D=&filter%5Binstagram_engagement_less_than%5D=&filter%5Binstagram_emv_greater_than%5D=&filter%5Binstagram_emv_less_than%5D=&filter%5Border_by_property%5D=page=62");
+            driver.Navigate().GoToUrl("https://www.heepsy.com/influencers?utf8=%E2%9C%93&filter%5Bfixed_search%5D=&filter%5Blocation_aal0%5D=France&filter%5Blocation_aal1%5D=&filter%5Blocation_type%5D=mixed_frequent_location&filter%5Bcategories_AND%5D%5B%5D=&filter%5Bmentions_AND_mobile%5D=&filter%5Bmentions_AND%5D%5B%5D=&filter%5Binstagram_followers_greater_than%5D=&filter%5Binstagram_followers_less_than%5D=&filter%5Binstagram_engagement_greater_than%5D=&filter%5Binstagram_engagement_less_than%5D=&filter%5Binstagram_emv_greater_than%5D=&filter%5Binstagram_emv_less_than%5D=&filter%5Border_by_property%5D=&page=64");
 
             //var locationSelector = driver.FindElementById("select2-filter_location_aal0-container");
             //locationSelector.Click();
@@ -64,17 +64,20 @@ namespace Heepsy
             //var filterResultsButton = driver.FindElementById("submit-filters");
             //filterResultsButton.Click();
 
-            try
+
+            while (true)
             {
-                while (true)
+
+                var cardHandleNames = driver.FindElementsByClassName("hp-card-handle-and-name");
+                for (var i = 0; i < cardHandleNames.Count; i++)
                 {
-                    var cardHandleNames = driver.FindElementsByClassName("hp-card-handle-and-name");
-                    for (var i = 0; i < cardHandleNames.Count; i++)
+                    //if (i != 0 && i % 3 == 0) driver.ExecuteScript("scroll(0, 300);");
+                    try
                     {
-                        //if (i != 0 && i % 3 == 0) driver.ExecuteScript("scroll(0, 300);");
                         var cardHandleName = cardHandleNames[i];
                         var aSharp = cardHandleName.FindElement(By.TagName("a"));
                         driver.ExecuteScript("arguments[0].click()", aSharp);
+                        Thread.Sleep(300);
                         //aSharp.Click();
                         var wrapper = driver.FindElementById("wrapper");
                         var psm = wrapper.FindElement(By.ClassName("p-sm"));
@@ -87,29 +90,29 @@ namespace Heepsy
                         model.NumberOfFollowers = EncodeToUnicode(psm.FindElement(By.Id("sidebarProfile_follower_count")).Text.Trim(' ', '\t', '\n', '\r'));
                         model.Engagement = EncodeToUnicode(psm.FindElement(By.XPath(".//div[@class='metrics-value']//h4")).Text.Trim(' ', '\t', '\n', '\r'));
                         WriteToFile(model);
-                        Thread.Sleep(200);
                         var closeButton = wrapper.FindElement(By.Id("sidebar-close"));
                         driver.ExecuteScript("arguments[0].click()", closeButton);
-                        //closeButton.Click();
                     }
-
-                    var liNext = driver.FindElementByXPath(".//li[@class='next']");
-                    if (liNext is null) break;
-                    var aNext = liNext.FindElement(By.TagName("a"));
-                    driver.ExecuteScript("arguments[0].click()", aNext);
-                    //aNext.Click();
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                    //closeButton.Click();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
+
+                var liNext = driver.FindElementByXPath(".//li[@class='next']");
+                if (liNext is null) break;
+                var aNext = liNext.FindElement(By.TagName("a"));
+                driver.ExecuteScript("arguments[0].click()", aNext);
+                //aNext.Click();
+                Thread.Sleep(1000);
             }
             //}
         }
 
         public static void WriteToFile(HeepsyModel model)
         {
-            File.AppendAllText(@"E:\test\heepsy.txt", $"{model.InstagramName}, {model.Name}, {model.Email}, {model.NumberOfFollowers}, {model.InstagramUrl}, {model.Engagement}{Environment.NewLine}");
+            File.AppendAllText(@"D:\temp\heepsy.txt", $"{model.InstagramName}, {model.Name}, {model.Email}, {model.NumberOfFollowers}, {model.InstagramUrl}, {model.Engagement}{Environment.NewLine}");
         }
 
         public static string GetEmails(string info)
