@@ -32,28 +32,11 @@ namespace Heepsy
 
             var driver = new ChromeDriver(option);
             var doc = new HtmlDocument();
-            driver.Navigate().GoToUrl("https://www.heepsy.com");
-            var loginButton = driver.FindElementByXPath(".//a[@href='/login']");
-            loginButton.Click();
-            doc.LoadHtml(driver.PageSource);
-            //if (doc.DocumentNode.SelectSingleNode(".//h3[text()='Log in']") != null)
-            //{
-            //var loginForm = doc.DocumentNode.SelectSingleNode(".//form[@id='loginForm']");
-            //if (loginForm is null) return;
-            var loginInput = driver.FindElementById("user_login");
-            loginInput.Clear();
-            loginInput.SendKeys("thomas.lemasle@pinotbleu.com");
-            //var loginInput = loginForm.SelectSingleNode(".//input[@id='user_login']");
-            //var passwordInput = loginForm.SelectSingleNode(".//input[@id='user_password']");
-            //if(loginInput is null || passwordInput is null) return;
-            var passwordInput = driver.FindElementById("user_password");
-            passwordInput.Clear();
-            passwordInput.SendKeys("aszdefrg");
-            var log_inButton = driver.FindElementByXPath(".//input[@name='commit']");
-            log_inButton.Click();
+
+            Login(driver);
             Thread.Sleep(500);
 
-            driver.Navigate().GoToUrl("https://www.heepsy.com/influencers?utf8=%E2%9C%93&filter%5Bfixed_search%5D=&filter%5Blocation_aal0%5D=France&filter%5Blocation_aal1%5D=&filter%5Blocation_type%5D=mixed_frequent_location&filter%5Bcategories_AND%5D%5B%5D=&filter%5Bmentions_AND_mobile%5D=&filter%5Bmentions_AND%5D%5B%5D=&filter%5Binstagram_followers_greater_than%5D=&filter%5Binstagram_followers_less_than%5D=&filter%5Binstagram_engagement_greater_than%5D=&filter%5Binstagram_engagement_less_than%5D=&filter%5Binstagram_emv_greater_than%5D=&filter%5Binstagram_emv_less_than%5D=&filter%5Border_by_property%5D=&page=64");
+            driver.Navigate().GoToUrl("https://www.heepsy.com/influencers?utf8=%E2%9C%93&filter%5Bfixed_search%5D=&filter%5Blocation_aal0%5D=France&filter%5Blocation_aal1%5D=&filter%5Blocation_type%5D=mixed_frequent_location&filter%5Bcategories_AND%5D%5B%5D=&filter%5Bmentions_AND_mobile%5D=&filter%5Bmentions_AND%5D%5B%5D=&filter%5Binstagram_followers_greater_than%5D=&filter%5Binstagram_followers_less_than%5D=&filter%5Binstagram_engagement_greater_than%5D=&filter%5Binstagram_engagement_less_than%5D=&filter%5Binstagram_emv_greater_than%5D=&filter%5Binstagram_emv_less_than%5D=&filter%5Border_by_property%5D=&page=84");
 
             //var locationSelector = driver.FindElementById("select2-filter_location_aal0-container");
             //locationSelector.Click();
@@ -64,10 +47,19 @@ namespace Heepsy
             //var filterResultsButton = driver.FindElementById("submit-filters");
             //filterResultsButton.Click();
 
-
+            var currentUrl = driver.Url;
             while (true)
             {
+                if (driver.FindElementByXPath(".//h1[contains(text(), 'Fill to continue')]") != null)
+                {
+                    driver.Dispose();
+                    driver = new ChromeDriver(option);
+                    Logout(driver);
+                    Login(driver);
+                    driver.Navigate().GoToUrl(currentUrl);
+                }
 
+                currentUrl = driver.Url;
                 var cardHandleNames = driver.FindElementsByClassName("hp-card-handle-and-name");
                 for (var i = 0; i < cardHandleNames.Count; i++)
                 {
@@ -108,6 +100,36 @@ namespace Heepsy
                 Thread.Sleep(1000);
             }
             //}
+        }
+
+        public static void Login(ChromeDriver driver)
+        {
+            driver.Navigate().GoToUrl("https://www.heepsy.com");
+            var loginButton = driver.FindElementByXPath(".//a[@href='/login']");
+            loginButton.Click();
+            //if (doc.DocumentNode.SelectSingleNode(".//h3[text()='Log in']") != null)
+            //{
+            //var loginForm = doc.DocumentNode.SelectSingleNode(".//form[@id='loginForm']");
+            //if (loginForm is null) return;
+            var loginInput = driver.FindElementById("user_login");
+            loginInput.Clear();
+            loginInput.SendKeys("thomas.lemasle@pinotbleu.com");
+            //var loginInput = loginForm.SelectSingleNode(".//input[@id='user_login']");
+            //var passwordInput = loginForm.SelectSingleNode(".//input[@id='user_password']");
+            //if(loginInput is null || passwordInput is null) return;
+            var passwordInput = driver.FindElementById("user_password");
+            passwordInput.Clear();
+            passwordInput.SendKeys("aszdefrg");
+            var log_inButton = driver.FindElementByXPath(".//input[@name='commit']");
+            log_inButton.Click();
+        }
+
+        public static void Logout(ChromeDriver driver)
+        {
+            var dropdown = driver.FindElementByXPath(".//li[@class='dropdown']//h6");
+            driver.ExecuteScript("arguments[0].click()", dropdown);
+            var logoutButton = driver.FindElementByXPath(".//a[@href='/signout']");
+            driver.ExecuteScript("arguments[0].click()", logoutButton);
         }
 
         public static void WriteToFile(HeepsyModel model)
