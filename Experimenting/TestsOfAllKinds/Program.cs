@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 
 namespace TestsOfAllKinds
 {
@@ -20,13 +20,10 @@ namespace TestsOfAllKinds
     class Program
     {
         static void Main(string[] args)
-        {            
+        {
             //var v = new[] { "8","+","9","*","4","*","2","-","20"};
             //Console.WriteLine(P5(v));
 
-            var client = new HttpClient();
-            var s = client.GetStringAsync("https://www.heepsy.com/influencers?utf8=%E2%9C%93&filter%5Bfixed_search%5D=&filter%5Blocation_aal0%5D=France&filter%5Blocation_aal1%5D=&filter%5Blocation_type%5D=mixed_frequent_location&filter%5Bcategories_AND%5D%5B%5D=&filter%5Bmentions_AND_mobile%5D=&filter%5Bmentions_AND%5D%5B%5D=&filter%5Binstagram_followers_greater_than%5D=&filter%5Binstagram_followers_less_than%5D=&filter%5Binstagram_engagement_greater_than%5D=&filter%5Binstagram_engagement_less_than%5D=&filter%5Binstagram_emv_greater_than%5D=&filter%5Binstagram_emv_less_than%5D=&filter%5Border_by_property%5D=&page=62").GetAwaiter().GetResult();
-           
             Console.ReadKey();
         }
         static bool BinarySearch(int[] mynumbers, int target)
