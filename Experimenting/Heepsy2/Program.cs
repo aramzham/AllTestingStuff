@@ -27,12 +27,12 @@ namespace Heepsy2
             //client.Headers.Add(HttpRequestHeader.Connection, "keep-alive");
 
             var proxy = new WebProxy("176.113.23.178:40305");
-            for (int i = 0; i < 4070; i++) //125
+            for (int i = 125; i < 4070; i++) //125
             {
                 try
                 {
                     //client.Proxy = proxy;
-                    if (i != 0) client.Headers.Add(HttpRequestHeader.Referer, url.Replace("{pageNumber}", (i - 1).ToString()));
+                    //if (i != 0) client.Headers.Add(HttpRequestHeader.Referer, url.Replace("{pageNumber}", (i - 1).ToString()));
                     var downloadString = client.DownloadString(url.Replace("{pageNumber}", i.ToString()));
                     var jsons = GetJsonStrings(downloadString);
                     //if (downloadString.Contains("Continue Browsing"))
