@@ -36,7 +36,7 @@ namespace Heepsy
             Login(driver);
             Thread.Sleep(500);
 
-            driver.Navigate().GoToUrl("https://www.heepsy.com/influencers?utf8=%E2%9C%93&filter%5Bfixed_search%5D=&filter%5Blocation_aal0%5D=France&filter%5Blocation_aal1%5D=&filter%5Blocation_type%5D=mixed_frequent_location&filter%5Bcategories_AND%5D%5B%5D=&filter%5Bmentions_AND_mobile%5D=&filter%5Bmentions_AND%5D%5B%5D=&filter%5Binstagram_followers_greater_than%5D=&filter%5Binstagram_followers_less_than%5D=&filter%5Binstagram_engagement_greater_than%5D=&filter%5Binstagram_engagement_less_than%5D=&filter%5Binstagram_emv_greater_than%5D=&filter%5Binstagram_emv_less_than%5D=&filter%5Border_by_property%5D=&page=84");
+            driver.Navigate().GoToUrl("https://www.heepsy.com/influencers?utf8=%E2%9C%93&filter%5Bfixed_search%5D=&filter%5Blocation_aal0%5D=France&filter%5Blocation_aal1%5D=&filter%5Blocation_type%5D=mixed_frequent_location&filter%5Bcategories_AND%5D%5B%5D=&filter%5Bmentions_AND_mobile%5D=&filter%5Bmentions_AND%5D%5B%5D=&filter%5Binstagram_followers_greater_than%5D=&filter%5Binstagram_followers_less_than%5D=&filter%5Binstagram_engagement_greater_than%5D=&filter%5Binstagram_engagement_less_than%5D=&filter%5Binstagram_emv_greater_than%5D=&filter%5Binstagram_emv_less_than%5D=&filter%5Border_by_property%5D=&page=125");
 
             //var locationSelector = driver.FindElementById("select2-filter_location_aal0-container");
             //locationSelector.Click();
@@ -113,13 +113,13 @@ namespace Heepsy
             //if (loginForm is null) return;
             var loginInput = driver.FindElementById("user_login");
             loginInput.Clear();
-            loginInput.SendKeys("thomas.lemasle@pinotbleu.com");
+            loginInput.SendKeys("camille.jeanjean@pinotbleu.com"); // camille.jeanjean@pinotbleu.com // thomas.lemasle@pinotbleu.com
             //var loginInput = loginForm.SelectSingleNode(".//input[@id='user_login']");
             //var passwordInput = loginForm.SelectSingleNode(".//input[@id='user_password']");
             //if(loginInput is null || passwordInput is null) return;
             var passwordInput = driver.FindElementById("user_password");
             passwordInput.Clear();
-            passwordInput.SendKeys("aszdefrg");
+            passwordInput.SendKeys("heepsycam!"); // heepsycam! // aszdefrg
             var log_inButton = driver.FindElementByXPath(".//input[@name='commit']");
             log_inButton.Click();
         }
