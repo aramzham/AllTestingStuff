@@ -90,8 +90,7 @@ namespace FoodPanda
 
             foreach (var rest in rests)
             {
-                var str =
-                    $"\"{rest.CompanyName}\",\"{rest.ShortDescription}\",\"{rest.Address}\",\"{rest.Url}\",\"{rest.DeliveryHours}\",\"{rest.OtherInfo}\"{Environment.NewLine}";
+                var str = $"\"{rest.CompanyName}\",\"{rest.ShortDescription}\",\"{rest.Address}\",\"{rest.Url}\",\"{rest.DeliveryHours}\",\"{rest.OtherInfo}\"{Environment.NewLine}";
                 File.AppendAllText($@"E:\test\{name}.csv", str);
             }
         }

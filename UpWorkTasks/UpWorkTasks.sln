@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heepsy", "Heepsy\Heepsy.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterBuild", "MasterBuild\MasterBuild.csproj", "{8D34ABC4-B6A3-4F06-AB16-D52BAA51AE6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliverooSg", "DeliverooSg\DeliverooSg.csproj", "{7C91AAAC-598D-4731-BE00-B3C0D1A1CAFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8D34ABC4-B6A3-4F06-AB16-D52BAA51AE6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D34ABC4-B6A3-4F06-AB16-D52BAA51AE6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D34ABC4-B6A3-4F06-AB16-D52BAA51AE6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C91AAAC-598D-4731-BE00-B3C0D1A1CAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C91AAAC-598D-4731-BE00-B3C0D1A1CAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C91AAAC-598D-4731-BE00-B3C0D1A1CAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C91AAAC-598D-4731-BE00-B3C0D1A1CAFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
