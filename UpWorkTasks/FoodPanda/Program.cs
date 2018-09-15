@@ -21,56 +21,82 @@ namespace FoodPanda
 
         static void Main(string[] args)
         {
-            var list = new List<RestaurantModel>();
             var doc = new HtmlDocument();
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36");
-            var s = client.GetStringAsync("https://www.foodpanda.sg/city/singapore").GetAwaiter().GetResult();
+            var s = client.GetStringAsync("https://www.foodpanda.sg/cuisine/american-delivery-singapore").GetAwaiter().GetResult();
             doc.LoadHtml(s);
-            var vendorList = doc.DocumentNode.SelectSingleNode(".//ul[starts-with(@class,'vendor-list')]");
-            var lis = vendorList.SelectNodes("./li");
-            var links = lis.Select(x => $"{MainUrl}{x.SelectSingleNode(".//a[@data-flood-closed-message]").GetAttributeValue("href", "")}").ToList();
-            foreach (var link in links)
+            var homeCuisines = doc.DocumentNode.SelectSingleNode(".//div[@class='home-cuisines']");
+            var lis = doc.DocumentNode.SelectNodes(".//li[@class='home-cuisines__list__item']");
+            var @as = lis.Select(x => x.SelectSingleNode(".//a"));
+            foreach (var a in @as)
             {
                 var content = string.Empty;
+                var list = new List<RestaurantModel>();
                 try
                 {
-                    content = client.GetStringAsync(link).GetAwaiter().GetResult();
+                    content = client.GetStringAsync($"{MainUrl}{a.GetAttributeValue("href", "")}").GetAwaiter().GetResult();
+                    doc = new HtmlDocument();
+                    doc.LoadHtml(content);
+                    var ul = doc.DocumentNode.SelectSingleNode(".//ul[starts-with(@class,'vendor-list')]");
+                    var restuarantLinks = ul.SelectNodes(".//a[@data-flood-closed-message]").Select(x => $"{MainUrl}{x.GetAttributeValue("href", "")}").ToList();
+
+                    foreach (var restuarantLink in restuarantLinks)
+                    {
+                        try
+                        {
+                            content = client.GetStringAsync(restuarantLink).GetAwaiter().GetResult();
+                            doc = new HtmlDocument();
+                            doc.LoadHtml(content);
+
+                            var divInfos = doc.DocumentNode.SelectSingleNode(".//div[@class='infos']");
+
+                            var restaurant = new RestaurantModel();
+                            restaurant.CompanyName = ToNormalString(divInfos.SelectSingleNode(".//h1[@class='vendor-name']").InnerText);
+                            restaurant.ShortDescription = ClearWhitespaces(divInfos.SelectSingleNode(".//ul[@class='vendor-cuisines']").InnerText);
+
+                            var panel = doc.DocumentNode.SelectSingleNode(".//div[@class='panel']");
+                            restaurant.Address = ToNormalString(panel.SelectSingleNode(".//p[@class='vendor-location']").InnerText);
+                            restaurant.Url = restuarantLink;
+                            restaurant.DeliveryHours = ClearWhitespaces(panel.SelectSingleNode(".//ul[@class='vendor-delivery-times']").InnerText);
+                            restaurant.OtherInfo = "no other info";
+
+                            list.Add(restaurant);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+                        Thread.Sleep(2000);
+                    }
+                    WriteToFile(list, ToNormalString(a.InnerText));
+                    //File.WriteAllText($@"C:\Users\Aram\Documents\{ToNormalString(a.InnerText)}.txt", JsonConvert.SerializeObject(list));
+                    //WriteToExcel(null, null);
+                    //WriteToExcel(list, ToNormalString(a.InnerText));
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
+                    continue;
                 }
-
-                if (string.IsNullOrEmpty(content)) continue;
-                doc = new HtmlDocument();
-                doc.LoadHtml(content);
-                var divInfos = doc.DocumentNode.SelectSingleNode(".//div[@class='infos']");
-
-                var restaurant = new RestaurantModel();
-                restaurant.CompanyName = ToNormalString(divInfos.SelectSingleNode(".//h1[@class='vendor-name']").InnerText);
-                restaurant.ShortDescription = ClearWhitespaces(divInfos.SelectSingleNode(".//ul[@class='vendor-cuisines']").InnerText);
-
-                var panel = doc.DocumentNode.SelectSingleNode(".//div[@class='panel']");
-                restaurant.Address = ToNormalString(panel.SelectSingleNode(".//p[@class='vendor-location']").InnerText);
-                restaurant.Url = link;
-                restaurant.DeliveryHours = ClearWhitespaces(panel.SelectSingleNode(".//ul[@class='vendor-delivery-times']").InnerText);
-                restaurant.OtherInfo = "no other info";
-
-                list.Add(restaurant);
-                Thread.Sleep(2000);
-                content = string.Empty;
             }
-
-            WriteToExcel(list);
         }
 
-        static void WriteToFile(RestaurantModel rest)
+        static void WriteToFile(List<RestaurantModel> rests, string name)
         {
-            File.AppendAllText(@"E:\test\foodpanda.txt", $"{rest.CompanyName}, {rest.ShortDescription}, {rest.Address}, {rest.Url}, {rest.DeliveryHours}, {rest.OtherInfo}{Environment.NewLine}");
+            var a = new RestaurantModel();
+
+            File.AppendAllText($@"E:\test\{name}.csv", $"{nameof(a.CompanyName)}, {nameof(a.ShortDescription)}, {nameof(a.Address)}, {nameof(a.Url)}, {nameof(a.DeliveryHours)}, {nameof(a.OtherInfo)}{Environment.NewLine}");
+
+            foreach (var rest in rests)
+            {
+                var str =
+                    $"\"{rest.CompanyName}\",\"{rest.ShortDescription}\",\"{rest.Address}\",\"{rest.Url}\",\"{rest.DeliveryHours}\",\"{rest.OtherInfo}\"{Environment.NewLine}";
+                File.AppendAllText($@"E:\test\{name}.csv", str);
+            }
         }
 
-        static void WriteToExcel(List<RestaurantModel> rests)
+        static void WriteToExcel(List<RestaurantModel> rests, string name)
         {
             Microsoft.Office.Interop.Excel.Application oXL;
             Microsoft.Office.Interop.Excel._Workbook oWB;
@@ -82,7 +108,8 @@ namespace FoodPanda
             oXL.Visible = true;
 
             //Get a new workbook.
-            oWB = (Microsoft.Office.Interop.Excel._Workbook)(oXL.Workbooks.Add("FoodPanda"));
+            //if(!File.Exists($@"C:\Users\Aram\Documents\{name}.xls")) File.Create($@"C:\Users\Aram\Documents\{name}.xls");
+            oWB = (Microsoft.Office.Interop.Excel._Workbook)(oXL.Workbooks.Add(name));
             oSheet = (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet;
 
             //Add table headers going cell by cell.
