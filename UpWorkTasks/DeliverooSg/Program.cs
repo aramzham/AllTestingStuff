@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using OpenQA.Selenium.Chrome;
 
 namespace DeliverooSg
 {
@@ -18,37 +19,58 @@ namespace DeliverooSg
 
         static void Main(string[] args)
         {
-            var doc = new HtmlDocument();
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36");
-            var s = client.GetStringAsync("https://deliveroo.com.sg/sitemap").GetAwaiter().GetResult();
-            doc.LoadHtml(s);
-            var @as = doc.DocumentNode.SelectNodes(".//ul[@class='no-ui sitemap--zones']/li/a");
+            var option = new ChromeOptions();
+            option.AddArgument("no-sandbox");
+            option.AddArgument("--start-maximized");
+            option.AddUserProfilePreference("profile.default_content_setting_values.images", 2);
+            option.AddUserProfilePreference("profile.default_content_setting_values.stylesheet", 2);
+            var driver = new ChromeDriver(option);
+
+            //var doc = new HtmlDocument();
+            //var client = new HttpClient();
+            //client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36");
+            //var s = client.GetStringAsync("https://deliveroo.com.sg/sitemap").GetAwaiter().GetResult();
+            driver.Navigate().GoToUrl("https://deliveroo.com.sg/sitemap");
+            //doc.LoadHtml(s);
+            //var @as = doc.DocumentNode.SelectNodes(".//ul[@class='no-ui sitemap--zones']/li/a");
+            var @as = driver.FindElementsByXPath(".//ul[@class='no-ui sitemap--zones']/li/a").Select(x=>x.GetAttribute("href"));
             foreach (var a in @as)
             {
                 try
                 {
                     var list = new List<RestaurantModel>();
-                    var link = a.GetAttributeValue("href", string.Empty);
-                    var restsContent = client.GetStringAsync($"{MainUrl}{link}").GetAwaiter().GetResult();
-                    doc = new HtmlDocument();
-                    doc.LoadHtml(restsContent);
-                    var restAs = doc.DocumentNode.SelectNodes(".//li[contains(@class,'RestaurantsList-')]"); // TODO: brings 9 links
+                    //var link = a.GetAttribute("href");
+                    driver.Navigate().GoToUrl(a);
+                    Thread.Sleep(3000);
+                    driver.ExecuteScript("window.scrollTo(0, 125000)");
+                    var restAs = driver.FindElementsByXPath(".//li[contains(@class,'RestaurantsList-')]");
+                    //var link = a.GetAttributeValue("href", string.Empty);
+                    //var restsContent = client.GetStringAsync($"{MainUrl}{link}").GetAwaiter().GetResult();
+                    //doc = new HtmlDocument();
+                    //doc.LoadHtml(restsContent);
+                    //var restAs = doc.DocumentNode.SelectNodes(".//li[contains(@class,'RestaurantsList-')]"); // TODO: brings 9 links
                     foreach (var restA in restAs)
                     {
                         Thread.Sleep(2000);
                         try
                         {
-                            var concreteRestContent = client.GetStringAsync(restA.GetAttributeValue("href", string.Empty)).GetAwaiter().GetResult();
-                            doc = new HtmlDocument();
-                            doc.LoadHtml(concreteRestContent);
+                            //var concreteRestContent = client.GetStringAsync(restA.GetAttributeValue("href", string.Empty)).GetAwaiter().GetResult();
+                            //doc = new HtmlDocument();
+                            //doc.LoadHtml(concreteRestContent);
+                            driver.Navigate().GoToUrl(restA.GetAttribute("href"));
                             var restaurant = new RestaurantModel();
-                            restaurant.CompanyName = ToNormalString(doc.DocumentNode.SelectSingleNode(".//h1[@class='restaurant__name']").InnerText);
-                            restaurant.Rating = ToNormalString(doc.DocumentNode.SelectSingleNode(".//div[starts-with(@class,'orderweb')]").InnerText);
-                            restaurant.ShortDescription = $"{ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='price-category']").InnerText)} / {ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='restaurant__metadata-tags']").InnerText)}";
-                            restaurant.Address = ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='address']").InnerText);
-                            restaurant.Phone = ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='phone']").InnerText);
-                            restaurant.OpeningHours = ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='opening-hours']").InnerText);
+                            //restaurant.CompanyName = ToNormalString(doc.DocumentNode.SelectSingleNode(".//h1[@class='restaurant__name']").InnerText);
+                            //restaurant.Rating = ToNormalString(doc.DocumentNode.SelectSingleNode(".//div[starts-with(@class,'orderweb')]").InnerText);
+                            //restaurant.ShortDescription = $"{ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='price-category']").InnerText)} / {ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='restaurant__metadata-tags']").InnerText)}";
+                            //restaurant.Address = ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='address']").InnerText);
+                            //restaurant.Phone = ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='phone']").InnerText);
+                            //restaurant.OpeningHours = ToNormalString(doc.DocumentNode.SelectSingleNode(".//small[@class='opening-hours']").InnerText);
+                            restaurant.CompanyName = ToNormalString(driver.FindElementByXPath(".//h1[@class='restaurant__name']").Text);
+                            restaurant.Rating = ToNormalString(driver.FindElementByXPath(".//div[starts-with(@class,'orderweb')]").Text);
+                            restaurant.ShortDescription = $"{ToNormalString(driver.FindElementByXPath(".//small[@class='price-category']").Text)} / {ToNormalString(driver.FindElementByXPath(".//small[@class='restaurant__metadata-tags']").Text)}";
+                            restaurant.Address = ToNormalString(driver.FindElementByXPath(".//small[@class='address']").Text);
+                            restaurant.Phone = ToNormalString(driver.FindElementByXPath(".//small[@class='phone']").Text);
+                            restaurant.OpeningHours = ToNormalString(driver.FindElementByXPath(".//small[@class='opening-hours']").Text);
                             restaurant.OtherInfo = "no other info";
 
                             list.Add(restaurant);
