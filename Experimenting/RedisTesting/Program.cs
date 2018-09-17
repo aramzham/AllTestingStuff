@@ -50,7 +50,7 @@ namespace RedisTesting
                 }
             }
 
-            Console.ReadKey();
+            Console.ReadKey(); 
         }
     }
 }
