@@ -24,6 +24,10 @@ namespace TestsOfAllKinds
             //var v = new[] { "8","+","9","*","4","*","2","-","20"};
             //Console.WriteLine(P5(v));
 
+            var client = new HttpClient();
+            var content = client.GetStringAsync("https://www.instagram.com/cherryblogssom/").GetAwaiter().GetResult();
+            var count = Regex.Match(content, "\"edge_followed_by\":{\"count\":(\\d*)}").Groups[1].Value;
+
             Console.ReadKey();
         }
         static bool BinarySearch(int[] mynumbers, int target)
