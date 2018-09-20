@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterBuild", "MasterBuild\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliverooSg", "DeliverooSg\DeliverooSg.csproj", "{7C91AAAC-598D-4731-BE00-B3C0D1A1CAFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPageFollowers", "InstagramPageFollowers\InstagramPageFollowers.csproj", "{2AB5F5ED-27AC-4445-A745-62E1C29F90C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{7C91AAAC-598D-4731-BE00-B3C0D1A1CAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C91AAAC-598D-4731-BE00-B3C0D1A1CAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C91AAAC-598D-4731-BE00-B3C0D1A1CAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB5F5ED-27AC-4445-A745-62E1C29F90C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB5F5ED-27AC-4445-A745-62E1C29F90C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB5F5ED-27AC-4445-A745-62E1C29F90C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB5F5ED-27AC-4445-A745-62E1C29F90C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
