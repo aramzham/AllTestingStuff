@@ -24,11 +24,11 @@ namespace TestsOfAllKinds
             //var v = new[] { "8","+","9","*","4","*","2","-","20"};
             //Console.WriteLine(P5(v));
 
-            var proxy = new WebProxy("104.139.104.61:55533");
-            var handler = new HttpClientHandler(){Proxy = proxy};
-            var client = new HttpClient(handler) {Timeout = TimeSpan.FromSeconds(10)};
-            var content = client.GetStringAsync("https://www.instagram.com/sugarnails_destash/").GetAwaiter().GetResult();
-            var count = Regex.Match(content, "\"edge_followed_by\":{\"count\":(\\d*)}").Groups[1].Value;
+            //var proxy = new WebProxy("104.139.104.61:55533");
+            //var handler = new HttpClientHandler(){Proxy = proxy};
+            //var client = new HttpClient(handler) {Timeout = TimeSpan.FromSeconds(10)};
+            var client = new HttpClient() {Timeout = TimeSpan.FromSeconds(10)};
+            var content = client.GetStringAsync("https://www.youtube.com/watch?v=KQga9Gt29Es&t=439s").GetAwaiter().GetResult();
 
             Console.ReadKey();
         }

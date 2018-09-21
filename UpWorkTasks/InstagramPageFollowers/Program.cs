@@ -50,7 +50,7 @@ namespace InstagramPageFollowers
                 catch (Exception e)
                 {
                     if (e.Message.Contains("404")) continue;
-                    if (e.Message.ToLower().Contains("an invalid") || i == last)
+                    if (e.Message.ToLower().Contains("an invalid") || e.Message.Contains("schemes are allowed") || i == last)
                     {
                         File.AppendAllText(@"E:\test\brokenCells.txt", $"{i}{Environment.NewLine}");
                         continue;
