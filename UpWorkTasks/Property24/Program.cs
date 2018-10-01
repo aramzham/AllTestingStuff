@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 
 namespace Property24
 {
