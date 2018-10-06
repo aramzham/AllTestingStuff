@@ -15,25 +15,33 @@ namespace BringMeSomeContacts
         static void Main(string[] args)
         {
             var login = ConfigurationManager.AppSettings["login"];
-            var pass = ConfigurationManager.AppSettings["password"];
+            var password = ConfigurationManager.AppSettings["password"];
             var count = 0;
             var driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://www.linkedin.com/mynetwork/");
-            var signInA = driver.FindElementByXPath(".//p[@class='signin-link']//a");
-            var signInLink = signInA.GetAttribute("href");
-            driver.Navigate().GoToUrl(signInLink);
+            Thread.Sleep(2000);
+            driver.Navigate().GoToUrl("https://www.linkedin.com/uas/login?session_redirect=%2Fvoyager%2FloginRedirect%2Ehtml&fromSignIn=true&trk=uno-reg-join-sign-in");
+            Thread.Sleep(2000);
+            var loginInput = driver.FindElementById("session_key-login");
+            loginInput.SendKeys(login);
+            var passInput = driver.FindElementById("session_password-login");
+            passInput.SendKeys(password);
+            var signInButton = driver.FindElementById("btn-primary");
+            signInButton.Click();
+            Thread.Sleep(2000);
             while (true)
             {
                 while (count != 100)
                 {
-                    driver.ExecuteScript("window.scrollTo(0, 12000)");
+                    driver.ExecuteScript($"window.scrollTo(0, {count*10000})");
                     Thread.Sleep(1000);
                     count++;
                 }
                 var buttons = driver.FindElementsByXPath(".//button[@data-control-name='invite']");
                 foreach (var button in buttons)
                 {
-                    button.Click();
+                    driver.ExecuteScript("arguments[0].click();", button);
+                    //button.Click();
                     Thread.Sleep(1000);
                 } 
             }
