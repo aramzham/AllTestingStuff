@@ -29,6 +29,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DatabaseForTrigger", "Datab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BringMeSomeContacts", "BringMeSomeContacts\BringMeSomeContacts.csproj", "{FE2D9EAF-CD40-49CB-99C5-4CDFD03DB132}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonTestApplication1", "PythonTestApplication1\PythonTestApplication1.pyproj", "{DE4E6A29-21FD-42D2-B605-E583F0D4B1B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{FE2D9EAF-CD40-49CB-99C5-4CDFD03DB132}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE2D9EAF-CD40-49CB-99C5-4CDFD03DB132}.Release|x86.ActiveCfg = Release|Any CPU
 		{FE2D9EAF-CD40-49CB-99C5-4CDFD03DB132}.Release|x86.Build.0 = Release|Any CPU
+		{DE4E6A29-21FD-42D2-B605-E583F0D4B1B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE4E6A29-21FD-42D2-B605-E583F0D4B1B8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DE4E6A29-21FD-42D2-B605-E583F0D4B1B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE4E6A29-21FD-42D2-B605-E583F0D4B1B8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
