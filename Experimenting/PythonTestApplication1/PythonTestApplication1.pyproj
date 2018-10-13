@@ -24,6 +24,9 @@
     <Compile Include="Bet188Models.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Bet188Parser.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PythonTestApplication1.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

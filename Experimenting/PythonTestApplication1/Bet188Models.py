@@ -1,46 +1,65 @@
+import json
+
 class SelectionModel(object):
-	def __init__(self, name, price, handicapSign):
+	def __init__(self, name="", price=0):
 		self.name = name
 		self.price = price
-		self.handicapSign = handicapSign        
+		self.handicapSign = None
 
 class MarketModel(object):
-	def __init__(self, name, mHandicap, selections):
+	def __init__(self, name="", mHandicap=None):
 		self.name = name
 		self.mHandicap = mHandicap
-		self.selections = selections
+		self.selections = []
 
 class TeamModel(object):
-	def __init__(self, name):
+	def __init__(self, name=""):
 		self.name = name
 
 class MatchMemberModel(object):
-	def __init__(self, isHome, team):
+	def __init__(self, isHome=False, team=None):
 		self.isHome = isHome
 		self.team = team
 
+class ScoreModel(object):
+    def __init__(self):
+        self.score1 = 0
+        self.score2 = 0
+
+class MatchStatModel(object):
+    def __init__(self):
+        self.period_scores = None
+        self.period_string = ""
+        self.score = None
+
 class MatchModel(object):
-	def __init__(self, startTime, matchMembers):
-		self.startTime = startTime
-		self.matchMembers = matchMembers
+    def __init__(self):
+        self.startTime = None
+        self.matchMembers = []
+        self.markets = []
+        self.isNeutralVenue = False
+        self.statistics = None
+        self.currentTime = ""
 
 class LeagueModel(object):
-	def __init__(self, name, matches):
+	def __init__(self, name=""):
 		self.name = name
-		self.matches = matches
+		self.matches = []
 
 class RegionModel(object):
-	def __init__(self, name, leagues):
+	def __init__(self, name=""):
 		self.name = name
-		self.leagues = leagues
+		self.leagues = []
 
 class SportModel(object):
-	def __init__(self, name, regions):
+	def __init__(self, name=""):
 		self.name = name
-		self.regions = regions
+		self.regions = []
 
 class BookmakerModel(object):
-	def __init__(self, bookmakerNumber, name, sports):
-		self.bookmakerNumber = bookmakerNumber
-		self.name = name
-		self.sports = sports
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True)#, indent=4)
+    def __init__(self, bookmakerNumber, name):
+        self.bookmakerNumber = bookmakerNumber
+        self.name = name
+        self.sports = []
