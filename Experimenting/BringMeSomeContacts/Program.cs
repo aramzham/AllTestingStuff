@@ -29,7 +29,9 @@ namespace BringMeSomeContacts
             var signInButton = driver.FindElementById("btn-primary");
             signInButton.Click();
             Thread.Sleep(2000);
-            while (true)
+            driver.Navigate().GoToUrl("https://www.linkedin.com/mynetwork/");
+            Console.WriteLine("Press ESC to stop");
+            while (Console.ReadKey().Key != ConsoleKey.Escape)
             {
                 while (count != 100)
                 {
@@ -43,7 +45,8 @@ namespace BringMeSomeContacts
                     driver.ExecuteScript("arguments[0].click();", button);
                     //button.Click();
                     Thread.Sleep(1000);
-                } 
+                }
+                count = 0;
             }
         }
     }

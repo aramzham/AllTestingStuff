@@ -252,3 +252,4 @@ paket-files/
 *.sln.iml
 /NarekFormTask/DatabaseProj/DatabaseProj.jfm
 /Experimenting/DatabaseForTrigger/DatabaseForTrigger.jfm
+/Experimenting/BringMeSomeContacts/App.config
