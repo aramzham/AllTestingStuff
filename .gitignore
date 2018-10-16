@@ -253,3 +253,5 @@ paket-files/
 /NarekFormTask/DatabaseProj/DatabaseProj.jfm
 /Experimenting/DatabaseForTrigger/DatabaseForTrigger.jfm
 /Experimenting/BringMeSomeContacts/App.config
+/Experimenting/PythonTestApplication1/RabbitMq/MqManager.py
+/Experimenting/PythonTestApplication1/ParserBase.py

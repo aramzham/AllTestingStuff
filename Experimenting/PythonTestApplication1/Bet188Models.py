@@ -1,16 +1,23 @@
 import json
 
 class SelectionModel(object):
-	def __init__(self, name="", price=0):
-		self.name = name
-		self.price = price
-		self.handicapSign = None
+    def __init__(self, name="", price=0):
+        self.name = name
+        self.price = price
+        self.handicapSign = None
+        self.selectionTypeId = None
+        self.kindOct = None
 
 class MarketModel(object):
-	def __init__(self, name="", mHandicap=None):
-		self.name = name
-		self.mHandicap = mHandicap
-		self.selections = []
+    def __init__(self, name="", mHandicap=None):
+        self.name = name
+        self.mHandicap = mHandicap
+        self.selections = []
+        self.marketTypeId = None
+        self.kindOct = None
+        self.sequence = None
+        self.point_sequence = None
+        self.displayKey = None
 
 class TeamModel(object):
 	def __init__(self, name=""):
@@ -28,9 +35,10 @@ class ScoreModel(object):
 
 class MatchStatModel(object):
     def __init__(self):
-        self.period_scores = None
-        self.period_string = ""
+        self.eventScores = None
+        self.currentPeriodString = ""
         self.score = None
+        self.info = None
 
 class MatchModel(object):
     def __init__(self):
@@ -40,6 +48,7 @@ class MatchModel(object):
         self.isNeutralVenue = False
         self.statistics = None
         self.currentTime = ""
+        self.isSuspended = False
 
 class LeagueModel(object):
 	def __init__(self, name=""):
@@ -52,14 +61,36 @@ class RegionModel(object):
 		self.leagues = []
 
 class SportModel(object):
-	def __init__(self, name=""):
-		self.name = name
-		self.regions = []
+    def __init__(self, name=""):
+        self.name = name
+        self.regions = []
+        self.mapId = None
 
 class BookmakerModel(object):
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True)#, indent=4)
-    def __init__(self, bookmakerNumber, name):
-        self.bookmakerNumber = bookmakerNumber
+    def __init__(self, bookmaker_number, name):
+        self.bookmakerNumber = bookmaker_number
         self.name = name
         self.sports = []
+        self.parseDuration = 0
+        self.creationDate = None
+
+class MarketTypeMapModel(object):
+    def __init__(self):
+        self.name = ""
+        self.sport_id = 0
+        self.market_type_id = None
+        self.market_local_kind = None
+        self.status = None
+        self.display_key = None
+        self.sequence = None
+        self.point_sequence = None
+        self.bookmaker_id = None
+
+class SelectionTypeMapModel(object):
+    def __init__(self):
+        self.name = ""
+        self.market_type_id = 0
+        self.selection_type_id = None
+        self.kind_oct = None
