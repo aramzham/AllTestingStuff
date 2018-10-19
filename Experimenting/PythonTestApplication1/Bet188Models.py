@@ -63,3 +63,5 @@ class BookmakerModel(object):
         self.bookmakerNumber = bookmakerNumber
         self.name = name
         self.sports = []
+        self.parseDuration = 0
+        self.creationDate = None
