@@ -27,7 +27,16 @@
     <Compile Include="Bet188Parser.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ParserBase.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PythonTestApplication1.py" />
+    <Compile Include="RabbitMq\MqManager.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RabbitMq\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

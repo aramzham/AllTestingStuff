@@ -4,12 +4,20 @@ import json
 import time
 import Bet188Models
 import math
+from ParserBase import *
 
-page_link = 'https://landing-sb.prdasbb18a1.com/en-gb/Service/CentralService?GetData&ts={timestamp}'
-headers = {'content-type': 'application/json', 'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36', 'Origin':'https://landing-sb.prdasbb18a1.com', 'Referer':'https://landing-sb.prdasbb18a1.com/en-gb/sports/all/in-play?q=&country=AM&currency=USD&tzoff=-240&allowRacing=false&reg=ROE&rc=', 'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
-
-class Bet188Parser(object):
+class Bet188Parser(ParserBase):
     """description of class"""
+
+    _page_link = 'https://sb.188bet.co.uk/en-gb/Service/CentralService?GetData&ts={timestamp}'
+    _headers = {
+        'content-type': 'application/json', 
+        'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36', 
+        'Origin':'https://sb.188bet.co.uk', 
+        'Referer':'https://sb.188bet.co.uk/en-gb/sports/all/in-play?q=&country=GB&currency=GBP&tzoff=-240&allowRacing=true&reg=UK&rc=GB&PartnerId=18801', 
+        'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+
     def get_market_handicap(self, s):
         if('/' in s):
             split = s.split('/')
@@ -45,7 +53,12 @@ class Bet188Parser(object):
 
     def parse(self):
         try:
-            page_response = requests.post(page_link.replace('{timestamp}', str(int(time.time()))), timeout=5, headers=headers, data='IsFirstLoad=true&VersionL=-1&VersionU=0&VersionS=-1&VersionF=-1&VersionH=0&VersionT=-1&IsEventMenu=false&SportID=1&CompetitionID=-1&reqUrl=%2Fen-gb%2Fsports%2Fall%2Fin-play%3Fq%3D%26country%3DAM%26currency%3DUSD%26tzoff%3D-240%26allowRacing%3Dfalse%26reg%3DROE%26rc%3D&oIsInplayAll=false&oIsFirstLoad=true&oSortBy=1&oOddsType=0&oPageNo=0&LiveCenterEventId=0&LiveCenterSportId=0')
+            page_response = requests.post(type(self)._page_link.replace('{timestamp}', str(int(time.time()))), 
+                                          timeout=5,
+                                          headers=type(self)._headers,
+                                          data='IsFirstLoad=true&VersionL=-1&VersionU=0&VersionS=-1&VersionF=-1&VersionH=0&VersionT=-1&IsEventMenu=false&SportID=1&CompetitionID=-1&reqUrl=%2Fen-gb%2Fsports%2Fall%2Fin-play%3Fq%3D%26country%3DGB%26currency%3DGBP%26tzoff%3D-240%26allowRacing%3Dtrue%26reg%3DUK%26rc%3DGB%26PartnerId%3D18801&oIsInplayAll=false&oIsFirstLoad=true&oSortBy=1&oOddsType=0&oPageNo=0&LiveCenterEventId=0&LiveCenterSportId=0')
+            #IsFirstLoad=true&VersionL=-1&VersionU=0&VersionS=-1&VersionF=-1&VersionH=0&VersionT=-1&IsEventMenu=false&SportID=1&CompetitionID=-1&reqUrl=%2Fen-gb%2Fsports%2Fall%2Fin-play%3Fq%3D%26country%3DGB%26currency%3DGBP%26tzoff%3D-240%26allowRacing%3Dtrue%26reg%3DUK%26rc%3DGB%26PartnerId%3D18801&oIsInplayAll=false&oIsFirstLoad=true&oSortBy=1&oOddsType=0&oPageNo=0&LiveCenterEventId=0&LiveCenterSportId=0 # new 
+            #IsFirstLoad=true&VersionL=-1&VersionU=0&VersionS=-1&VersionF=-1&VersionH=0&VersionT=-1&IsEventMenu=false&SportID=1&CompetitionID=-1&reqUrl=%2Fen-gb%2Fsports%2Fall%2Fin-play%3Fq%3D%26country%3DAM%26currency%3DUSD%26tzoff%3D-240%26allowRacing%3Dfalse%26reg%3DROE%26rc%3D&oIsInplayAll=false&oIsFirstLoad=true&oSortBy=1&oOddsType=0&oPageNo=0&LiveCenterEventId=0&LiveCenterSportId=0 # old
             bet188_json = json.loads(page_response.content)
             bookmaker = Bet188Models.BookmakerModel(188, "188Bet")
             by_sport_data = bet188_json["mod"]["d"]
@@ -66,10 +79,10 @@ class Bet188Parser(object):
                         match.isNeutralVenue = True if g["g"] == "N" else False
                         match.matchMembers.extend([match_member_1, match_member_2])	
                         
-                        # statistics
+                        #statistics
                         if(match_info[12]):
                             match.statistics = Bet188Models.MatchStatModel()
-                            match.statistics.period_string = match_info[12]
+                            match.statistics.currentPeriodString = match_info[12]
                             if(match_info[10] and match_info[11]):
                                 match.statistics.score = Bet188Models.ScoreModel()
                                 match.statistics.score.score1 = int(match_info[10])
@@ -78,7 +91,7 @@ class Bet188Parser(object):
                                 red_cards_score = Bet188Models.ScoreModel()
                                 red_cards_score.score1 = int(match_info[8])
                                 red_cards_score.score2 = int(match_info[9])
-                                match.statistics.period_scores = {"RedCards": red_cards_score}
+                                match.statistics.eventScores = {2: red_cards_score}
                             if(match_info[5]):
                                 match.currentTime = match_info[5]
 
@@ -115,10 +128,9 @@ class Bet188Parser(object):
                         league.matches.append(match)
                     region.leagues.append(league)
                 bookmaker.sports.append(sport)
+            self.validate(bookmaker)
             return bookmaker
-        except :
+        except Exception as ex:
             pass
-
-
 
 
