@@ -16,7 +16,7 @@ class MarketModel(object):
         self.marketTypeId = None
         self.kindOct = None
         self.sequence = None
-        self.point_sequence = None
+        self.pointSequence = None
         self.displayKey = None
 
 class TeamModel(object):
@@ -39,6 +39,7 @@ class MatchStatModel(object):
         self.currentPeriodString = ""
         self.score = None
         self.info = None
+        self.periodScores = None
 
 class MatchModel(object):
     def __init__(self):

@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>de4e6a29-21fd-42d2-b605-e583f0d4b1b8</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PythonTestApplication1.py</StartupFile>
+    <StartupFile>TotoTest.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -30,12 +30,19 @@
     <Compile Include="ParserBase.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Parsers\TotoFootballParser.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PythonTestApplication1.py" />
     <Compile Include="RabbitMq\MqManager.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TotoTest.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Parsers\" />
     <Folder Include="RabbitMq\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
