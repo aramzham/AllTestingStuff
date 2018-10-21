@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
+using System.Threading;
+using Newtonsoft.Json;
 
 namespace TestsOfAllKinds
 {
@@ -27,8 +30,29 @@ namespace TestsOfAllKinds
             //var proxy = new WebProxy("104.139.104.61:55533");
             //var handler = new HttpClientHandler(){Proxy = proxy};
             //var client = new HttpClient(handler) {Timeout = TimeSpan.FromSeconds(10)};
-            var client = new HttpClient() {Timeout = TimeSpan.FromSeconds(10)};
-            var content = client.GetStringAsync("https://www.youtube.com/watch?v=KQga9Gt29Es&t=439s").GetAwaiter().GetResult();
+
+            var parser = new GoodwinFootballParser();
+            parser.Initialize();
+            var sw = new Stopwatch();
+            var rnd = new Random();
+            while (true)
+            {
+                try
+                {
+                    sw.Restart();
+                    var bookmaker = parser.Parse();
+                    sw.Stop();
+                    if (bookmaker is null) continue;
+                    bookmaker.ParseDuration = (int)sw.ElapsedMilliseconds;
+                    var bookmakerJson = JsonConvert.SerializeObject(bookmaker);
+                    Thread.Sleep(rnd.Next(1000, 3001));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Thread.Sleep(60 * 1000);
+                }
+            }
 
             Console.ReadKey();
         }
@@ -66,7 +90,7 @@ namespace TestsOfAllKinds
         static int P5(string[] elements)
         {
             var expression = string.Join("", elements);
-            return (int) new DataTable().Compute(expression,"");
+            return (int)new DataTable().Compute(expression, "");
         }
     }
 }

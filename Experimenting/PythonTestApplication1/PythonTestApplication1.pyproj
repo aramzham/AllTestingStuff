@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>de4e6a29-21fd-42d2-b605-e583f0d4b1b8</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>TotoTest.py</StartupFile>
+    <StartupFile>GoodwinTest.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -27,7 +27,13 @@
     <Compile Include="Bet188Parser.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GoodwinTest.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ParserBase.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Parsers\GoodwinFootballParser.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Parsers\TotoFootballParser.py">
