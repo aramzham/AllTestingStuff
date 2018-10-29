@@ -18,6 +18,7 @@ namespace TestsOfAllKinds
 
         private ChromeOptions _options;
         private ChromeDriver _driver;
+        private List<string> _lastLinks;
 
         public BookmakerModelNew Parse()
         {
@@ -31,6 +32,7 @@ namespace TestsOfAllKinds
                     _options.AddUserProfilePreference("profile.managed_default_content_settings.images", 2);
                     _driver = new ChromeDriver(_options);
                     _isFirstTime = false;
+                    _lastLinks = new List<string>();
                 }
                 _driver.Navigate().GoToUrl(MainPageUrl);
 
@@ -53,7 +55,7 @@ namespace TestsOfAllKinds
                 doc.LoadHtml(_driver.PageSource);
                 var sportsHolder = doc.DocumentNode.SelectSingleNode(".//*[@id='sports_holder']");
                 var sportDivs = sportsHolder.SelectNodes("./div[starts-with(@id,'ip_sport_')]");
-                var linkList = new List<string>();
+                var currentLinks = new List<string>();
                 foreach (var sportDiv in sportDivs)
                 {
                     var sportNameDiv = sportDiv.SelectSingleNode(".//h2[@class='subtitlenew']");
@@ -81,7 +83,7 @@ namespace TestsOfAllKinds
                                     ".//div[starts-with(@id,'more_bets_container_')]//a[starts-with(@id,'ip_more_bets_link_')]");
                                 if(linkDiv is null) continue;
                                 var link = linkDiv.Attributes["href"].Value;
-                                linkList.Add(link);
+                                if(!_lastLinks.Contains(link)) currentLinks.Add(link);
                                 //_driver.Navigate().GoToUrl(link);
                                 //Thread.Sleep(100); // get markets
                             }
@@ -89,17 +91,17 @@ namespace TestsOfAllKinds
                     }
                 }
 
-                foreach (var link in linkList)
+                foreach (var link in currentLinks)
                 {
                     //_driver.FindElement(By.TagName("body")).SendKeys(Keys.Control + "t");
                     //_driver.SwitchTo().Window(_driver.WindowHandles.Last());
                     //_driver.Navigate().GoToUrl(link);
-                    Task.Run(() => _driver.ExecuteScript($"window.open('{link}','_blank');"));
+                     Task.Run(() => _driver.ExecuteScript($"window.open('{link}','_blank');"));
                     _driver.SwitchTo().Window(_driver.WindowHandles.First());
                 }
 
                 var tabs = _driver.WindowHandles;
-                for (int i = 1; i < linkList.Count; i++)
+                for (int i = 1; i < currentLinks.Count; i++)
                 {
                     _driver.SwitchTo().Window(tabs[i]);
                     Thread.Sleep(100); // get markets
@@ -107,6 +109,7 @@ namespace TestsOfAllKinds
                 }
 
                 _driver.SwitchTo().Window(tabs[0]);
+                _lastLinks = currentLinks.ToList();
             }
             catch (Exception e)
             {
