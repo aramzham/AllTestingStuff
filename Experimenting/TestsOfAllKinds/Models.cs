@@ -90,4 +90,13 @@ namespace TestsOfAllKinds
         public int ParseDuration { get; set; }
         public DateTime CreationDate { get; set; }
     }
+
+    public class BookmakerModelNew
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public List<MatchModel> Matches { get; set; } = new List<MatchModel>();
+        public int ParseDuration { get; set; }
+        public DateTime CreationDate { get; set; }
+    }
 }

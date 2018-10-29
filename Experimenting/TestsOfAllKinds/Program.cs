@@ -31,8 +31,8 @@ namespace TestsOfAllKinds
             //var handler = new HttpClientHandler(){Proxy = proxy};
             //var client = new HttpClient(handler) {Timeout = TimeSpan.FromSeconds(10)};
 
-            var parser = new GoodwinFootballParser();
-            parser.Initialize();
+            var parser = new WilliamHillSeleniumParser();
+            //parser.Initialize();
             var sw = new Stopwatch();
             var rnd = new Random();
             while (true)
