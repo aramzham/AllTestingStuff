@@ -53,6 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fonbet\CatalogModels.cs" />
+    <Compile Include="Fonbet\FonbetJsonModels.cs" />
+    <Compile Include="Fonbet\FonbetParser.cs" />
     <Compile Include="GoodwinFootballParser.cs" />
     <Compile Include="Models.cs" />
     <Compile Include="Program.cs" />
