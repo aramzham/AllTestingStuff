@@ -10,6 +10,7 @@ using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Newtonsoft.Json;
+using TestsOfAllKinds.Fonbet;
 
 namespace TestsOfAllKinds
 {
@@ -31,8 +32,8 @@ namespace TestsOfAllKinds
             //var handler = new HttpClientHandler(){Proxy = proxy};
             //var client = new HttpClient(handler) {Timeout = TimeSpan.FromSeconds(10)};
 
-            var parser = new WilliamHillSeleniumParser();
-            //parser.Initialize();
+            var parser = new FonbetParser();
+            parser.Initialize();
             var sw = new Stopwatch();
             var rnd = new Random();
             while (true)

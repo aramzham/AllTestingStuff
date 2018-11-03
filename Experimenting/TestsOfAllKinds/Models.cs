@@ -37,6 +37,12 @@ namespace TestsOfAllKinds
         public TeamModel Team { get; set; }
     }
 
+    public class MatchMemberModelNew
+    {
+        public bool IsHome { get; set; }
+        public string Name { get; set; }
+    }
+
     public class ScoreModel
     {
         public int Score1 { get; set; }
@@ -61,6 +67,19 @@ namespace TestsOfAllKinds
         public MatchStatModel Statistics { get; set; }
         public string CurrentTime { get; set; }
         public bool? IsSuspended { get; set; }
+    }
+
+    public class MatchModelNew
+    {
+        public DateTime? StartTime { get; set; }
+        public List<MatchMemberModelNew> MatchMembers { get; set; }
+        public List<MarketModel> Markets { get; set; } = new List<MarketModel>();
+        public bool IsNeutralVenue { get; set; }
+        public MatchStatModel Statistics { get; set; }
+        public string CurrentTime { get; set; }
+        public bool? IsSuspended { get; set; }
+        public string SportName { get; set; }
+        public string CompetitionName { get; set; }
     }
 
     public class LeagueModel
@@ -95,7 +114,7 @@ namespace TestsOfAllKinds
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public List<MatchModel> Matches { get; set; } = new List<MatchModel>();
+        public List<MatchModelNew> Matches { get; set; } = new List<MatchModelNew>();
         public int ParseDuration { get; set; }
         public DateTime CreationDate { get; set; }
     }
