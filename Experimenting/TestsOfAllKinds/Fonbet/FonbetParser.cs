@@ -33,18 +33,26 @@ namespace TestsOfAllKinds.Fonbet
                 {
                     var catalogJson = _client.GetStringAsync(CatalogUrl).GetAwaiter().GetResult();
                     var catalog = JsonConvert.DeserializeObject<RootCatalogObject>(catalogJson);
-                    foreach (var mainCatalogGrids in catalog.catalog[0].grids)
+                    for (int j = 0; j < 2; j++)
                     {
-                        if (mainCatalogGrids.grid.Length < 2)
-                            continue;
-                        for (int i = 0; i < mainCatalogGrids.grid[1].Length; i++)
+                        foreach (var mainCatalogGrids in catalog.catalog[j].grids)
                         {
-                            if (mainCatalogGrids.grid[1][i].kind != "value")
+                            if (mainCatalogGrids.grid.Length < 2)
                                 continue;
-                            marketDict.Add(mainCatalogGrids.grid[1][i].factorId, Tuple.Create(mainCatalogGrids.grid[0][i].eng, 
-                                !string.IsNullOrEmpty(mainCatalogGrids.name_eng) 
-                                    ? mainCatalogGrids.name_eng
-                                    : mainCatalogGrids.grid[1][0].eng));
+
+                            for (int k = 0; k < mainCatalogGrids.grid.Length; k++)
+                            {
+                                for (int i = 1; i < mainCatalogGrids.grid[k].Length; i++)
+                                {
+                                    if (mainCatalogGrids.grid[k][i].kind != "value")
+                                        continue;
+
+                                    marketDict.Add(mainCatalogGrids.grid[k][i].factorId, Tuple.Create(mainCatalogGrids.grid[0][i].eng,
+                                        !string.IsNullOrEmpty(mainCatalogGrids.name_eng)
+                                            ? mainCatalogGrids.name_eng
+                                            : mainCatalogGrids.grid[k][0].eng));
+                                }
+                            }
                         }
                     }
 
