@@ -113,7 +113,8 @@ namespace TestsOfAllKinds.Fonbet
                     else if (!string.IsNullOrEmpty(customFactor.pt) && customFactor.pt.StartsWith("+"))
                         selection.HandicapSign = +1;
 
-                    var existingMarket = match.Markets.FirstOrDefault(x => x.Name == $"{marketPrefix}{marketDict[customFactor.f].Item2}");
+                    var existingMarket = match.Markets.FirstOrDefault(x => x.Name == $"{marketPrefix}{marketDict[customFactor.f].Item2}" &&
+                                                                           x.MHandicap == (double.TryParse(customFactor.pt, out var hdp) ? hdp : default(double?)));
                     if (existingMarket is null)
                     {
                         match.Markets.Add(new MarketModel()
