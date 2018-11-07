@@ -80,6 +80,7 @@ namespace TestsOfAllKinds
         public bool? IsSuspended { get; set; }
         public string SportName { get; set; }
         public string CompetitionName { get; set; }
+        public string RegionName { get; set; }
     }
 
     public class LeagueModel

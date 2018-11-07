@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using System.Threading;
+using BetConstruct.OddsMarket.Live.Parsers.BL.Parsers.Bwin;
 using Newtonsoft.Json;
 using TestsOfAllKinds.Fonbet;
 
@@ -32,8 +33,8 @@ namespace TestsOfAllKinds
             //var handler = new HttpClientHandler(){Proxy = proxy};
             //var client = new HttpClient(handler) {Timeout = TimeSpan.FromSeconds(10)};
 
-            var parser = new FonbetParser();
-            parser.Initialize();
+            var parser = new BwinLiveParser();
+            //parser.Initialize();
             var sw = new Stopwatch();
             var rnd = new Random();
             while (true)
