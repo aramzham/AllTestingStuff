@@ -135,9 +135,11 @@ namespace BetConstruct.OddsMarket.Live.Parsers.BL.Parsers.Bwin
                                 Name = groupMarket.Marketname,
                                 IsSuspended = marketItem.Visibility != 1
                             };
+                            if (market.Selections.Count > 0)
+                                match.Markets.Add(market);
                         }
 
-                        
+
                         if (match.Markets.Count > 0)
                             _bookmaker.Matches.Add(match);
                     }
