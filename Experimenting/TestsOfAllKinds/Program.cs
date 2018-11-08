@@ -33,7 +33,7 @@ namespace TestsOfAllKinds
             //var handler = new HttpClientHandler(){Proxy = proxy};
             //var client = new HttpClient(handler) {Timeout = TimeSpan.FromSeconds(10)};
 
-            var parser = new BwinLiveParser();
+            var parser = new BetAtHomeParser();
             //parser.Initialize();
             var sw = new Stopwatch();
             var rnd = new Random();

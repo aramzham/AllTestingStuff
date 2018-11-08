@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BetAtHomeParser.cs" />
     <Compile Include="Bwin\BwinLiveParser.cs" />
     <Compile Include="Bwin\BwinModels.cs" />
     <Compile Include="Fonbet\CatalogModels.cs" />
