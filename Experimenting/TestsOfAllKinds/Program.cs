@@ -31,8 +31,12 @@ namespace TestsOfAllKinds
 
             //var proxy = new WebProxy("104.139.104.61:55533");
             //var handler = new HttpClientHandler(){Proxy = proxy};
-            //var client = new HttpClient(handler) {Timeout = TimeSpan.FromSeconds(10)};
-
+            var client = new HttpClient() {Timeout = TimeSpan.FromSeconds(10)};
+            client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36");
+            client.DefaultRequestHeaders.Add("x-jwtoken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTZXNzaW9uSUQiOiJtaGVoYzVnM2h6b3VjZ2lrMTJsMmt0Z3AiLCJTaXRlSUQiOiI1NiIsIm5iZiI6MTU0MTg0OTMwNSwiZXhwIjoxNTQyNDU0MTA1LCJpYXQiOjE1NDE4NDkzMDV9.jvboUfpL430O76G3TXLmqDRcu6fjdOT5LHk7nOAmbtg");
+            client.DefaultRequestHeaders.Add("referer", "https://www.10bet.com/live-betting/");
+            //client.DefaultRequestHeaders.Add("content-type", "application/x-www-form-urlencoded");
+            var token = client.GetStringAsync("https://www.10bet.com/methods/sportscontent.ashx/GetAllLiveContent?").GetAwaiter().GetResult();
             var parser = new BetAtHomeParser();
             //parser.Initialize();
             var sw = new Stopwatch();
