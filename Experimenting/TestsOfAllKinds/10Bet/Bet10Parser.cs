@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,9 +30,11 @@ namespace TestsOfAllKinds._10Bet
                     client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36");
                     client.DefaultRequestHeaders.Add("referer", "https://www.10bet.com/live-betting/");
                     client.DefaultRequestHeaders.Add("requesttarget", "AJAXService");
-                    var response = client.GetStringAsync("https://www.10bet.com/methods/sportscontent.ashx/GetAllLiveContent?").GetAwaiter().GetResult();
-                    if (!string.IsNullOrEmpty(response))
-                        return response;
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+                    var response = client.PostAsync("https://www.10bet.com/pagemethods_ros.aspx/UpdateEvents", new StringContent("31876472%2339")).GetAwaiter().GetResult();
+                    var a = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    if (!string.IsNullOrEmpty(a))
+                        return a;
 
                     Thread.Sleep(random.Next(1000, 2001));
                 }
