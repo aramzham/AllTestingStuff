@@ -36,7 +36,7 @@ namespace TestsOfAllKinds
             //client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36");
             //var token = client.GetStringAsync("https://www.10bet.com/methods/sportscontent.ashx/GetAllLiveContent?").GetAwaiter().GetResult();
 
-            var parser = new Bet10Parser();
+            var parser = new BetCityRusParser();
             //parser.Initialize();
             var sw = new Stopwatch();
             var rnd = new Random();
