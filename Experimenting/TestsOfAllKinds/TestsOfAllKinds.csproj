@@ -56,18 +56,12 @@
   <ItemGroup>
     <Compile Include="10Bet\Bet10Parser.cs" />
     <Compile Include="10Bet\Models10Bet.cs" />
-    <Compile Include="BetAtHomeParser.cs" />
-    <Compile Include="BetCityRusParser.cs" />
-    <Compile Include="Bwin\BwinLiveParser.cs" />
-    <Compile Include="Bwin\BwinModels.cs" />
-    <Compile Include="Fonbet\CatalogModels.cs" />
-    <Compile Include="Fonbet\FonbetJsonModels.cs" />
-    <Compile Include="Fonbet\FonbetParser.cs" />
     <Compile Include="GoodwinFootballParser.cs" />
     <Compile Include="Models.cs" />
+    <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WilliamHillSeleniumParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

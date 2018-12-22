@@ -1,20 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Text.RegularExpressions;
-using System.Threading;
-using BetConstruct.OddsMarket.Live.Parsers.BL.Parsers.Bwin;
-using Newtonsoft.Json;
-using TestsOfAllKinds.Fonbet;
-using TestsOfAllKinds._10Bet;
-using System.Configuration;
+using TestsOfAllKinds.Models;
 
 namespace TestsOfAllKinds
 {
@@ -31,15 +18,78 @@ namespace TestsOfAllKinds
         {
             try
             {
-                var connectionString = ConfigurationManager.ConnectionStrings["SuccinctlyDB"]?.ConnectionString;
+                var builder = new SqlConnectionStringBuilder();
+                builder.DataSource = @"Computer\SqlExpress";
+                builder.InitialCatalog = "SuccinctlyExamples";
+                builder.IntegratedSecurity = true;
 
-                //using (var connection = new SqlConnection(@"Server=Computer\SqlExpress; Database=SuccinctlyExamples; Integrated Security=SSPI"))
-                using (var connection = new SqlConnection(connectionString))
+                var people = new List<Person>();
+                var genders = new List<Gender>();
+                
+                using (var connection = new SqlConnection(builder.ConnectionString))
+                using(var command = new SqlCommand("Select Id, FirstName, LastName, DateOfBirth, GenderId from Person;" + "Select Id, Code, Description from Gender;", connection))
                 {
                     connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var p = new Person();
+
+                            var idByIndex = reader[0];
+                            var idByIndexCast = Convert.ToInt32(idByIndex);
+
+                            var idByName = reader[nameof(Person.Id)];
+                            var idByNameCast = Convert.ToInt32(idByName);
+
+                            // if name of property and name of column in db don't match, the code will break
+                            var idIndex = reader.GetOrdinal(nameof(Person.Id));
+                            p.Id = reader.GetInt32(idIndex);
+
+                            var firstNameIndex = reader.GetOrdinal(nameof(Person.FirstName));
+                            p.FirstName = reader.GetString(firstNameIndex);
+
+                            var lastNameIndex = reader.GetOrdinal(nameof(Person.LastName));
+                            if (!reader.IsDBNull(lastNameIndex))
+                                p.LastName = reader.GetString(lastNameIndex);
+
+                            var dateOfBirthIndex = reader.GetOrdinal(nameof(Person.DateOfBirth));
+                            if (!reader.IsDBNull(dateOfBirthIndex))
+                                p.DateOfBirth = reader.GetDateTime(dateOfBirthIndex);
+
+                            var genderIndex = reader.GetOrdinal(nameof(Person.GenderId));
+                            if (!reader.IsDBNull(genderIndex))
+                                p.GenderId = reader.GetInt32(genderIndex);
+
+                            people.Add(p);
+                        }
+
+                        // for many results
+                        reader.NextResult();
+
+                        while (reader.Read())
+                        {
+                            var g = new Gender();
+                            g.Id = reader.GetInt32(0);
+                            g.Code = reader.GetString(1);
+                            g.Description = reader.GetString(2);
+
+                            genders.Add(g);
+                        }
+                    }
                 }
 
                 Console.WriteLine("Successfully opened and closed the database");
+
+                foreach (var person in people)
+                {
+                    Console.WriteLine($"{person.FirstName} {person.LastName} was born on {person.DateOfBirth}");
+                }
+
+                foreach (var gender in genders)
+                {
+                    Console.WriteLine($"{gender.Id} - {gender.Code}, {gender.Description}");
+                }
             }
             catch (Exception e)
             {
