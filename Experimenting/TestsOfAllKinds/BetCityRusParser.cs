@@ -65,9 +65,21 @@ namespace TestsOfAllKinds
                         };
 
                         var mainMarkets = @event["main"];
+                        if(mainMarkets is null)
+                            continue;
+
                         foreach (var mainMarket in mainMarkets.SelectTokens("*"))
                         {
-                            var market = new MarketModel(){ Name = mainMarket["name"].Value<string>()};
+                            var mainMarketName = mainMarket["name"].Value<string>();
+                            var marketDatas = mainMarket["data"];
+                            foreach (var mainMarketData in marketDatas.SelectTokens("*"))
+                            {
+                                var blocks = mainMarketData["blocks"];
+                                foreach (var block in blocks.Children<JObject>())
+                                {
+                                    var properties = block.Properties();
+                                }
+                            }
                         }
                     }
                 }

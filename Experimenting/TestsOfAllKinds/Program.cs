@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -13,6 +14,7 @@ using BetConstruct.OddsMarket.Live.Parsers.BL.Parsers.Bwin;
 using Newtonsoft.Json;
 using TestsOfAllKinds.Fonbet;
 using TestsOfAllKinds._10Bet;
+using System.Configuration;
 
 namespace TestsOfAllKinds
 {
@@ -27,81 +29,25 @@ namespace TestsOfAllKinds
     {
         static void Main(string[] args)
         {
-            //var v = new[] { "8","+","9","*","4","*","2","-","20"};
-            //Console.WriteLine(P5(v));
-
-            //var proxy = new WebProxy("104.168.157.236:3128");
-            //var handler = new HttpClientHandler(){Proxy = proxy};
-            //var client = new HttpClient(handler) {Timeout = TimeSpan.FromSeconds(10)};
-            //client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36");
-            //var token = client.GetStringAsync("https://www.10bet.com/methods/sportscontent.ashx/GetAllLiveContent?").GetAwaiter().GetResult();
-
-            var parser = new BetCityRusParser();
-            //parser.Initialize();
-            var sw = new Stopwatch();
-            var rnd = new Random();
-            var cycleNumber = 0;
-            while (true)
+            try
             {
-                try
+                var connectionString = ConfigurationManager.ConnectionStrings["SuccinctlyDB"]?.ConnectionString;
+
+                //using (var connection = new SqlConnection(@"Server=Computer\SqlExpress; Database=SuccinctlyExamples; Integrated Security=SSPI"))
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    sw.Restart();
-                    var bookmaker = parser.Parse();
-                    sw.Stop();
-                    if (bookmaker is null) continue;
-                    bookmaker.ParseDuration = (int)sw.ElapsedMilliseconds;
-                    foreach (var match in bookmaker.Matches)
-                    {
-                        File.AppendAllText(@"E:\test\marketCounts.txt", $"{match.SportName} - {match.MatchMembers[0].Name} vs {match.MatchMembers[1].Name} | {match.Markets.Count}{Environment.NewLine}");
-                    }
-                    var bookmakerJson = JsonConvert.SerializeObject(bookmaker);
-                    Thread.Sleep(rnd.Next(1000, 3001));
-                    Console.WriteLine($"cycle {cycleNumber++} is done");
+                    connection.Open();
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    //Thread.Sleep(60 * 1000);
-                }
+
+                Console.WriteLine("Successfully opened and closed the database");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
 
+            Console.WriteLine("Press any key to close");
             Console.ReadKey();
-        }
-        static bool BinarySearch(int[] mynumbers, int target)
-        {
-            var found = false;
-            var first = 0;
-            var last = mynumbers.Length - 1;
-            var mid = (first + last) / 2;
-
-            //for a sorted array with descending values
-            while (!found && first <= last)
-            {
-                mid = (first + last) / 2;
-
-                if (target < mynumbers[mid])
-                {
-                    first = mid + 1;
-                }
-
-                if (target > mynumbers[mid])
-                {
-                    last = mid - 1;
-                }
-
-                else
-                {
-                    // You need to stop here once found or it's an infinite loop once it finds it.
-                    found = true;
-                }
-            }
-            return found;
-        }
-
-        static int P5(string[] elements)
-        {
-            var expression = string.Join("", elements);
-            return (int)new DataTable().Compute(expression, "");
         }
     }
 }

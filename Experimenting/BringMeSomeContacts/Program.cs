@@ -14,19 +14,21 @@ namespace BringMeSomeContacts
     {
         static void Main(string[] args)
         {
-            var login = ConfigurationManager.AppSettings["login"];
-            var password = ConfigurationManager.AppSettings["password"];
+            Console.Write("Enter your login: ");
+            var login = Console.ReadLine();
+            Console.Write("Enter your password: ");
+            var password = Console.ReadLine();
             var count = 0;
             var driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://www.linkedin.com/mynetwork/");
             Thread.Sleep(2000);
             driver.Navigate().GoToUrl("https://www.linkedin.com/uas/login?session_redirect=%2Fvoyager%2FloginRedirect%2Ehtml&fromSignIn=true&trk=uno-reg-join-sign-in");
             Thread.Sleep(2000);
-            var loginInput = driver.FindElementById("session_key-login");
+            var loginInput = driver.FindElementById("username");
             loginInput.SendKeys(login);
-            var passInput = driver.FindElementById("session_password-login");
+            var passInput = driver.FindElementById("password");
             passInput.SendKeys(password);
-            var signInButton = driver.FindElementById("btn-primary");
+            var signInButton = driver.FindElementByXPath(".//button[@aria-label='Sign in']");
             signInButton.Click();
             Thread.Sleep(2000);
             driver.Navigate().GoToUrl("https://www.linkedin.com/mynetwork/");
