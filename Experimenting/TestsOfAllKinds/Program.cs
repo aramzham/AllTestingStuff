@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using TestsOfAllKinds.Models;
 
@@ -90,6 +92,9 @@ namespace TestsOfAllKinds
                 {
                     Console.WriteLine($"{gender.Id} - {gender.Code}, {gender.Description}");
                 }
+
+                var id = 1;
+                Console.WriteLine($"Person's name with id {id} is {GetPersonName(id)}");
             }
             catch (Exception e)
             {
@@ -98,6 +103,26 @@ namespace TestsOfAllKinds
 
             Console.WriteLine("Press any key to close");
             Console.ReadKey();
+        }
+
+        static string GetPersonName(int id)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["SuccinctlyDB"]?.ConnectionString;
+
+            string firstName = null;
+
+            using (var connection = new SqlConnection(connectionString))
+            using(var command = new SqlCommand("Select FirstName from Person where id = @Id", connection))
+            {
+                command.Parameters.Add("Id", SqlDbType.Int).Value = id;
+                connection.Open();
+
+                var result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                    firstName = result as string;
+            }
+
+            return firstName;
         }
     }
 }
