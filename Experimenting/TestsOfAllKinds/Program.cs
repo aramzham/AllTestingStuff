@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using TestsOfAllKinds.Models;
+using System.Linq;
 
 namespace TestsOfAllKinds
 {
@@ -18,111 +15,44 @@ namespace TestsOfAllKinds
     {
         static void Main(string[] args)
         {
-            try
-            {
-                var builder = new SqlConnectionStringBuilder();
-                builder.DataSource = @"Computer\SqlExpress";
-                builder.InitialCatalog = "SuccinctlyExamples";
-                builder.IntegratedSecurity = true;
+            /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+            var stringLength = int.Parse(Console.ReadLine());
+            var parameters = Console.ReadLine().Split();
+            var K = int.Parse(parameters[0]);
+            var L = int.Parse(parameters[1]);
+            var M = int.Parse(parameters[2]);
+            var stringItself = Console.ReadLine();
 
-                var people = new List<Person>();
-                var genders = new List<Gender>();
-                
-                using (var connection = new SqlConnection(builder.ConnectionString))
-                using(var command = new SqlCommand("Select Id, FirstName, LastName, DateOfBirth, GenderId from Person;" + "Select Id, Code, Description from Gender;", connection))
-                {
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var p = new Person();
+            var substringDict = GetSubstringOccurences(stringItself, K, L, M);
+            var mostFrequent = GetKeyWithMaxValue(substringDict);
 
-                            var idByIndex = reader[0];
-                            var idByIndexCast = Convert.ToInt32(idByIndex);
-
-                            var idByName = reader[nameof(Person.Id)];
-                            var idByNameCast = Convert.ToInt32(idByName);
-
-                            // if name of property and name of column in db don't match, the code will break
-                            var idIndex = reader.GetOrdinal(nameof(Person.Id));
-                            p.Id = reader.GetInt32(idIndex);
-
-                            var firstNameIndex = reader.GetOrdinal(nameof(Person.FirstName));
-                            p.FirstName = reader.GetString(firstNameIndex);
-
-                            var lastNameIndex = reader.GetOrdinal(nameof(Person.LastName));
-                            if (!reader.IsDBNull(lastNameIndex))
-                                p.LastName = reader.GetString(lastNameIndex);
-
-                            var dateOfBirthIndex = reader.GetOrdinal(nameof(Person.DateOfBirth));
-                            if (!reader.IsDBNull(dateOfBirthIndex))
-                                p.DateOfBirth = reader.GetDateTime(dateOfBirthIndex);
-
-                            var genderIndex = reader.GetOrdinal(nameof(Person.GenderId));
-                            if (!reader.IsDBNull(genderIndex))
-                                p.GenderId = reader.GetInt32(genderIndex);
-
-                            people.Add(p);
-                        }
-
-                        // for many results
-                        reader.NextResult();
-
-                        while (reader.Read())
-                        {
-                            var g = new Gender();
-                            g.Id = reader.GetInt32(0);
-                            g.Code = reader.GetString(1);
-                            g.Description = reader.GetString(2);
-
-                            genders.Add(g);
-                        }
-                    }
-                }
-
-                Console.WriteLine("Successfully opened and closed the database");
-
-                foreach (var person in people)
-                {
-                    Console.WriteLine($"{person.FirstName} {person.LastName} was born on {person.DateOfBirth}");
-                }
-
-                foreach (var gender in genders)
-                {
-                    Console.WriteLine($"{gender.Id} - {gender.Code}, {gender.Description}");
-                }
-
-                var id = 1;
-                Console.WriteLine($"Person's name with id {id} is {GetPersonName(id)}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            Console.WriteLine("Press any key to close");
-            Console.ReadKey();
+            Console.Write(mostFrequent);
         }
 
-        static string GetPersonName(int id)
+        private static string GetKeyWithMaxValue(Dictionary<string, int> dict)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["SuccinctlyDB"]?.ConnectionString;
+            return dict.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+        }
 
-            string firstName = null;
-
-            using (var connection = new SqlConnection(connectionString))
-            using(var command = new SqlCommand("Select FirstName from Person where id = @Id", connection))
+        private static Dictionary<string, int> GetSubstringOccurences(string text, int least, int most, int distCharCount)
+        {
+            var substringDict = new Dictionary<string, int>();
+            for (int i = 0; i < text.Length; i++)
             {
-                command.Parameters.Add("Id", SqlDbType.Int).Value = id;
-                connection.Open();
+                for (int j = least; j <= most && i + j < text.Length; j++)
+                {
+                    var substring = text.Substring(i, j);
+                    if (substring.Distinct().Count() > distCharCount)
+                        continue;
 
-                var result = command.ExecuteScalar();
-                if (result != DBNull.Value)
-                    firstName = result as string;
+                    if (!substringDict.ContainsKey(substring))
+                        substringDict[substring] = 1;
+                    else
+                        substringDict[substring]++;
+                }
             }
 
-            return firstName;
+            return substringDict;
         }
     }
 }
