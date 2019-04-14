@@ -15,7 +15,7 @@ namespace TestsOfAllKinds
     {
         static void Main(string[] args)
         {
-            var a = consecutive(21);
+            var a = consecutive(15);
 
             Console.ReadLine();
         }
@@ -36,7 +36,21 @@ namespace TestsOfAllKinds
         {
             var underSqrt = Math.Pow(first * 2 - 1, 2) + 8 * num;
             var sqrt = Math.Sqrt(underSqrt);
-            return Math.Abs((int) sqrt - sqrt) < double.Epsilon;
+            return Math.Abs(Math.Ceiling(sqrt) - Math.Floor(sqrt)) < double.Epsilon;
+        }
+
+        private static bool IsSquare(int n)
+        {
+            int i = 1;
+            while (true)
+            {
+                if (n < 0)
+                    return false;
+                if (n == 0)
+                    return true;
+                n -= i;
+                i += 2;
+            }
         }
 
         private static int GetShortestSubArray(List<int> sequence, int number, int degree)
