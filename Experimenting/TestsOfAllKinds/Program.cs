@@ -15,23 +15,52 @@ namespace TestsOfAllKinds
     {
         static void Main(string[] args)
         {
-            /* Enter your code here. Read input from STDIN. Print output to STDOUT */
-            var stringLength = int.Parse(Console.ReadLine());
-            var parameters = Console.ReadLine().Split();
-            var K = int.Parse(parameters[0]);
-            var L = int.Parse(parameters[1]);
-            var M = int.Parse(parameters[2]);
-            var stringItself = Console.ReadLine();
+            var a = consecutive(21);
 
-            var substringDict = GetSubstringOccurences(stringItself, K, L, M);
-            var mostFrequent = GetKeyWithMaxValue(substringDict);
-
-            Console.Write(mostFrequent);
+            Console.ReadLine();
         }
 
-        private static string GetKeyWithMaxValue(Dictionary<string, int> dict)
+        public static int consecutive(long num)
         {
-            return dict.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+            var count = 0;
+            for (int i = 1; i <= num / 2 + 1; i++)
+            {
+                if (HasProgression(i, num))
+                    count++;
+            }
+
+            return count;
+        }
+
+        private static bool HasProgression(int first, long num)
+        {
+            var underSqrt = Math.Pow(first * 2 - 1, 2) + 8 * num;
+            var sqrt = Math.Sqrt(underSqrt);
+            return Math.Abs((int) sqrt - sqrt) < double.Epsilon;
+        }
+
+        private static int GetShortestSubArray(List<int> sequence, int number, int degree)
+        {
+            var list = Enumerable.Range(0, sequence.Count).Where(i => sequence[i] == number).ToList();
+            return list[degree - 1] - list[0] + 1;
+        }
+
+        private static Dictionary<int, int> MostFrequentElements(IEnumerable<int> sequence)
+        {
+            var dict = new Dictionary<int, int>();
+            foreach (var i in sequence)
+            {
+                if (!dict.ContainsKey(i))
+                    dict[i] = 1;
+                else
+                    dict[i]++;
+            }
+
+            var max = dict.Values.Max();
+
+            return dict.Where(x => x.Value == max).ToDictionary(x => x.Key, y => y.Value);
+            //var orderedByCount = sequence.GroupBy(x => x).OrderByDescending(x => x.Count());
+            //return orderedByCount.Where(x => x.Count() == orderedByCount.First().Count()).Select(x=>x.Key).ToList();
         }
 
         private static Dictionary<string, int> GetSubstringOccurences(string text, int least, int most, int distCharCount)
