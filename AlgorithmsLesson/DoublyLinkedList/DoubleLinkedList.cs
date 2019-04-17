@@ -210,6 +210,8 @@ namespace DoublyLinkedList
                 listCurrent = listNext;
             }
             list.Head = listCurrent;
+
+            Count += list.Count;
         }
 
         public void PrintList()
