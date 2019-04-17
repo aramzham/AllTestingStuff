@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactorialCount", "FactorialCount\FactorialCount.csproj", "{869F790E-00C4-4655-A7E2-9DFC0C0F840A}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrayService", "ArrayService\ArrayService.csproj", "{ACDE83E0-AF2F-47F6-A445-40F8E1951445}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestApp", "ConsoleTestApp\ConsoleTestApp.csproj", "{64D85E15-510C-4E80-A32E-1E2FD0893A76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoublyLinkedList", "DoublyLinkedList\DoublyLinkedList.csproj", "{0FDA50C1-43E4-4F44-B9F6-9468DFD41670}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,8 +77,15 @@ Global
 		{64D85E15-510C-4E80-A32E-1E2FD0893A76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64D85E15-510C-4E80-A32E-1E2FD0893A76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64D85E15-510C-4E80-A32E-1E2FD0893A76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FDA50C1-43E4-4F44-B9F6-9468DFD41670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FDA50C1-43E4-4F44-B9F6-9468DFD41670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FDA50C1-43E4-4F44-B9F6-9468DFD41670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FDA50C1-43E4-4F44-B9F6-9468DFD41670}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7B3CEBD-0A70-4E28-A652-9D07959D0984}
 	EndGlobalSection
 EndGlobal
