@@ -16,5 +16,10 @@ namespace DoublyLinkedList
             Previous = null;
             Next = null;
         }
+
+        public override string ToString()
+        {
+            return this.Data.ToString();
+        }
     }
 }

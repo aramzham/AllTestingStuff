@@ -6,22 +6,7 @@ namespace DoublyLinkedList
 {
     public class DoubleLinkedList<T>
     {
-        private Node<T> _head;
-
-        public Node<T> Head { get => _head;
-            set
-            {
-                if (value is null)
-                    throw new Exception("cannot insert null to head");
-
-                if (Head.Next != null)
-                {
-                    Head.Next.Previous = value;
-                    value.Next = Head.Next;
-                }
-
-                value.Previous = null;
-            } }
+        public Node<T> Head { get; set; }
 
         public bool IsEmpty => Head is null;
 
@@ -49,9 +34,10 @@ namespace DoublyLinkedList
         {
             var insertedNode = new Node<T>(input);
 
-            if (Head is null)
+            if (IsEmpty)
             {
                 Head = insertedNode;
+                Count++;
                 return;
             }
 
@@ -64,9 +50,10 @@ namespace DoublyLinkedList
 
         public void InsertEnd(Node<T> node)
         {
-            if (Head is null)
+            if (IsEmpty)
             {
                 Head = node;
+                Count++;
                 return;
             }
 
@@ -135,7 +122,7 @@ namespace DoublyLinkedList
 
         public void RemoveNode(Node<T> n)
         {
-            if (Head is null)
+            if (IsEmpty)
                 return;
 
             var node = SearchNode(n);
@@ -143,8 +130,10 @@ namespace DoublyLinkedList
             if (node is null)
                 return;
 
-            if (node != Head)
+            if (node.Previous != null)
                 node.Previous.Next = node.Next;
+            else
+                Head = node.Next;
 
             if (node.Next != null)
                 node.Next.Previous = node.Previous;
@@ -152,34 +141,39 @@ namespace DoublyLinkedList
             Count--;
         }
 
-        public void SwapNodes(Node<T> b, Node<T> f)
+        public void SwapNodes(Node<T> first, Node<T> second)
         {
-            var a = b.Previous;
-            var c = b.Next;
-            var e = f.Previous;
-            var g = f.Next;
+            var firstPrevious = first.Previous;
+            var firstNext = first.Next;
+            var secondPrevious = second.Previous;
+            var secondNext = second.Next;
 
+            first.Previous = secondPrevious;
+            second.Previous = firstPrevious;
 
-            if (Head == b)
-                Head = f;
-            else if (Head == f)
-                Head = b;
+            first.Next = secondNext;
+            second.Next = firstNext;
+                       
+            //if (Head == b)
+            //    Head = f;
+            //else if (Head == f)
+            //    Head = b;
 
-            if (a != null)
-                a.Next = f;
+            //if (a != null)
+            //    a.Next = f;
 
-            f.Previous = a;
-            f.Next = c;
-            if (c != null)
-                c.Previous = f;
+            //f.Previous = a;
+            //f.Next = c;
+            //if (c != null)
+            //    c.Previous = f;
 
-            if (e != null)
-                e.Next = b;
+            //if (e != null)
+            //    e.Next = b;
 
-            b.Previous = e;
-            b.Next = g;
-            if (g != null)
-                g.Previous = b;
+            //b.Previous = e;
+            //b.Next = g;
+            //if (g != null)
+            //    g.Previous = b;
 
             //var last = GetLastNode();
 
@@ -194,24 +188,9 @@ namespace DoublyLinkedList
             if (list is null || list.Count == 0)
                 return;
 
-            Node<T> p_curr = _head, listCurrent = list.Head;
-            Node<T> p_next, listNext;
+            InsertEnd(list.Head);
 
-            // While there are available positions in p;  
-            while (p_curr != null && listCurrent != null)
-            {
-                p_next = p_curr.Next;
-                listNext = listCurrent.Next;
-
-                listCurrent.Next = p_next;
-                p_curr.Next = listCurrent;
-
-                p_curr = p_next;
-                listCurrent = listNext;
-            }
-            list.Head = listCurrent;
-
-            Count += list.Count;
+            Count += list.Count - 1;
         }
 
         public void PrintList()
