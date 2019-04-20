@@ -6,28 +6,37 @@ namespace DoublyLinkedList
     {
         static void Main(string[] args)
         {
-            var list = new DoubleLinkedList<string>();
-            list.InsertBeginning("Aram");
-            list.InsertEnd("Vanik");
-            list.InsertBeginning("First");
-            list.InsertEnd("Last");
-            list.InsertAfter(list.Head, "after_head");
+            var helper = new Helper();
+            var list = new DoubleLinkedList<int>();
+            list.InsertBeginning(helper.GenerateRandomInt());
+            list.InsertEnd(helper.GenerateRandomInt());
+            list.InsertBeginning(helper.GenerateRandomInt());
+            list.InsertEnd(helper.GenerateRandomInt());
+            list.InsertAfter(list.Head, helper.GenerateRandomInt());
 
             var head = list.FindNode(list.Head);
-            var notExists = list.FindNode(new Node<string>(""));
+            Console.WriteLine($"head = {head}");
 
-            var removed_from_beginning = list.RemoveBeginning();
+            var notExists = list.FindNode(new Node<int>(int.MinValue));
+            Console.WriteLine($"Is exist = {notExists}");
+
+            var removedFromBeginning = list.RemoveBeginning();
+            Console.WriteLine($"removed from beginning {removedFromBeginning.Data}");
+
             list.RemoveNode(list.Head);
             list.PrintList();
 
-            var otherList = new DoubleLinkedList<string>();
-            otherList.InsertEnd("otherHead");
-            otherList.InsertAfter(otherList.Head, "otherMiddle");
-            otherList.InsertEnd("otherEnd");
+            var otherList = new DoubleLinkedList<int>();
+            otherList.InsertEnd(helper.GenerateRandomInt());
+            otherList.InsertAfter(otherList.Head, helper.GenerateRandomInt());
+            otherList.InsertEnd(helper.GenerateRandomInt());
             list.AppendLists(otherList);
             list.PrintList();
 
             list.SwapNodes(list.Head, otherList.Head);
+            list.PrintList();
+            list.InsertionSort();
+            list.PrintList();
 
             Console.ReadKey();
         }

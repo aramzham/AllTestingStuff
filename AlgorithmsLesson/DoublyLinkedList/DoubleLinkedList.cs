@@ -4,19 +4,39 @@ using System.Text;
 
 namespace DoublyLinkedList
 {
-    public class DoubleLinkedList<T>
+    /// <summary>
+    /// Doubly linked list
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class DoubleLinkedList<T> where T : IComparable<T>
     {
+        /// <summary>
+        /// Head node
+        /// </summary>
         public Node<T> Head { get; set; }
 
+        /// <summary>
+        /// Property which returns if list is empty
+        /// </summary>
         public bool IsEmpty => Head is null;
 
+        /// <summary>
+        /// Count of list
+        /// </summary>
         public int Count { get; private set; } = 0;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public DoubleLinkedList()
         {
             Head = null;
         }
 
+        /// <summary>
+        /// Insert element in the beginning of the list
+        /// </summary>
+        /// <param name="input">input value</param>
         public void InsertBeginning(T input)
         {
             var insertedNode = new Node<T>(input);
@@ -30,6 +50,10 @@ namespace DoublyLinkedList
             Count++;
         }
 
+        /// <summary>
+        /// Insert element in the end of the list
+        /// </summary>
+        /// <param name="input">input value</param>
         public void InsertEnd(T input)
         {
             var insertedNode = new Node<T>(input);
@@ -48,6 +72,10 @@ namespace DoublyLinkedList
             Count++;
         }
 
+        /// <summary>
+        /// Insert element in the beginning of the list
+        /// </summary>
+        /// <param name="input">node to add</param>
         public void InsertEnd(Node<T> node)
         {
             if (IsEmpty)
@@ -64,6 +92,11 @@ namespace DoublyLinkedList
             Count++;
         }
 
+        /// <summary>
+        /// Insert element after a specified node
+        /// </summary>
+        /// <param name="node">node in the list</param>
+        /// <param name="value">value of the node to add</param>
         public void InsertAfter(Node<T> node, T value)
         {
             if (node is null)
@@ -80,7 +113,12 @@ namespace DoublyLinkedList
             Count++;
         }
 
-        private Node<T> SearchNode(Node<T> n) //Find a given node
+        /// <summary>
+        /// Search Node with node 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        private Node<T> SearchNode(Node<T> n)
         {
             var index = Head;
             while (index != null)
@@ -94,16 +132,29 @@ namespace DoublyLinkedList
             return index ?? null;
         }
 
+        /// <summary>
+        /// Tells if node exists in the list
+        /// </summary>
+        /// <param name="node">node to look for</param>
+        /// <returns>true if node exists, false otherwise</returns>
         public bool FindNode(Node<T> node)
         {
             return SearchNode(node) != null;
         }
 
+        /// <summary>
+        /// Get length of the list
+        /// </summary>
+        /// <returns>length of the list</returns>
         public int ListLength()
         {
             return Count;
         }
 
+        /// <summary>
+        /// Removes the head of the list
+        /// </summary>
+        /// <returns>the removed node</returns>
         public Node<T> RemoveBeginning()
         {
             var temp = Head;
@@ -120,6 +171,10 @@ namespace DoublyLinkedList
             return temp;
         }
 
+        /// <summary>
+        /// Removes the specified node
+        /// </summary>
+        /// <param name="n">node to remove</param>
         public void RemoveNode(Node<T> n)
         {
             if (IsEmpty)
@@ -141,48 +196,22 @@ namespace DoublyLinkedList
             Count--;
         }
 
+        /// <summary>
+        /// Swap two random nodes
+        /// </summary>
+        /// <param name="first">first node</param>
+        /// <param name="second">second node</param>
         public void SwapNodes(Node<T> first, Node<T> second)
         {
-            var firstPrevious = first.Previous;
-            var firstNext = first.Next;
-            var secondPrevious = second.Previous;
-            var secondNext = second.Next;
-
-            first.Previous = secondPrevious;
-            second.Previous = firstPrevious;
-
-            first.Next = secondNext;
-            second.Next = firstNext;
-                       
-            //if (Head == b)
-            //    Head = f;
-            //else if (Head == f)
-            //    Head = b;
-
-            //if (a != null)
-            //    a.Next = f;
-
-            //f.Previous = a;
-            //f.Next = c;
-            //if (c != null)
-            //    c.Previous = f;
-
-            //if (e != null)
-            //    e.Next = b;
-
-            //b.Previous = e;
-            //b.Next = g;
-            //if (g != null)
-            //    g.Previous = b;
-
-            //var last = GetLastNode();
-
-            //if (last == b)
-            //    last = f;
-            //else if (last == f)
-            //    last = b;
+            var temp = second.Data;
+            second.Data = first.Data;
+            first.Data = temp;
         }
 
+        /// <summary>
+        /// Appends another double linked list
+        /// </summary>
+        /// <param name="list">list to append</param>
         public void AppendLists(DoubleLinkedList<T> list)
         {
             if (list is null || list.Count == 0)
@@ -193,19 +222,24 @@ namespace DoublyLinkedList
             Count += list.Count - 1;
         }
 
+        /// <summary>
+        /// Print the list
+        /// </summary>
         public void PrintList()
         {
             Console.WriteLine(this);
         }
 
+        /// <summary>
+        /// ToString override
+        /// </summary>
+        /// <returns>string representation</returns>
         public override string ToString()
         {
-            if (Head is null)
-                return "[]";
-            else
+            var sb = new StringBuilder("[");
+            if (Head != null)
             {
                 var current = Head;
-                var sb = new StringBuilder("[");
 
                 while (current != null)
                 {
@@ -218,9 +252,29 @@ namespace DoublyLinkedList
                 }
 
                 sb = sb.Remove(sb.Length - 2, 2);
-                sb.Append("]");
+            }
 
-                return sb.ToString();
+            sb.Append("]");
+            return sb.ToString();
+        }
+
+        public void InsertionSort()
+        {
+            if (Count <= 1)
+                return;
+
+            for (var FirstUnsorted = Head.Next; FirstUnsorted != null; FirstUnsorted = FirstUnsorted.Next)
+            {
+                var tempData = FirstUnsorted.Data;
+                Node<T> Current;
+
+                for (Current = FirstUnsorted.Previous; Current != null && Current.Data.CompareTo(tempData) > 0; Current = Current.Previous)
+                    Current.Next.Data = Current.Data;
+
+                if (Current == null)
+                    Head.Data = tempData;
+                else
+                    Current.Next.Data = tempData;
             }
         }
 
