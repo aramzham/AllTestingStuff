@@ -35,7 +35,8 @@ namespace DoublyLinkedList
 
             list.SwapNodes(list.Head, otherList.Head);
             list.PrintList();
-            list.InsertionSort();
+            list.QuickSort();
+            //list.InsertionSort();
             list.PrintList();
 
             Console.ReadKey();

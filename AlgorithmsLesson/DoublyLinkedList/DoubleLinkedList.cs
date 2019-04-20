@@ -114,7 +114,7 @@ namespace DoublyLinkedList
         }
 
         /// <summary>
-        /// Search Node with node 
+        /// Search Node<T> with node 
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -258,25 +258,78 @@ namespace DoublyLinkedList
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Sort list by insertion sort
+        /// </summary>
         public void InsertionSort()
         {
             if (Count <= 1)
                 return;
 
-            for (var FirstUnsorted = Head.Next; FirstUnsorted != null; FirstUnsorted = FirstUnsorted.Next)
+            for (var firstUnsorted = Head.Next; firstUnsorted != null; firstUnsorted = firstUnsorted.Next)
             {
-                var tempData = FirstUnsorted.Data;
-                Node<T> Current;
+                var tempData = firstUnsorted.Data;
+                Node<T> current;
 
-                for (Current = FirstUnsorted.Previous; Current != null && Current.Data.CompareTo(tempData) > 0; Current = Current.Previous)
-                    Current.Next.Data = Current.Data;
+                for (current = firstUnsorted.Previous; current != null && current.Data.CompareTo(tempData) > 0; current = current.Previous)
+                    current.Next.Data = current.Data;
 
-                if (Current == null)
+                if (current == null)
                     Head.Data = tempData;
                 else
-                    Current.Next.Data = tempData;
+                    current.Next.Data = tempData;
             }
         }
+
+        #region QuickSort
+
+        private Node<T> Partition(Node<T> low, Node<T> high)
+        {
+            Node<T> i = null, pivot = high;
+            T temp;
+
+            for (var j = low; j != high; j = j.Next)
+            {
+                if (pivot.Data.CompareTo(j.Data) <= 0)
+                    continue;
+
+                i = i is null ? low : i.Next;
+                temp = i.Data;
+                i.Data = j.Data;
+                j.Data = temp;
+            }
+
+            i = i is null ? low : i.Next;
+            temp = i.Data;
+            i.Data = pivot.Data;
+            pivot.Data = temp;
+            return i;
+        }
+
+        private void QuickSort(Node<T> low, Node<T> high)
+        {
+            while (true)
+            {
+                if (high is null || low == high || low == high.Next)
+                    return;
+
+                var pivot = Partition(low, high);
+                QuickSort(low, pivot.Previous);
+                low = pivot.Next;
+            }
+        }
+
+        /// <summary>
+        /// Sort list by quick sort
+        /// </summary>
+        public void QuickSort()
+        {
+            var first = Head;
+            var last = GetLastNode();
+            QuickSort(first, last);
+        }
+
+        #endregion
 
         private Node<T> GetLastNode()
         {
