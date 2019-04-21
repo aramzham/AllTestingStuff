@@ -11,14 +11,19 @@ namespace ConsoleTestApp
             do
             {
                 var a = ArrayHelper.CreateArray();
+                InsertionSort(a);
                 ArrayHelper.ShowArray(a);
 
-                MergeSort(a, 0, a.Length - 1);
-                ArrayHelper.ShowArray(a);
+                var b = ArrayHelper.CreateArray();
+                BinarySort(b);
+                ArrayHelper.ShowArray(b);
 
-                int x = 100, y = 200;
-                ArrayHelper.Swap(ref x, ref y);
-                Console.WriteLine($"x = {x}, y = {y}");
+                var mergeSortedArrays = ArrayHelper.MergeSortedArrays(a, b);
+                ArrayHelper.ShowArray(mergeSortedArrays);
+
+                //int x = 100, y = 200;
+                //ArrayHelper.Swap(ref x, ref y);
+                //Console.WriteLine($"x = {x}, y = {y}");
 
             } while (Console.ReadKey().Key == ConsoleKey.RightArrow);
         }

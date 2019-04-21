@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DoublyLinkedList
+namespace DLinkedList
 {
     class Program
     {
@@ -21,20 +21,54 @@ namespace DoublyLinkedList
             Console.WriteLine($"Is exist = {notExists}");
 
             var removedFromBeginning = list.RemoveBeginning();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"removed from beginning {removedFromBeginning.Data}");
+            Console.ForegroundColor = ConsoleColor.Gray;
 
             list.RemoveNode(list.Head);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("After removing list head it became");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
             list.PrintList();
 
             var otherList = new DoubleLinkedList<int>();
             otherList.InsertEnd(helper.GenerateRandomInt());
             otherList.InsertAfter(otherList.Head, helper.GenerateRandomInt());
             otherList.InsertEnd(helper.GenerateRandomInt());
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Created another list");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            otherList.PrintList();
+
             list.AppendLists(otherList);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("After merging two lists we have");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
             list.PrintList();
 
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Swapping {list.Head} with {otherList.Head}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
             list.SwapNodes(list.Head, otherList.Head);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("After swapping we have");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
             list.PrintList();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Sorting the list");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            // choose one of sorting methods
             list.QuickSort();
             //list.InsertionSort();
             list.PrintList();

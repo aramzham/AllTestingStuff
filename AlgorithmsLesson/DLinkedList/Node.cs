@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DoublyLinkedList
+﻿namespace DLinkedList
 {
     /// <summary>
     /// Node class
