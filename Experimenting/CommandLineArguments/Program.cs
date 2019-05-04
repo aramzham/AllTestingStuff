@@ -26,7 +26,7 @@ namespace CommandLineArguments
         static void Main()
         {
             //I've added some arguments in Project->Properties->Debug->Start options->Command line arguments
-            Console.Title = "Envirnoment and Console classes test";
+            Console.Title = "Environment and Console classes test";
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             //Console.BufferHeight = 100; //sets console height  //Default window size should be 80x25. Default buffer size is 80x300.
@@ -59,7 +59,7 @@ namespace CommandLineArguments
             Console.WriteLine($"Is OS 64-bit?: {Environment.Is64BitOperatingSystem}");
             Console.WriteLine($"Machine name: {Environment.MachineName}");
             Console.WriteLine($"New line symbol: {Environment.NewLine}");
-            Console.WriteLine($"System dirctory: {Environment.SystemDirectory}");
+            Console.WriteLine($"System directory: {Environment.SystemDirectory}");
             Console.WriteLine($"User name: {Environment.UserName}");
         }
     }
