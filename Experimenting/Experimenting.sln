@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BringMeSomeContacts", "Brin
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonTestApplication1", "PythonTestApplication1\PythonTestApplication1.pyproj", "{DE4E6A29-21FD-42D2-B605-E583F0D4B1B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegaBotConsole", "..\..\TelegaBotConsole\TelegaBotConsole\TelegaBotConsole.csproj", "{A98CAE81-A260-41EA-8F4F-2D182BD65642}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegaBotConsole", "TelegaBotConsole\TelegaBotConsole.csproj", "{A98CAE81-A260-41EA-8F4F-2D182BD65642}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
