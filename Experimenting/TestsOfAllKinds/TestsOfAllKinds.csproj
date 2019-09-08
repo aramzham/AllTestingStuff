@@ -57,11 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cloning.cs" />
-    <Compile Include="GoodwinFootballParser.cs" />
     <Compile Include="Models.cs" />
-    <Compile Include="Models\Gender.cs" />
-    <Compile Include="Models\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
