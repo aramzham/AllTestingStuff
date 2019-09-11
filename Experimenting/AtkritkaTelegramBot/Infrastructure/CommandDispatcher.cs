@@ -24,7 +24,6 @@ namespace AtkritkaTelegramBot.Infrastructure
             switch (message.Text)
             {
                 case "/send_atkritka": return new SendAtrkitkaHandler(_botClient, _sentInChats);
-                case "/joke_of_the_day": return new JokeOfTheDayHandler(_botClient, _sentInChats);
                 default: return new BaseCommandHandler(_botClient, _sentInChats);
             }
         }

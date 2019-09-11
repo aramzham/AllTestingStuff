@@ -14,6 +14,7 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
     {
         protected static Tuple<DateTime, SquadModel> _squad = Tuple.Create(DateTime.Now, default(SquadModel));
 
+        private const string TEAM_NAME = "Roma";
         private const string _livescoreUrl = "http://www.livescores.com";
         private string _stickerUrl = "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp";
 
@@ -85,26 +86,24 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
                     if (rowGrays == null)
                         return null;
 
-                    var arsenalA = default(HtmlNode);
+                    var mainTeamA = default(HtmlNode);
                     foreach (var rowGray in rowGrays)
                     {
                         var home = rowGray.SelectSingleNode(".//div[@class='ply tright name']")?.InnerText.Trim();
                         var away = rowGray.SelectSingleNode(".//div[@class='ply name']")?.InnerText.Trim();
 
-                        if (home == "Arsenal" || away == "Arsenal")
+                        if (home == TEAM_NAME || away == TEAM_NAME)
                         {
-                            isHome = home == "Arsenal";
-                            arsenalA = rowGray.SelectSingleNode(".//div[@class='sco']/a");
+                            isHome = home == TEAM_NAME;
+                            mainTeamA = rowGray.SelectSingleNode(".//div[@class='sco']/a");
                             break;
                         }
                     }
 
-                    if (arsenalA == null)
+                    if (mainTeamA == null)
                         return null;
 
-                    var matchResult =
-                        await httpClient.GetStringAsync(
-                            $"{_livescoreUrl}{arsenalA.GetAttributeValue("href", string.Empty)}");
+                    var matchResult = await httpClient.GetStringAsync($"{_livescoreUrl}{mainTeamA.GetAttributeValue("href", string.Empty)}");
                     doc.LoadHtml(matchResult);
                     var substitutions = doc.DocumentNode.SelectSingleNode(".//div[@data-id='substitutions']");
                     var rows = substitutions.SelectNodes(".//div[starts-with(@class,'row')]");
