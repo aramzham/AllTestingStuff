@@ -18,10 +18,10 @@ namespace TestsOfAllKinds
     {
         static void Main(string[] args)
         {
-
+            var a = "";
             Console.ReadLine();
         }
-        
+
         private static bool IsSquare(int n)
         {
             int i = 1;

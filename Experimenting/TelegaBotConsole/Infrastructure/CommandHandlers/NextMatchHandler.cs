@@ -36,7 +36,7 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
                     {
                         var result = await httpClient.GetStringAsync(_isLive ? _liveMatchUrl : _nearestMatchUrl);
                         nearestMatchObj = JsonConvert.DeserializeObject<NextMatchRootObject>(result);
-                        if (!nearestMatchObj.data.Any() && _isLive)
+                        if (!nearestMatchObj.data.Any() && _isLive && nearestMatchObj.data[0].status != "in-progress")
                         {
                             _isLive = false;
                             continue;
@@ -45,6 +45,8 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
                     }
 
                     var nearestMatch = nearestMatchObj.data.FirstOrDefault(x => x.status == (_isLive ? "in-progress" : "not-started"));
+                    if (nearestMatch is null)
+                        throw new Exception("There is no match for the moment, try again later.");
                     var competitionName = nearestMatch.competition.name;
                     var venueText = _isLive ? nearestMatch.venue.name : $"{nearestMatch.venue.name}, {nearestMatch.venue.city}";
                     var homeTeamName = nearestMatch.teams.home.name;
