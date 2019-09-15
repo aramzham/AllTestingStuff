@@ -15,6 +15,7 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
         protected static Tuple<DateTime, SquadModel> _squad = Tuple.Create(DateTime.Now, default(SquadModel));
 
         private const string TEAM_NAME = "Roma";
+        private const string HERO_OF_VILLAGE_NAME = "Henrikh Mkhitaryan";
         private const string _livescoreUrl = "http://www.livescores.com";
         private string _stickerUrl = "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp";
 
@@ -120,6 +121,8 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
                         var col5s = row.SelectNodes(".//div[@class='col-5 ']") ??
                                     row.SelectNodes(".//div[@class='col-5 off']");
                         var playerName = isHome ? col5s[0].InnerText.Trim() : col5s[1].InnerText.Trim();
+                        //if (playerName == HERO_OF_VILLAGE_NAME)
+                        //    playerName = $"<font color=\"red\">{playerName}</font>";
                         if (row.SelectNodes(".//div[@class='col-5 ']") != null)
                             players.Add(playerName);
                         else
