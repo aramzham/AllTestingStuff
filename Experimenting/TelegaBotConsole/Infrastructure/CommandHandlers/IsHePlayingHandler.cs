@@ -11,16 +11,16 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
         {
             var text = "Ինչ Մխիթարյան, որ squad info չկա?";
 
-            if (_squad?.Item2?.StartingEleven is null)
+            if (MatchInfo.Squad?.StartingEleven is null)
             {
                 var players = await base.GetSquad();
-                if(players != null)
-                    _squad = Tuple.Create(DateTime.Now, players);
+                if (players != null)
+                    MatchInfo.Squad = players;
             }
 
-            if (_squad?.Item2?.StartingEleven != null)
+            if (MatchInfo.Squad?.StartingEleven != null)
             {
-                if (_squad.Item2.StartingEleven.Any(x => x.Contains("Mkhitaryan")))
+                if (MatchInfo.Squad.StartingEleven.Any(x => x.Contains("Mkhitaryan")))
                 {
                     await _bot.SendStickerAsync(
                         chatId: message.Chat,
@@ -28,7 +28,7 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
                     );
                     text = "Կարային չխաղացնեին?! :D";
                 }
-                else if (_squad.Item2.Subs != null && _squad.Item2.Subs.Any(x => x.Contains("Mkhitaryan")))
+                else if (MatchInfo.Squad.Subs != null && MatchInfo.Squad.Subs.Any(x => x.Contains("Mkhitaryan")))
                 {
                     Message msg1 = await _bot.SendStickerAsync(
                         chatId: message.Chat,

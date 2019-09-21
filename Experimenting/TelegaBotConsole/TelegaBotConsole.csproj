@@ -58,6 +58,7 @@
     <Compile Include="Infrastructure\CommandHandlers\IsHePlayingHandler.cs" />
     <Compile Include="Infrastructure\CommandHandlers\NextMatchHandler.cs" />
     <Compile Include="Infrastructure\CommandHandlers\SquadHandler.cs" />
+    <Compile Include="Infrastructure\Models\MatchInfoModel.cs" />
     <Compile Include="Infrastructure\Models\NextMatchModels.cs" />
     <Compile Include="Infrastructure\Models\SquadModel.cs" />
     <Compile Include="Program.cs" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using TelegaBotConsole.Infrastructure.Models;
@@ -12,11 +13,9 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
 {
     public class SquadHandler : BaseCommandHandler
     {
-        protected static Tuple<DateTime, SquadModel> _squad = Tuple.Create(DateTime.Now, default(SquadModel));
-
-        private const string TEAM_NAME = "Roma";
-        private const string HERO_OF_VILLAGE_NAME = "Henrikh Mkhitaryan";
-        private const string _livescoreUrl = "http://www.livescores.com";
+        private const string _flashScoreUrl = "https://d.flashscore.com/x/feed/f_1_0_4_en_1";
+        private const string LineupLink = "https://d.flashscore.com/x/feed/d_li_{urlKey}_en_1";
+        private const string TEAM_NAME = "AS Roma";
         private string _stickerUrl = "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-fred.webp";
 
         public override async Task HandleCommand(Message message)
@@ -27,7 +26,7 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
 
                 if (squad != null)
                 {
-                    _squad = Tuple.Create(DateTime.Now, squad);
+                    MatchInfo.Squad = squad;
 
                     await _bot.SendTextMessageAsync(
                         chatId: message.Chat,
@@ -57,90 +56,144 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
 
         protected async Task<SquadModel> GetSquad()
         {
-            if (!(_squad?.Item2?.StartingEleven is null) && DateTime.Now - _squad.Item1 <= TimeSpan.FromMinutes(15))
-                return _squad.Item2;
+            if (DateTime.UtcNow - MatchInfo.StartTime > TimeSpan.FromHours(1))
+            {
+                MatchInfo.Squad = null;
+                return null;
+            }
+
+            if (MatchInfo.Squad?.StartingEleven != null)
+                return MatchInfo.Squad;
 
             try
             {
-                var squad = new SquadModel();
+                var urlKey = GetUrlKey(TEAM_NAME, out var isHome);
+                if (urlKey is null)
+                    return null;
 
-                using (var httpClient = new HttpClient())
-                {
-                    httpClient.DefaultRequestHeaders.Add("accept",
-                        "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3");
-                    httpClient.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
-                    httpClient.DefaultRequestHeaders.Add("cache-control", "max-age=0");
-                    httpClient.DefaultRequestHeaders.Add("connection", "keep-alive");
-                    httpClient.DefaultRequestHeaders.Add("DNT", "1");
-                    httpClient.DefaultRequestHeaders.Add("Host", "www.livescores.com");
-                    httpClient.DefaultRequestHeaders.Add("Referer", "http://www.livescores.com/");
-                    httpClient.DefaultRequestHeaders.Add("Upgrade-Insecure-Requests", "1");
-                    httpClient.DefaultRequestHeaders.Add("User-Agent",
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36");
+                var lineupHtml = SendGetRequest(LineupLink.Replace("{urlKey}", urlKey));
+                var squad = CreateSquadFromHtml(lineupHtml, isHome);
 
-                    var result = await httpClient.GetStringAsync(_livescoreUrl);
-                    var doc = new HtmlDocument();
-                    doc.LoadHtml(result);
-
-                    var isHome = true;
-                    var rowGrays = doc.DocumentNode.SelectNodes(".//div[starts-with(@class,'row-gray')]");
-                    if (rowGrays == null)
-                        return null;
-
-                    var mainTeamA = default(HtmlNode);
-                    foreach (var rowGray in rowGrays)
-                    {
-                        var home = rowGray.SelectSingleNode(".//div[@class='ply tright name']")?.InnerText.Trim();
-                        var away = rowGray.SelectSingleNode(".//div[@class='ply name']")?.InnerText.Trim();
-
-                        if (home == TEAM_NAME || away == TEAM_NAME)
-                        {
-                            isHome = home == TEAM_NAME;
-                            mainTeamA = rowGray.SelectSingleNode(".//div[@class='sco']/a");
-                            break;
-                        }
-                    }
-
-                    if (mainTeamA == null)
-                        return null;
-
-                    var matchResult = await httpClient.GetStringAsync($"{_livescoreUrl}{mainTeamA.GetAttributeValue("href", string.Empty)}");
-                    doc.LoadHtml(matchResult);
-                    var substitutions = doc.DocumentNode.SelectSingleNode(".//div[@data-id='substitutions']");
-                    var rows = substitutions.SelectNodes(".//div[starts-with(@class,'row')]");
-                    var players = new List<string>();
-                    var substitutes = new List<string>();
-                    foreach (var row in rows)
-                    {
-                        if (row.SelectNodes(".//div[@class='col-5 ']") is null &&
-                            row.SelectNodes(".//div[@class='col-5 off']") is null)
-                            continue;
-                        if (row.InnerText.Contains("coach :"))
-                            break;
-
-                        var col5s = row.SelectNodes(".//div[@class='col-5 ']") ??
-                                    row.SelectNodes(".//div[@class='col-5 off']");
-                        var playerName = isHome ? col5s[0].InnerText.Trim() : col5s[1].InnerText.Trim();
-                        //if (playerName == HERO_OF_VILLAGE_NAME)
-                        //    playerName = $"<font color=\"red\">{playerName}</font>";
-                        if (row.SelectNodes(".//div[@class='col-5 ']") != null)
-                            players.Add(playerName);
-                        else
-                            substitutes.Add(playerName);
-                    }
-
-                    squad.StartingEleven = players;
-
-                    if (substitutes.Any())
-                        squad.Subs = substitutes;
-
-                    return squad;
-                }
+                return squad;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 return null;
+            }
+        }
+
+        private SquadModel CreateSquadFromHtml(string lineupHtml, bool isHome)
+        {
+            var squad = new SquadModel();
+            var doc = new HtmlDocument();
+            doc.LoadHtml(lineupHtml);
+
+            // Starting Lineups and Substitutes
+            var partsTrs = doc.DocumentNode.SelectNodes(".//div[@class='lineups-wrapper']/table[@class='parts']//tr");
+
+            var toStart = true;
+            foreach (var tr in partsTrs)
+            {
+                var tds = tr.SelectNodes("./td");
+
+                if (tds is null || (tds.Count != 1 && tds.Count != 2))
+                    continue;
+
+                if (tds.Count == 1)
+                {
+                    switch (tds[0].InnerText)
+                    {
+                        case "Starting Lineups":
+                            toStart = true;
+                            break;
+                        case "Substitutes":
+                            toStart = false;
+                            break;
+                    }
+                }
+                else
+                {
+                    var td = tds.FirstOrDefault(x =>
+                        x.Attributes["class"].Value.EndsWith($"f{(isHome ? "l" : "r")}"));
+
+                    if (string.IsNullOrWhiteSpace(System.Net.WebUtility.HtmlDecode(td.InnerText)))
+                        continue;
+
+                    // number
+                    var number = -1;
+                    var timeBox = td.SelectSingleNode("./div[@class='time-box']");
+                    if (timeBox != null && int.TryParse(timeBox.InnerText, out var parseResult))
+                        number = parseResult;
+
+                    // name and urlKey
+                    var nameDiv = td.SelectSingleNode("./div[@class='name']");
+                    if (nameDiv != null)
+                    {
+                        var playerName = number == -1 ? nameDiv.InnerText : $"{number}. {nameDiv.InnerText}";
+
+                        if (toStart)
+                        {
+                            if (squad.StartingEleven is null)
+                                squad.StartingEleven = new List<string>();
+
+                            squad.StartingEleven.Add(playerName);
+                        }
+                        else
+                        {
+                            if (squad.Subs is null)
+                                squad.Subs = new List<string>();
+
+                            squad.Subs.Add(playerName);
+                        }
+                    }
+                }
+            }
+
+            return squad;
+        }
+
+        private string GetUrlKey(string teamName, out bool isHome)
+        {
+            isHome = false;
+            var result = SendGetRequest(_flashScoreUrl);
+            var comps = result.Split(new[] { "ZA÷" }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var comp in comps)
+            {
+                var m = comp.Split(new[] { "~AA" }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var mDetail in m)
+                {
+                    var md = mDetail.Split('¬');
+                    if (md.Length == 0 || !md[0].StartsWith("÷"))
+                        continue;
+
+                    var element = md.FirstOrDefault(x =>
+                        (x.StartsWith("CX÷") || x.StartsWith("AF÷")) && x.EndsWith(teamName));
+                    if (element is null)
+                        continue;
+
+                    isHome = element.StartsWith("CX");
+
+                    return md[0].Replace("÷", string.Empty);
+                }
+            }
+
+            return default(string);
+        }
+
+        private string SendGetRequest(string uri)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Add("User-Agent",
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36");
+                httpClient.DefaultRequestHeaders.Add("X-Fsign", "SW9D1eZo");
+                httpClient.DefaultRequestHeaders.Add("Referer", "https://d.flashscore.com/x/feed/proxy-local");
+                httpClient.DefaultRequestHeaders.Add("Sec-Fetch-Mode", "cors");
+                httpClient.DefaultRequestHeaders.Add("X-GeoIP", "1");
+                httpClient.DefaultRequestHeaders.Add("X-Requested-With", "XMLHttpRequest");
+
+                return httpClient.GetStringAsync(uri).GetAwaiter().GetResult();
             }
         }
 
@@ -151,5 +204,6 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
                 sticker: _stickerUrl
             );
         }
+
     }
 }

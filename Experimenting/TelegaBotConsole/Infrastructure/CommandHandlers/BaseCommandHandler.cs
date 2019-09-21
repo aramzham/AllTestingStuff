@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using TelegaBotConsole.Infrastructure.Models;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
@@ -6,6 +7,7 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
 {
     public class BaseCommandHandler : ICommandHandler
     {
+        protected static MatchInfoModel MatchInfo = new MatchInfoModel();
         protected ITelegramBotClient _bot;
 
         public BaseCommandHandler()

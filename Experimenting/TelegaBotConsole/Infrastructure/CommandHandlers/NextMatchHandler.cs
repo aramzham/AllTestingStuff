@@ -15,10 +15,7 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
         private const string _teamUrl = "https://www.asroma.com";
         private const string _nearestMatchUrl = "https://www.asroma.com/api/s3?q=nearest-matches-en.json";
         private const string _liveMatchUrl = "https://www.asroma.com/api/s3/live?q=live-matches.json&t={timestamp}";
-
-        private static DateTime _nextMatchStartTime = new DateTime(1970, 1, 1);
-        private static bool _isLive = true;
-
+        
         public override async Task HandleCommand(Message message)
         {
             try
@@ -34,33 +31,33 @@ namespace TelegaBotConsole.Infrastructure.CommandHandlers
                     NextMatchRootObject nearestMatchObj = null;
                     while (true)
                     {
-                        var result = await httpClient.GetStringAsync(_isLive ? _liveMatchUrl : _nearestMatchUrl);
+                        var result = await httpClient.GetStringAsync(MatchInfo.IsLive ? _liveMatchUrl : _nearestMatchUrl);
                         nearestMatchObj = JsonConvert.DeserializeObject<NextMatchRootObject>(result);
-                        if (!nearestMatchObj.data.Any() && _isLive && nearestMatchObj.data[0].status != "in-progress")
+                        if (!nearestMatchObj.data.Any() && MatchInfo.IsLive && nearestMatchObj.data[0].status != "in-progress")
                         {
-                            _isLive = false;
+                            MatchInfo.IsLive = false;
                             continue;
                         }
                         break;
                     }
 
-                    var nearestMatch = nearestMatchObj.data.FirstOrDefault(x => x.status == (_isLive ? "in-progress" : "not-started"));
+                    var nearestMatch = nearestMatchObj.data.FirstOrDefault(x => x.status == (MatchInfo.IsLive ? "in-progress" : "not-started"));
                     if (nearestMatch is null)
                         throw new Exception("There is no match for the moment, try again later.");
                     var competitionName = nearestMatch.competition.name;
-                    var venueText = _isLive ? nearestMatch.venue.name : $"{nearestMatch.venue.name}, {nearestMatch.venue.city}";
+                    var venueText = MatchInfo.IsLive ? nearestMatch.venue.name : $"{nearestMatch.venue.name}, {nearestMatch.venue.city}";
                     var homeTeamName = nearestMatch.teams.home.name;
                     var awayTeamName = nearestMatch.teams.away.name;
-                    _nextMatchStartTime = nearestMatch.startDate;
+                    MatchInfo.StartTime = nearestMatch.startDate;
                     var otherTeamCrestUrl = homeTeamName == "Roma" ? nearestMatch.teams.away.logo.id : nearestMatch.teams.home.logo.id;
-                    var officialLink = _isLive ? nearestMatch.link.url : nearestMatch.customCta[0].link.url;
+                    var officialLink = MatchInfo.IsLive ? nearestMatch.link.url : nearestMatch.customCta[0].link.url;
 
-                    var text = $"{competitionName} | {homeTeamName} vs {awayTeamName} | {_nextMatchStartTime} | {venueText}";
+                    var text = $"{competitionName} | {homeTeamName} vs {awayTeamName} | {MatchInfo.StartTime} | {venueText}";
 
                     Message mes = await _bot.SendPhotoAsync(
                         chatId: message.Chat,
                         photo: $"https://res.cloudinary.com/asroma2-production/image/upload/c_fit,dpr_2.0,f_auto,g_center,h_38,q_auto/v1/{otherTeamCrestUrl}",
-                        caption: $"<b>{text}</b>. <i>Source</i>: <a href=\"{(_isLive ? $"{_teamUrl}/en{officialLink}" : officialLink)}\">Official</a>",
+                        caption: $"<b>{text}</b>. <i>Source</i>: <a href=\"{(MatchInfo.IsLive ? $"{_teamUrl}/en{officialLink}" : officialLink)}\">Official</a>",
                         parseMode: ParseMode.Html
                     );
                 }
