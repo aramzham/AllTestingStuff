@@ -18,22 +18,13 @@ namespace TestsOfAllKinds
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Clone p1 and store new one in p2");
-            var p1 = new Point(1, 2, "Peto");
-            var p2 = (Point) p1.Clone();
+            var car = new Car();
+            car.RegisterHandler(Console.WriteLine);
 
-            Console.WriteLine("Before modifications...");
-            Console.WriteLine($"p1 = {p1}");
-            Console.WriteLine($"p2 = {p2}");
-
-            p2.Description.PetName = "Gayshut";
-            p2.X = 3;
-
-            Console.WriteLine("After modification");
-            Console.WriteLine($"p1 = {p1}");
-            Console.WriteLine($"p2 = {p2}");
-
-            Console.WriteLine("Հարց հանդիսատեսին. ինչի փոխվավ p1-ի անունը ու ինչի չփոխվավ X կոորդինատի արժեքը: Ժամանակ...");
+            Thread.Sleep(2000);
+            car.Accelerate(100);
+            Thread.Sleep(2000);
+            car.Accelerate(50);
 
             Console.ReadLine();
         }
@@ -53,41 +44,23 @@ namespace TestsOfAllKinds
         }
     }
 
-    class Point : ICloneable
+    public class Car
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public PointDescription Description { get; set; } = new PointDescription();
+        public delegate void AccelerateHandler(string message);
+        public int Speed { get; set; }
 
-        public Point(int x, int y, string petName)
+        private AccelerateHandler _accelarateHandler;
+
+        public void Accelerate(int speed)
         {
-            X = x;
-            Y = y;
-            Description.PetName = petName;
+            Speed += speed;
+            if (_accelarateHandler != null)
+                _accelarateHandler.Invoke($"Tjjcnum enq {Speed}-i tak!!!");
         }
 
-        public Point(int x, int y)
+        public void RegisterHandler(AccelerateHandler handler)
         {
-            X = x; Y = y;
-        }
-
-        public override string ToString() => $"X = {X}; Y = {Y}; Name = {Description.PetName}; Id = {Description.PointId}";
-
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
-    }
-
-    internal class PointDescription
-    {
-        public string PetName { get; set; }
-        public Guid PointId { get; set; }
-
-        public PointDescription()
-        {
-            PetName = "No-name";
-            PointId = Guid.NewGuid();
+            _accelarateHandler = handler;
         }
     }
 }
