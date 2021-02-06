@@ -62,11 +62,7 @@ namespace GetNumberWithoutConvertOrParse
             //return !ar1.Where((x, i) => x != ar2[i]).Any();
             if (ar1.Length == ar2.Length)
             {
-                for (int i = 0; i < ar1.Length; i++)
-                {
-                    if (ar1[i] != ar2[i]) return false;
-                    if (i == ar1.Length - 1) return true;
-                }
+                return !ar1.Where((item, index) => item != ar2[index]).Any();
             }
             return false;
         }
