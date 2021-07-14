@@ -18,13 +18,13 @@ namespace TestsOfAllKinds
     {
         static void Main(string[] args)
         {
-            var car = new Car();
-            car.RegisterHandler(Console.WriteLine);
+            //var car = new Car();
+            //car.RegisterHandler(Console.WriteLine);
 
-            Thread.Sleep(2000);
-            car.Accelerate(100);
-            Thread.Sleep(2000);
-            car.Accelerate(50);
+            //Thread.Sleep(2000);
+            //car.Accelerate(100);
+            //Thread.Sleep(2000);
+            //car.Accelerate(50);
 
             Console.ReadLine();
         }
