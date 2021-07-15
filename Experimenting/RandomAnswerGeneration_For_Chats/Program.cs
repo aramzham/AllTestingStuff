@@ -41,10 +41,27 @@ namespace RandomAnswerGeneration_For_Chats
             if (message is not { Type: MessageType.Text })
                 return;
 
-            await _botClient.SendTextMessageAsync(
-                chatId: message.Chat,
-                text: Resources.GetRandomMessage()
-            );
+            switch (e.Message.Text)
+            {
+                case "/a_random_answer":
+                    await _botClient.SendTextMessageAsync(
+                        chatId: message.Chat,
+                        text: Resources.GetRandomMessage()
+                    );
+                    break;
+                case "/a_random_profession":
+                    await _botClient.SendTextMessageAsync(
+                        chatId: message.Chat,
+                        text: Resources.GetRandomProfession()
+                    );
+                    break;
+                default:
+                    await _botClient.SendTextMessageAsync(
+                        chatId: message.Chat,
+                        text: "why are you running?"
+                    ); 
+                    break;
+            }
         }
     }
 }
