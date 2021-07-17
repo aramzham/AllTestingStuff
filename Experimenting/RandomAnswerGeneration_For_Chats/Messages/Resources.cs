@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MersenneTwister;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using MersenneTwister;
 
 namespace RandomAnswerGeneration_For_Chats.Messages
 {
@@ -20,7 +20,9 @@ namespace RandomAnswerGeneration_For_Chats.Messages
 
         private static Dictionary<string, string[]> Messages = new()
         {
-            {"интрига", new []
+            {
+                "интрига",
+                new[]
             {
                 "я кое-что в тебе заметил",
                 "опять этот взгляд",
@@ -35,8 +37,11 @@ namespace RandomAnswerGeneration_For_Chats.Messages
                 "это правда?",
                 "сыграем в игру",
                 "ты известная в узких кругах"
-            }},
-            {"испуг", new []
+            }
+            },
+            {
+                "испуг",
+                new[]
             {
                 "тебе пиздец",
                 "сдай анализы",
@@ -56,9 +61,11 @@ namespace RandomAnswerGeneration_For_Chats.Messages
                 "ты ходишь по ахуенно тонкому льду",
                 "ты на счетчике",
                 "ее убили, ты следующая"
-            }},
+            }
+            },
             {
-                "чувство вины", new []
+                "чувство вины",
+                new[]
                 {
                     "как тебе не стыдно",
                     "не думал, что ты такая",
@@ -79,7 +86,8 @@ namespace RandomAnswerGeneration_For_Chats.Messages
                 }
             },
             {
-                "похвалить", new []
+                "похвалить",
+                new[]
                 {
                     "хорошая девочка",
                     "хорошо сосешь",
@@ -102,7 +110,8 @@ namespace RandomAnswerGeneration_For_Chats.Messages
                 }
             },
             {
-                "оттолкнуть", new []
+                "оттолкнуть",
+                new[]
                 {
                     "от тебя воняет",
                     "кто тебя терпит",
@@ -132,7 +141,8 @@ namespace RandomAnswerGeneration_For_Chats.Messages
                 }
             },
             {
-                "проиграть/простава", new []
+                "проиграть/простава",
+                new[]
                 {
                     "1:0",
                     "с меня пиво",
@@ -156,7 +166,8 @@ namespace RandomAnswerGeneration_For_Chats.Messages
                 }
             },
             {
-                "конкуренция", new []
+                "конкуренция",
+                new[]
                 {
                     "твои подруги ебутся, а ты нет",
                     "твоя сестра мне пишет",

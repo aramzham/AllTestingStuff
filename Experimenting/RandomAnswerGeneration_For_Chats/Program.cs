@@ -3,7 +3,6 @@ using RandomAnswerGeneration_For_Chats.Messages;
 using RandomAnswerGeneration_For_Chats.Models;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
@@ -51,15 +50,15 @@ namespace RandomAnswerGeneration_For_Chats
                     break;
                 case "/a_random_profession":
                     await _botClient.SendTextMessageAsync(
-                        chatId: message.Chat,
-                        text: Resources.GetRandomProfession()
-                    );
+                       chatId: message.Chat,
+                       text: Resources.GetRandomProfession()
+                   );
                     break;
                 default:
                     await _botClient.SendTextMessageAsync(
                         chatId: message.Chat,
                         text: "why are you running?"
-                    ); 
+                    );
                     break;
             }
         }

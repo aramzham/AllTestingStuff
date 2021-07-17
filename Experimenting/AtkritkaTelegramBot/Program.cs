@@ -1,11 +1,10 @@
-﻿using System;
+﻿using AtkritkaTelegramBot.Infrastructure;
+using AtkritkaTelegramBot.Infrastructure.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using AtkritkaTelegramBot.Infrastructure;
-using AtkritkaTelegramBot.Infrastructure.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 

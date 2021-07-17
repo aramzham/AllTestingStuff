@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Timers;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using System.IO;
 
 namespace AtkritkaTelegramBot.Infrastructure.CommandHandlers
 {
@@ -24,7 +22,7 @@ namespace AtkritkaTelegramBot.Infrastructure.CommandHandlers
                     _sentInChats[message.Chat.Id].Add(index);
                     break;
                 }
-                else if(!_sentInChats.ContainsKey(message.Chat.Id))
+                else if (!_sentInChats.ContainsKey(message.Chat.Id))
                 {
                     _sentInChats[message.Chat.Id] = new HashSet<int>() { index };
                     break;
