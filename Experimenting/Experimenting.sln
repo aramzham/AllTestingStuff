@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtkritkaTelegramBot", "Atkr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentEmailTestApp", "FluentEmailTestApp\FluentEmailTestApp.csproj", "{1342714C-F74B-4F13-B21B-B8699EE32C8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomAnswerGeneration_For_Chats", "RandomAnswerGeneration_For_Chats\RandomAnswerGeneration_For_Chats.csproj", "{1BA30E8B-6D88-42B9-884E-C59DDFCC303C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandomAnswerGeneration_For_Chats", "RandomAnswerGeneration_For_Chats\RandomAnswerGeneration_For_Chats.csproj", "{1BA30E8B-6D88-42B9-884E-C59DDFCC303C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjectionContainer", "DependencyInjectionContainer\DependencyInjectionContainer.csproj", "{6E6E9190-B952-4B67-A48C-90BD5E94AEB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,14 @@ Global
 		{1BA30E8B-6D88-42B9-884E-C59DDFCC303C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1BA30E8B-6D88-42B9-884E-C59DDFCC303C}.Release|x86.ActiveCfg = Release|Any CPU
 		{1BA30E8B-6D88-42B9-884E-C59DDFCC303C}.Release|x86.Build.0 = Release|Any CPU
+		{6E6E9190-B952-4B67-A48C-90BD5E94AEB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E6E9190-B952-4B67-A48C-90BD5E94AEB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E6E9190-B952-4B67-A48C-90BD5E94AEB0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6E6E9190-B952-4B67-A48C-90BD5E94AEB0}.Debug|x86.Build.0 = Debug|Any CPU
+		{6E6E9190-B952-4B67-A48C-90BD5E94AEB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E6E9190-B952-4B67-A48C-90BD5E94AEB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E6E9190-B952-4B67-A48C-90BD5E94AEB0}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E6E9190-B952-4B67-A48C-90BD5E94AEB0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
