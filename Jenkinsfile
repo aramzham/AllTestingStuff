@@ -32,7 +32,7 @@ printf "%s\\n" "$var"'''
 
     stage('Build') {
       steps {
-        sh 'docker build -f Experimenting/CachingInDotNet7/Dockerfile'
+        sh 'docker build -f Experimenting/CachingInDotNet7/Dockerfile .'
       }
     }
 
