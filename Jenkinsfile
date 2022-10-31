@@ -47,5 +47,11 @@ docker build -f Dockerfile .'''
       }
     }
 
+    stage('Push to Dockerhub') {
+      steps {
+        sh 'docker push 128901/CachingInDotNet7:latest'
+      }
+    }
+
   }
 }
