@@ -47,7 +47,8 @@ var count = 0;
 app.MapGet("/lock", async (context) =>
 {
     await 1;
-    // await TimeSpan.FromSeconds(1);
+    // await 2.Seconds();
+    // await TimeSpan.FromSeconds(3);
     await context.Response.WriteAsync(count++.ToString());
 }).CacheOutput(x => x.SetLocking(false).Expire(TimeSpan.FromMicroseconds(1)));
 // when you set this parameter value to false, you don't lock this method in case of multiple simultaneous requests

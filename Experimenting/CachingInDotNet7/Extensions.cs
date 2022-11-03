@@ -23,4 +23,9 @@ public static class Extensions
     {
         return Task.Delay(TimeSpan.FromSeconds(seconds)).GetAwaiter();
     }
+
+    public static TimeSpan Seconds(this int seconds)
+    {
+        return TimeSpan.FromSeconds(seconds);
+    }
 }
