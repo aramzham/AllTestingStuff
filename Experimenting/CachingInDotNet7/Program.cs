@@ -46,7 +46,8 @@ app.MapPost("/candidate", async (CandidateDbContext db, Candidate candidate) =>
 var count = 0;
 app.MapGet("/lock", async (context) =>
 {
-    await Task.Delay(1000);
+    await 1;
+    // await TimeSpan.FromSeconds(1);
     await context.Response.WriteAsync(count++.ToString());
 }).CacheOutput(x => x.SetLocking(false).Expire(TimeSpan.FromMicroseconds(1)));
 // when you set this parameter value to false, you don't lock this method in case of multiple simultaneous requests
@@ -68,6 +69,6 @@ app.MapGet("/moreElegantRange", (HttpContext context, int number) =>
 });
 
 // uncomment this line to see the comparison of different loops
-BenchmarkRunner.Run<Benchmarks>();
+// BenchmarkRunner.Run<Benchmarks>();
 
 app.Run();
