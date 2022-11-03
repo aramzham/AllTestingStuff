@@ -39,8 +39,8 @@ docker build -f Dockerfile . -t 128901/CachingInDotNet7:latest'''
 
     stage('Log into Dockerhub') {
       environment {
-        DOCKERHUB_USER = '128901'
-        DOCKERHUB_PASSWORD = 'WhaleForever'
+        DOCKERHUB_USER = 'xxx'
+        DOCKERHUB_PASSWORD = 'xxx'
       }
       steps {
         sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD'
