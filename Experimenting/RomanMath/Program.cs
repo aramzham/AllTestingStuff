@@ -1,5 +1,6 @@
 ﻿using RomanMath;
 
 var calculator = new RomanCalculator();
-var result = calculator.Evaluate("(MMMDCCXXIV - MMCCXXIX) * II"); 
-Console.WriteLine(result);
+var expression = "(IV+V)*X-V";//"(MMMDCCXXIV - MMCCXXIX) * II";
+var result = calculator.Evaluate(expression);
+Console.WriteLine($"{expression} = {result}");
