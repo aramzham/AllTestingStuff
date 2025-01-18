@@ -12,8 +12,3 @@ foreach (var item in b)
     newA.X = 11;
     Console.WriteLine(item);
 }
-
-void Foo()
-{
-    Console.WriteLine("Hello");
-}
