@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latestmajor</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MersenneTwister" Version="1.0.6" />
-    <PackageReference Include="Telegram.Bot" Version="16.0.1" />
+    <PackageReference Include="Telegram.Bot" Version="20.0.0-alpha.1" />
     <PackageReference Include="Telegram.Bot.Extensions.Polling" Version="0.2.0" />
   </ItemGroup>
 

@@ -9,8 +9,4 @@
     <PackageReference Include="Telegram.Bot" Version="15.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TelegaBotConsole\TelegaBotConsole.csproj" />
-  </ItemGroup>
-
 </Project>

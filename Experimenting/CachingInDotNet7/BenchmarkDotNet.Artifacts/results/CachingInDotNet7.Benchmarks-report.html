@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>CachingInDotNet7.Benchmarks-20221103-000200</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.13.2, OS=Windows 10 (10.0.14393.5427/1607/AnniversaryUpdate/Redstone1)
+Intel Core i7-5500U CPU 2.40GHz (Broadwell), 1 CPU, 4 logical and 2 physical cores
+Frequency=2338335 Hz, Resolution=427.6547 ns, Timer=TSC
+.NET SDK=7.0.100-rc.2.22477.23
+  [Host]     : .NET 7.0.0 (7.0.22.47203), X64 RyuJIT AVX2
+  DefaultJob : .NET 7.0.0 (7.0.22.47203), X64 RyuJIT AVX2
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>          Method</th><th>Size</th><th>   Mean</th><th>Error</th><th> StdDev</th><th> Median</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>NormalForLoop</td><td>10</td><td>4.689 ns</td><td>0.4572 ns</td><td>1.2670 ns</td><td>4.240 ns</td><td>-</td>
+</tr><tr><td>ExtendedForeachLoop</td><td>10</td><td>13.792 ns</td><td>0.2767 ns</td><td>0.4141 ns</td><td>13.784 ns</td><td>-</td>
+</tr><tr><td>MoreElegantForeachLoop</td><td>10</td><td>42.453 ns</td><td>0.8903 ns</td><td>1.6722 ns</td><td>41.739 ns</td><td>-</td>
+</tr><tr><td>NormalForLoop</td><td>1000</td><td>367.684 ns</td><td>7.3894 ns</td><td>9.3452 ns</td><td>370.107 ns</td><td>-</td>
+</tr><tr><td>ExtendedForeachLoop</td><td>1000</td><td>378.308 ns</td><td>5.8635 ns</td><td>9.6339 ns</td><td>377.351 ns</td><td>-</td>
+</tr><tr><td>MoreElegantForeachLoop</td><td>1000</td><td>2,162.191 ns</td><td>41.3901 ns</td><td>46.0050 ns</td><td>2,165.629 ns</td><td>-</td>
+</tr><tr><td>NormalForLoop</td><td>10000</td><td>3,587.058 ns</td><td>71.5489 ns</td><td>172.7987 ns</td><td>3,537.530 ns</td><td>-</td>
+</tr><tr><td>ExtendedForeachLoop</td><td>10000</td><td>3,524.516 ns</td><td>45.6782 ns</td><td>40.4926 ns</td><td>3,543.675 ns</td><td>-</td>
+</tr><tr><td>MoreElegantForeachLoop</td><td>10000</td><td>23,007.540 ns</td><td>684.3028 ns</td><td>1,861.6963 ns</td><td>22,740.841 ns</td><td>-</td>
+</tr></tbody></table>
+</body>
+</html>

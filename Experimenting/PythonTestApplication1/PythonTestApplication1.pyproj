@@ -33,6 +33,7 @@
     <Compile Include="ParserBase.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Parsers\GalleryParser.cs" />
     <Compile Include="Parsers\GoodwinFootballParser.py">
       <SubType>Code</SubType>
     </Compile>
@@ -48,7 +49,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Parsers\" />
     <Folder Include="RabbitMq\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
