@@ -12,3 +12,10 @@ foreach (var item in b)
     newA.X = 11;
     Console.WriteLine(item);
 }
+
+// language=html
+var html = """
+           <div>
+                <p>this is html</p>
+           </div>
+           """;
