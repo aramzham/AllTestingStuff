@@ -1,0 +1,58 @@
+Rider comes from ReSharper IDE
+
+Shift + shift = ctrl + q = search everywhere
+
+ctrl + . works in all contexts where you see an icon on the left side (even running tests)
+
+alt + insert - Generate contextual menu
+
+ctrl + tab = switcher, navigate through tabs
+
+alt + ` = navigate to
+
+ctrl + left click = usages
+
+alt + \ = show the contents of the file (class members, interface members etc.)
+
+ctrl + alt + shift + a = to get incoming and outgoing calls
+
+ctrl + shift + r = refactor this (f.e. change signature, adjust namespaces etc.)
+
+write an if statement and on the end of the line press ctrl + shift + Enter = curly braces
+
+ctrl + Backspace = remove a word entirely
+
+ctrl + alt + Enter = reformat code
+
+ctrl + k + s = ctrl + e + u = surround with
+
+go to live templates if you want to add a code template like foreach, aaa etc.
+
+ctrl + k + k = toggle bookmarks
+
+f9 - toggle breakpoint
+
+shift + f11 = step out of method
+
+press alt + left click on linq methods to evaluate a step in the chain
+
+in watch list you can set data breakpoint that will hit if the data is changed
+
+ctrl + alt + shift + up / down = resize the docked menu
+
+ctrl + u + u = run the latest run unit test
+
+in solution explorer you can go to dependencies->.net 9.0->Packages->your package-> right click on it and press show dependent code and see on which lines you've used the selected library
+
+alt + shift + enter = full screen mode
+
+if you go to ide scripting console you can write some code there to automate something in ide
+
+ctrl + alt + s = open settings
+
+you can import a postman collection into .http file
+
+if you have a connection string in your file you can right click and attach data source
+you can also F12 on your query and have language injection view
+
+scratches is just a place where you'd put globally accessible files
