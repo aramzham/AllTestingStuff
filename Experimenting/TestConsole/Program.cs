@@ -13,6 +13,16 @@ foreach (var item in b)
     Console.WriteLine(item);
 }
 
+var c = a.Chunk(2).Select((chunk, index) => (Chunk: chunk, Number: index));
+foreach (var item in c)
+{
+    Console.WriteLine($"Chunk {item.Number}:");
+    foreach (var chunkItem in item.Chunk)
+    {
+        Console.WriteLine(chunkItem);
+    }
+}
+
 // language=html
 var html = """
            <div>
