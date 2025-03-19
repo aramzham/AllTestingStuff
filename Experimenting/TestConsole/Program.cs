@@ -23,6 +23,13 @@ foreach (var item in c)
     }
 }
 
+var d = a.GroupBy(k => k % 2 == 0 ? "zuyg" : "kent", r => r + 1);
+foreach (var item in d)
+{
+    Console.WriteLine(item.Key);
+    Console.WriteLine(string.Join(", ", item));
+}
+
 // language=html
 var html = """
            <div>
