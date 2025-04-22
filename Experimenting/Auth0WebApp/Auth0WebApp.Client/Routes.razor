@@ -1,0 +1,14 @@
+﻿@using Auth0WebApp.Client.Layout
+<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)">
+            <NotAuthorized>
+                <RedirectToLogin/>
+            </NotAuthorized>
+            <Authorizing>
+                <p>Authorizing</p>
+            </Authorizing>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="routeData" Selector="h1"/>
+    </Found>
+</Router>
