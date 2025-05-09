@@ -1,4 +1,7 @@
-﻿int[] a = [1, 4, 6, 9320, 239, 1, 23];
+﻿using System.Text.Json;
+using TestConsole;
+
+int[] a = [1, 4, 6, 9320, 239, 1, 23];
 
 var b = a.Where(x => x >= 100)
     .Select(x => x * x)
@@ -36,3 +39,17 @@ var html = """
                 <p>this is html</p>
            </div>
            """;
+
+var values = new Dictionary<int, string>
+{
+    { 1, "one" },
+    { 2, "two" }
+};
+
+var val = values.GetOrAdd(3, "three");
+
+Console.WriteLine(val);
+Console.WriteLine(JsonSerializer.Serialize(values));
+
+values.TryUpdate(3, "threeeee");
+Console.WriteLine(JsonSerializer.Serialize(values));
