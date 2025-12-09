@@ -1,4 +1,5 @@
-﻿using Extensions;
+﻿using System.Text.Json;
+using Extensions;
 using Humanizer;
 
 // string
@@ -26,8 +27,8 @@ var keyValuePairs = new List<KeyValuePair<int, string>>()
     new(3, "third")
 };
 
-var dict = keyValuePairs.ToDictionary();
-Console.WriteLine(dict.Humanize());
+// var dict = keyValuePairs.ToDictionary();
+// Console.WriteLine(dict.Humanize());
 
 var randomString = "aram.zhamkochyan@gmail.com";
 var countDict = randomString.ToCountDictionary();
@@ -82,3 +83,15 @@ var arrWithCons = new[] { 1, 3, 4, 6, 8, 10 };
 var arrWithoutCons = new[] { 1, 3, 6, 8, 10 };
 Console.WriteLine(arrWithCons.ContainsConsecutiveNumbers());
 Console.WriteLine(arrWithoutCons.ContainsConsecutiveNumbers());
+
+// get or add in dict
+var values = new Dictionary<int, string>()
+{
+    { 1, "one" },
+    { 2, "two" },
+};
+var val = values.GetOrAdd(3, "three");
+Console.WriteLine(JsonSerializer.Serialize(values));
+
+var isUpdated = values.TryUpdate(2, "երկու");
+Console.WriteLine(JsonSerializer.Serialize(values));
