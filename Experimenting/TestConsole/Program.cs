@@ -53,3 +53,18 @@ Console.WriteLine(JsonSerializer.Serialize(values));
 
 values.TryUpdate(3, "threeeee");
 Console.WriteLine(JsonSerializer.Serialize(values));
+
+var person = new Person()
+{
+    Name = "Armen",
+    Age = 30
+};
+
+if (person)
+{
+    Console.WriteLine(person.Name);
+}
+else
+{
+    Console.WriteLine("Person is null");
+}
